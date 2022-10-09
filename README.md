@@ -15,13 +15,13 @@ First project of the UC "Algoritmos e Estruturas de Dados" at FEUP.
       - Add student to a Class/UC. Is just possible to add if:
           1. The class still has space available;
           2. It doesn't provoque unbalance on the classes. It will just be possible to treat if the difference between the number of students and two different classes if greater or equal to 4.
+          
       - Change the class/UC of a student, flowwing the previous rules of adding students.
       - Change more than a class of a student.
       
-    -Having a friendly menu, having the previous functionalities.
+  - Having a friendly menu, having the previous functionalities.
     
-    -Have documentation about the code.
+  - Have documentation about the code.
     
-    
-
+-----------------------------------------
 Project by: [António Azevedo](https://github.com/xubby/), [José Martins](https://github.com/ZeAntonioM) and [Sérgio Peixoto](https://github.com/ShadowPT)
