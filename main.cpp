@@ -7,6 +7,8 @@
 
 using namespace std;
 
+
+//! READS THE .CSV FILE
 int main(){
     vector<string> seperated_strings;
     ifstream myFile;
