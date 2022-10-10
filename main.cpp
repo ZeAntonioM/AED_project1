@@ -1,35 +1,31 @@
 // Humble beginnings
 
 #include <iostream>
-#include <fstream>
-#include <sstream>
 #include <vector>
+#include <algorithm>
+#include <tuple>
+#include </home/work/Desktop/code_file/aed/projeto1/Scraper.h>
 
 using namespace std;
 
 
 //! READS THE .CSV FILE
 int main(){
-    vector<string> seperated_strings;
-    ifstream myFile;
-    myFile.open("classes.csv");
+    Scraper students_classes_scraper = Scraper("csv/students_classes.csv");
+    students_classes_scraper.scrape_file();
+    vector<tuple<string, vector<string>>> students = students_classes_scraper.get_vector();   // these 2 lines are unnecesary, mas pus pq é bom saber q
+    sort(students.begin(), students.end());                                                   // o sort() da smp sort pelo primeiro elemento do tuple
+    for (auto s: students){
+        cout << get<0>(s) << ": ";
+        bool check = false;
+        for (auto n : get<1>(s)){
+            if (check) cout << ",";
+            cout << n;
+            check = true;
 
-    while (myFile.good()){ // reads the classes.csv file until there are no exceptions (including EOF), 0(l) complexity, l being the number of lines in the file
-        string line;
-        getline(myFile, line);
-        cout << line << "\n";
-
-        stringstream ss(line);
-        string word;
-
-        while (getline(ss, word, ',')){
-            seperated_strings.push_back(word); // seperates all words by the commas and appends them to the vector, 0(w) complexity, w being the strings in each line;
         }
-        seperated_strings.push_back("\n");
+        cout << "\n";
+    }
 
-    }
-    for (string s: seperated_strings){  //prints each word on the vector, O(l*w) complexity
-        cout << s << " ";
-    }
-    myFile.close();
+    return 0;
 }
