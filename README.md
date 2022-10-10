@@ -16,10 +16,10 @@ First project of the UC "Algoritmos e Estruturas de Dados" at FEUP.
           1. The class still has space available;
           2. It doesn't provoque unbalance on the classes. It will just be possible to treat if the difference between the number of students and two different classes if greater or equal to 4.
           
-      - Change the class/UC of a student, flowwing the previous rules of adding students.
-      - Change more than a class of a student.
+      - Change the class/UC of a student, following the previous rules (1 and 2).
+      - Change more than a class of a student, following the previous rules (1 and 2).
       
-  - Having a friendly menu, having the previous functionalities.
+  - Having a friendly menu, with the previous functionalities.
     
   - Have documentation about the code.
     
