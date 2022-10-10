@@ -3,7 +3,7 @@
 #include <tuple>
 #include <fstream>
 #include <sstream>
-#include </home/work/Desktop/code_file/aed/projeto1/Scraper.h>
+#include <Scraper.h>
 
 using namespace std;
 

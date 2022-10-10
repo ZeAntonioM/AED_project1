@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <tuple>
-#include </home/work/Desktop/code_file/aed/projeto1/Scraper.h>
+#include <Scraper.h>
 
 using namespace std;
 
