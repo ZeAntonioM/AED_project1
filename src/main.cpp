@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <tuple>
 #include "Scraper.h"
+#include "Aula.h"
+#include "Date.h"
 
 using namespace std;
 
@@ -26,6 +28,14 @@ int main(){
         }
         cout << "\n";
     }
+
+    //Testing the new classes
+    Date date1("Monday", 10.5, 1.5);
+    Aula aula1("1LEIC01", date1);
+
+    std::cout << "/nTesting new Classes/n" << std::endl;
+    std::cout << date1.getStartingTime_f() << ' ' << date1.getEndingTime_f() << ' ' << date1.getDay_i() << std::endl; 
+    std::cout << aula1.getClassCode() << ' ' << aula1.getClassDate().getDay_i() << std::endl;
 
     return 0;
 }
