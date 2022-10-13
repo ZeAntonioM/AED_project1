@@ -33,9 +33,9 @@ int main(){
     Date date1("Monday", 10.5, 1.5);
     Aula aula1("1LEIC01", date1);
 
-    std::cout << "/nTesting new Classes/n" << std::endl;
-    std::cout << date1.getStartingTime_f() << ' ' << date1.getEndingTime_f() << ' ' << date1.getDay_i() << std::endl; 
-    std::cout << aula1.getClassCode() << ' ' << aula1.getClassDate().getDay_i() << std::endl;
+    cout << "/nTesting new Classes/n" << endl;
+    cout << date1.getStartingTime_f() << ' ' << date1.getEndingTime_f() << ' ' << date1.getDay_i() << endl; 
+    cout << aula1.getClassCode() << ' ' << aula1.getClassDate().getDay_i() << endl;
 
     return 0;
 }
