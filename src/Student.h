@@ -8,15 +8,15 @@ using namespace std;
 class Student{
     private:
         string name;
-        int up;
+        string up;
         vector<tuple<Uc, Aula>> schedule;
     public:
-        Student(string name_, int up_);
+        Student(string name_, string up_);
         ~Student();
         string getName();
-        int getUp();
+        string getUp();
         void setName(string name_);
-        void setUp(int up_);
+        void setUp(string up_);
         void addUcClass(Uc cadeira, Aula turma);
         void removeUcClass(Uc cadeira, Aula turma);
 };

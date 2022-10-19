@@ -36,8 +36,8 @@ int main(){
     // cli.startup();
 
     //Testing the new classes
-    Date date1("Monday", 10.5, 1.5);
-    Aula aula1("1LEIC01", date1, 25, "T");
+    Date date1 = Date("Monday", 10.5, 1.5);
+    Aula aula1 = Aula("1LEIC01", date1, 25, "T");
 
     cout << "/nTesting new Classes/n" << endl;
     cout << date1.getStartingTime_f() << ' ' << date1.getEndingTime_f() << ' ' << date1.getDay_i() << endl; 

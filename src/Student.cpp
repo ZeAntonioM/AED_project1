@@ -1,17 +1,17 @@
 #include "Student.h"
 
-    Student::Student(string name_, int up_){
+    Student::Student(string name_, string up_){
         name = name_;
         up = up_;
     }
 
     void Student::setName(string name_) { name = name_;}
 
-    void Student::setUp(int up_) { up = up_;}
+    void Student::setUp(string up_) { up = up_;}
 
     string Student::getName() { return name;}
 
-    int Student::getUp() { return up;}  
+    string Student::getUp() { return up;}  
 
     void Student::addUcClass(Uc cadeira, Aula turma){
         tuple<Uc,Aula> novaucturma (cadeira, turma);

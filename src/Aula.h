@@ -11,13 +11,14 @@ private:
     std::string _classCode;
     Date _date;
     int _studentCount;
+    int _type;
 
 public:
     //Default construtor
     Aula();
 
     //Aula construtor
-    Aula(std::string classCode, Date date, int studentCount);
+    Aula(std::string classCode, Date date, int studentCount, std::string type);
 
     //Setters
     //Sets Class Code

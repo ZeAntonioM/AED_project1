@@ -3,17 +3,20 @@
 #include <tuple>
 #include <fstream>
 #include <sstream>
+#include "Student.h"
+#include "Uc.h"
+#include "Aula.h"
+#include "Date.h"
 
 using namespace std;
 
 class Scraper
 {
 private:
-    string file;
-    vector<tuple<string, vector<string>>> return_vector;
+    vector<Student> return_vector;
 public:
-    Scraper(string file_name);
+    Scraper();
     ~Scraper();
-    void scrape_file();
-    vector<tuple<string, vector<string>>> get_vector();
+    void scrape_files();
+    vector<Student> get_vector();
 };

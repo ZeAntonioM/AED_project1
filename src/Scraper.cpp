@@ -8,33 +8,38 @@
 using namespace std;
 
 
-Scraper::Scraper(string file_name)
-{
-    this->file = file_name;
-}
+Scraper::Scraper(){}
 
 Scraper::~Scraper(){}
 
-void Scraper::scrape_file(){
-    ifstream file_stream(file);
-    while (file_stream.good()){
-        string line;
-        getline(file_stream, line);
+void Scraper::scrape_files(){
+    ifstream file;
+    file.open("students_classes.csv");
+    while(file.good()){
 
+        string line;
+        getline(file, line);
         stringstream ss(line);
         string word;
-        string key;
-        getline(ss, key, ',');
-        vector<string> content;
+        int counter = 1;
 
-        while (getline(ss, word,',')){
-            content.push_back(word);
+        while (getline(ss, word, ',')){
+            bool check_continue = false;
+
+            if (counter == 1){
+                for(auto s: return_vector){
+                    if (s.getUp() == word) check_continue = true;
+                }
+            }
+            if (check_continue) continue;
+
+            counter++;
         }
-        return_vector.push_back(make_tuple(key, content));
+        
     }
-    file_stream.close();
+
 }
 
-vector<tuple<string, vector<string>>> Scraper::get_vector(){
+vector<Student> Scraper::get_vector(){
     return return_vector;
 }
