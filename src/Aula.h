@@ -10,7 +10,7 @@ class Aula{
 private:
     std::string _classCode;
     Date _date;
-    int _studentsCount;
+    int _studentCount;
 
 public:
     //Default construtor
@@ -26,12 +26,18 @@ public:
     //Sets Class date
     void setClassDate(Date date);
 
+    //Sets Class Student count
+    void setStudentCount(int studentCount);
+    
     //Getters
     //Returns the Class Code
     std::string getClassCode();
 
     //Returns the Class Date
     Date getClassDate();
+
+    //Returns current student count
+    int getStudentCount();
 };
 
 #endif
