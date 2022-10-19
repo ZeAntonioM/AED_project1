@@ -1,18 +1,19 @@
 #include <iostream>
 #include <list>
-#include <Class.h>
+#include "Aula.cpp"
+
 
 using namespace std;
 
 class Uc{
     private:
         string code;
-        list<Class> classes;
-        string type;
+        vector<Aula> turmas;
     public:
-        Uc(string code, list<Class> classes, string type);
+        Uc(string code_);
         ~Uc();
         string get_code();
-        list<Class> get_classes();
-        string get_type();
+        string set_code(string code_);
+        void nova_turma( Aula turma );
+        void remover_turma( Aula turma ); 
 };
