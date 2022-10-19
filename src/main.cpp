@@ -7,6 +7,7 @@
 #include "Scraper.h"
 #include "Aula.h"
 #include "Date.h"
+#include "Cli.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ int main(){
     students_classes_scraper.scrape_file();
     vector<tuple<string, vector<string>>> students = students_classes_scraper.get_vector();   // these 2 lines are unnecesary, mas pus pq é bom saber q
     sort(students.begin(), students.end());                                                   // o sort() da smp sort pelo primeiro elemento do tuple
+    /*
     for (auto s: students){
         cout << get<0>(s) << ": ";
         bool check = false;
@@ -28,6 +30,10 @@ int main(){
         }
         cout << "\n";
     }
+    */
+   
+    // Cli cli;
+    // cli.startup();
 
     //Testing the new classes
     Date date1("Monday", 10.5, 1.5);
