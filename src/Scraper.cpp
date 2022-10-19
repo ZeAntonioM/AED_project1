@@ -10,7 +10,6 @@ using namespace std;
 
 Scraper::Scraper(string file_name)
 {
-    this->return_vector = return_vector;
     this->file = file_name;
 }
 
