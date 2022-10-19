@@ -25,11 +25,13 @@ char Cli::manage_input(vector<char> options_vector, bool allow_back) const
                }
           }
 
+          cin.ignore(INT16_MAX, '\n'); // limpar o buffer para não invalidar uma vez por cada caracter de input, caso escrevam mais q um
+     
+
           if (check_to_break) break;  // uso o check to break para sair do while loop e não do for :)
 
           cout << "Invalid Input, please try again"
                << "\n";
-          cin.ignore(INT16_MAX, '\n'); // limpar o buffer para não invalidar uma vez por cada caracter de input, caso escrevam mais q um
      }
 
      return option;
@@ -51,11 +53,13 @@ void Cli::startup() const
           << "\n"
           << "[3] - Class permute"
           << "\n"
+          << "[4] - General listings"
+          << "\n"
           << "[Q] - Quit tool"
           << "\n";
 
      
-     vector<char> v = {'1','2','3'};
+     vector<char> v = {'1','2','3','4'};
      option = manage_input(v, false);
 
      switch (option)
@@ -65,11 +69,15 @@ void Cli::startup() const
           break;
 
      case '2':
-          //  uc_tab();
+          uc_tab();
           break;
 
      case '3':
           // class_permute_tab();
+          break;
+     
+     case '4':
+          // general_listings_tab();
           break;
      }
      
@@ -77,9 +85,8 @@ void Cli::startup() const
 void Cli::student_tab() const
 {
      string up;
-     system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
 
-     cout << "Introduce the student's UP code (only the number):     ";
+     cout << "\n" << "Introduce the student's UP code (only the number):     ";
      cin >> up;
 
      // função para verificar se o estudante existe
@@ -87,7 +94,8 @@ void Cli::student_tab() const
      // o plano é para substituir o up no printf pelo nome do estudante
      // mas ainda não os tenho ent vai ficar o up por agr
 
-     cout << "////////////   Student up" << up <<  "////////////"
+     system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
+     cout << "////////////   Student up" << up <<  "     ////////////"
           << "\n"
           << " \n"
           << "Select one of the following options:"
@@ -105,4 +113,31 @@ void Cli::student_tab() const
      vector<char> options = {'1','2'};
      char option = manage_input(options, true);
      cout << option;
+}
+
+void Cli::uc_tab() const{
+     system("clear");
+     string year;
+
+     cout << "Introduce the academic year:     ";
+     cin >> year;
+
+     //int i; for (Uc u: lista de ucs) i++ if u.year == year cout << [ << i << ] - << uc.name << "\n";
+
+
+     cout << "///////////    Unidades Curriculares    ///////////"
+          << "\n"
+          << "Select one of the following options:"
+          << "\n"
+          << " \n"
+          << "[1] - Get UC information"
+          << "\n"
+          << "[2] - Get student vacancy distribution for all the UCs"
+          << "\n"
+          << "[3] - "
+          << "\n"
+          << "[B] - Go back to main menu"
+          << "\n"
+          << "[Q] - Quit tool"
+          << "\n";
 }
