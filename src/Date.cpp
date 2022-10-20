@@ -57,6 +57,7 @@ void Date::setDay(int day)
 void Date::setDay(std::string day)
 {
     _day = Weekdays.at(day);
+    _stringDay = day;
 }
 
 // Getters
@@ -98,3 +99,9 @@ int Date::getDay_i()
 }
 
 // Other member functionss
+
+bool Date::operator==(Date date) const{
+        return (this->_day == date._day && 
+        (this->_startingTime.hours == date._startingTime.hours && this->_startingTime.minutes == date._startingTime.minutes) &&
+        (this->_endingTime.hours == date._endingTime.hours && this->_endingTime.minutes == date._endingTime.minutes));
+}

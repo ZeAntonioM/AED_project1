@@ -1,8 +1,8 @@
 # compiler options
 CXXFLAGS = -std=c++11 -pedantic -Wall -Wuninitialized -Werror
 
-all: main.o Scraper.o Date.o Aula.o Cli.o
-	g++ $(CXXFLAGS) -o all main.o Scraper.o Date.o Aula.o Cli.o
+all: main.o Scraper.o Date.o Aula.o Cli.o Uc.o Student.o
+	g++ $(CXXFLAGS) -o all main.o Scraper.o Date.o Aula.o Cli.o Uc.o Student.o
 
 # only need to link if main.cpp has changed
 main.o: src/main.cpp
@@ -19,6 +19,12 @@ Aula.o: src/Aula.h  src/Aula.cpp
 
 Cli.o: src/Cli.h  src/Cli.cpp
 	g++ -c $(CXXFLAGS) src/Cli.cpp
+
+Uc.o: src/Uc.h  src/Uc.cpp
+	g++ -c $(CXXFLAGS) src/Uc.cpp
+
+Student.o: src/Student.h  src/Student.cpp
+	g++ -c $(CXXFLAGS) src/Student.cpp
   
 clean:
-	rm -f all main.o Scraper.o Cli.o Date.o Aula.o
+	rm -f all main.o Scraper.o Cli.o Date.o Aula.o Uc.o Student.o
