@@ -14,11 +14,11 @@ class Uc{
         Uc(string code_);
         Uc();
         ~Uc();
-        string get_code();
-        void set_code(string code_);
-        void nova_turma( Aula turma );
-        void remover_turma( Aula turma ); 
-        vector<Aula> getTurmas();
+        string get_Code();
+        void set_Code(string code_);
+        void nova_Turma( Aula turma );
+        void remover_Turma( Aula turma ); 
+        vector<Aula> get_Turmas();
         bool operator==(Uc uc) const;
         void operator* (Uc uc);
 
