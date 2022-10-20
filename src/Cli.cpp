@@ -43,19 +43,19 @@ void Cli::startup() const
      system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
      cout << "//////////////   Schedule Tool   //////////////"
           << "\n"
-          << " \n"
+          << "\n"
           << "Select one of the following options:"
           << "\n"
-          << " \n"
-          << "[1] - Search for student or student information"
           << "\n"
-          << "[2] - Search for UC or UC information"
+          << "[1] - Search for student or student information" //student_tab()
           << "\n"
-          << "[3] - Class permute"
+          << "[2] - Search for UC or UC information"   //uc_tab()
           << "\n"
-          << "[4] - General listings"
+          << "[3] - Class permute"                //class_permute_tab()
           << "\n"
-          << "[Q] - Quit tool"
+          << "[4] - General listings"        //general_listings_tab()
+          << "\n"
+          << "[Q] - Quit tool"          
           << "\n";
 
      
@@ -73,11 +73,11 @@ void Cli::startup() const
           break;
 
      case '3':
-          // class_permute_tab();
+          //class_permute_tab();
           break;
      
      case '4':
-          // general_listings_tab();
+          general_listings_tab();
           break;
      }
      
@@ -97,10 +97,10 @@ void Cli::student_tab() const
      system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
      cout << "////////////   Student up" << up <<  "     ////////////"
           << "\n"
-          << " \n"
+          << "\n"
           << "Select one of the following options:"
           << "\n"
-          << " \n"
+          << "\n"
           << "[1] - Get schedule"
           << "\n"
           << "[2] - Get class for each UC"
@@ -119,9 +119,10 @@ void Cli::uc_tab() const{
      system("clear");
      string year;
 
-     cout << "Introduce the academic year:     ";
+     cout << "Introduce the academic year: ";     
      cin >> year;
 
+     //Mostrar a lista de ucs para o ano academico
      //int i; for (Uc u: lista de ucs) i++ if u.year == year cout << [ << i << ] - << uc.name << "\n";
 
 
@@ -129,15 +130,35 @@ void Cli::uc_tab() const{
           << "\n"
           << "Select one of the following options:"
           << "\n"
-          << " \n"
+          << "\n"
           << "[1] - Get UC information"
           << "\n"
-          << "[2] - Get student vacancy distribution for all the UCs"
-          << "\n"
-          << "[3] - "
+          << "[2] - "
           << "\n"
           << "[B] - Go back to main menu"
           << "\n"
           << "[Q] - Quit tool"
           << "\n";
+}
+
+void Cli::general_listings_tab() const{
+     system("clear");
+
+     cout << "///////////    General Listings     ///////////"
+          << "\n"
+          << "Select one of the following options:"
+          << "\n"
+          << "List by:"
+          << "\n"
+          << "[1] - Student's Name (alphabetical)"
+          << "\n"
+          << "[2] - Student's Number"
+          << "\n"
+          << "[3] - UC Vacancies"
+          << "\n"
+          << "[B] - Go back to main menu"
+          << "\n"
+          << "[Q] - Quit tool"
+          << "\n";
+
 }
