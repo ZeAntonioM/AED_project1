@@ -17,23 +17,23 @@ Aula::Aula(std::string classCode, Date date, int studentCount, std::string type)
 
 // Setters
 // Sets Class Code
-void Aula::setClassCode(std::string classCode)
+void Aula::set_ClassCode(std::string classCode)
 {
     _classCode = classCode;
 }
 
 // Sets Class date
-void Aula::setClassDate(Date date){
+void Aula::set_ClassDate(Date date){
     _date = date;
 }
 
 //Sets class student count
-void Aula::setStudentCount(int studentCount){
+void Aula::set_StudentCount(int studentCount){
     _studentCount = studentCount;
 }
 
 // Sets Class Type
-void Aula::setType(std::string type){
+void Aula::set_Type(std::string type){
     if(type=="T"){
         _type = 0;
     }
@@ -44,21 +44,21 @@ void Aula::setType(std::string type){
 
 // Getters
 // Returns the Class Code
-std::string Aula::getClassCode(){
+std::string Aula::get_ClassCode(){
     return _classCode;
 }
 
 // Returns the Class Date
-Date Aula::getClassDate(){
+Date Aula::get_ClassDate(){
     return _date;
 }
 
 //Returns current student Count
-int Aula::getStudentCount(){
+int Aula::get_StudentCount(){
     return _studentCount;
 }
 
-std::string Aula::getType(){
+std::string Aula::get_Type(){
     if (_type == 0) return "T";
     else return "TP";
 }

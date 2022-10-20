@@ -29,41 +29,41 @@ public:
 
     //Setters
     //Sets starting time
-    void setStartingTime(Time startingTime);
+    void set_StartingTime(Time startingTime);
 
     //Sets starting time
-    void setStartingTime(float startingTime);
+    void set_StartingTime(float startingTime);
 
     //Sets ending time
-    void setEndingTime(Time endingTime);
+    void set_EndingTime(Time endingTime);
 
     //Sets ending time
-    void setEndingTime(float endingTime);
+    void set_EndingTime(float endingTime);
 
     //Sets day
-    void setDay(int day);
+    void set_Day(int day);
 
     //Sets day
-    void setDay(std::string day);
+    void set_Day(std::string day);
 
     //Getters
     //Returns starting time in Time 
-    Time getStartingTime_T();
+    Time get_StartingTime_T();
 
     //Returns starting time in float
-    float getStartingTime_f();
+    float get_StartingTime_f();
 
     //Returns ending time in Time 
-    Time getEndingTime_T();
+    Time get_EndingTime_T();
 
     //Returns ending time in float
-    float getEndingTime_f();
+    float get_EndingTime_f();
 
     //Returns day in string
-    std::string getDay_s();
+    std::string get_Day_s();
 
     //Returns day in int
-    int getDay_i();
+    int get_Day_i();
 
     bool operator== (Date date) const;
 };
