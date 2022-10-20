@@ -10,7 +10,7 @@ struct Time{
     float minutes;
 };
 
-static std::map<std::string, int> Weekdays = {{"Monday", 0}, {"Tuesday", 1}, {"Wednesday", 2}, {"Thrusday", 3}, {"Friday", 4}};
+static std::map<std::string, int> Weekdays = {{"Monday", 0}, {"Tuesday", 1}, {"Wednesday", 2}, {"Thursday", 3}, {"Friday", 4}};
 
 class Date{
 private:    
@@ -64,6 +64,8 @@ public:
 
     //Returns day in int
     int getDay_i();
+
+    bool operator== (Date date) const;
 };
 
 #endif

@@ -11,7 +11,8 @@ class Student{
         string up;
         vector<tuple<Uc, Aula>> schedule;
     public:
-        Student(string name_, string up_);
+        Student(string name_, string up_ );
+        Student();
         ~Student();
         string getName();
         string getUp();

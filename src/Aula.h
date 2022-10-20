@@ -29,6 +29,9 @@ public:
 
     //Sets Class Student count
     void setStudentCount(int studentCount);
+
+    //Sets Class Type
+    void setType(std::string type);
     
     //Getters
     //Returns the Class Code
@@ -39,6 +42,14 @@ public:
 
     //Returns current student count
     int getStudentCount();
+
+    //Gets class's type
+    std::string getType();
+
+    
+
+    //Checks equality between Aula objects
+    bool operator==(Aula aula) const;
 };
 
 #endif
