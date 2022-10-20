@@ -19,6 +19,7 @@ class Uc{
         void nova_turma( Aula turma );
         void remover_turma( Aula turma ); 
         vector<Aula> getTurmas();
+        void setTurmas(vector<Aula> turmas);
         bool operator==(Uc uc) const;
         void operator* (Uc uc);
 
