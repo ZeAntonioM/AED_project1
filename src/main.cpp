@@ -17,8 +17,6 @@ int main(){
     Scraper students_classes_scraper;
     students_classes_scraper.scrape_files();
     for (auto i: students_classes_scraper.get_uc_vector()){
-        cout << i.getTurmas().size() << "\n";
-        cout << i.get_code() << ": ";
         for (auto t: i.getTurmas()){
             Date date = t.getClassDate();
             cout << t.getClassCode() << " no dia " << date.getDay_s() << " das " << date.getStartingTime_f() << " às " << date.getEndingTime_f() << "\n";

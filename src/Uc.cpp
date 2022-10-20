@@ -26,6 +26,10 @@ std::vector<Aula> Uc::get_Turmas(){
     return this->turmas;
 }
 
+void Uc::setTurmas(std::vector<Aula> turmas){
+    this->turmas = turmas;
+}
+
 bool Uc::operator==(Uc uc) const{
     return (code == uc.code);
 }

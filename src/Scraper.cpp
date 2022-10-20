@@ -14,125 +14,94 @@ Scraper::~Scraper(){}
 
 void Scraper::scrape_files(){
     ifstream file;
-    cout << "INITIALIZING SCRAPER \n";
-    file.open("/home/work/Desktop/code_file/aed/aed-project1/src/csv/classes.csv");
-    cout << file.good() << "   ";
+    file.open("src/csv/classes.csv");
 
     while(file.good()){
-        cout << "ENTERED WHILE \n";
+        line_vector.clear();
         string line;
-        getline (file, line);
-        string word;
+        getline(file, line);
         stringstream ss(line);
-        Date date;
-        Aula aula;
-        Uc *uc_p;
-        Uc uc;
-    
-        //cout << line << "\n";
-
-        int counter = 1;
-        bool check = false;
+        string word;
 
         while(getline(ss, word, ',')){
-            cout << "ENTERED SECOND WHILE \n";
-            cout << word << "\n";
-            switch(counter){
-                case 1:
-                    aula.setClassCode(word);
-                    cout << "UC CASE 1" <<"\n";
-                    break;
-                case 2:
-                    cout << word << "\n";
-                    for (auto u: uc_vector){
-                        cout << u.get_code() << " ";
-                        if (u.get_code() == word){ cout << "CLASS ALREADY FOUND!!!! \n"; uc_p = &u; check = true;}
-                    }
-                    if (check){ break;}
-                    uc_p = &uc;
-                    uc_p->set_code(word);
-                    uc_vector.push_back(*uc_p);
-                    cout << "UC CASE 2" <<"\n";
-                    break;
-                case 3:
-                    date.setDay(word);
-                    cout << "UC CASE 3" <<"\n";
-                    break;
-                case 4:
-                    date.setStartingTime(stof(word));
-                    cout << "UC CASE 4" <<"\n";
-                    break;
-                case 5:
-                    date.setEndingTime(stof(word));
-                    cout << "UC CASE 5" <<"\n";
-                    break;
-                case 6:
-                    aula.setType(word);
-                    cout << "UC CASE 6" <<"\n";
-                    break;
-            }
-            counter++;
+            line_vector.push_back(word);
         }
+        if (line_vector.size() > 6) cout << "LINE READ WITH ERROR";
+        
+        Date date;
+        Aula aula;
+        Uc uc;
+
+        aula.setClassCode(line_vector[0]);
+        uc.set_code(line_vector[1]);
+        date = Date(line_vector[2], stof(line_vector[3]), stof(line_vector[4]));
+        aula.setType(line_vector[5]);
+
         aula.setClassDate(date);
-        bool aula_different_check = true;
-        cout << uc_p->getTurmas().size() << "\n";
 
-        for (auto a: uc_p->getTurmas()){
-            cout << a.getClassCode() << " " << a.getType() << "\n";
-            if (aula == a) aula_different_check = false;
+        bool check_uc_doesnt_exist = true;
+
+        for (auto u: uc_vector){
+            if (u.get_code() == uc.get_code()){
+                check_uc_doesnt_exist = false;
+
+                u.nova_turma(aula);
+            }   
         }
-        cout << aula_different_check << "\n";
-        if (aula_different_check) uc_p->nova_turma(aula);
-        cout << uc_p->getTurmas().size() << "\n";
 
-       //cout << uc.get_code() << aula.getClassCode() << date.getDay_s() << date.getStartingTime_f() << date.getEndingTime_f() << "\n";
+        if (check_uc_doesnt_exist){
+            uc.nova_turma(aula);
+            uc_vector.push_back(uc);
+        }
     }
 
     file.close();
-    file.open("csv/students_classes.csv");
+    file.open("src/csv/students_classes.csv");
 
-    Student student;
+    while(file.good()){
+        line_vector.clear();
+        Student student;
 
-    while (file.good()){
         string line;
         getline(file, line);
-        stringstream ss;
+        stringstream ss(line);
         string word;
-        string uc_code;
 
-        int counter = 1;
-        bool check = false;
+        while(getline(ss, word, ',')){
+            line_vector.push_back(word);
+        }
 
-        while(getline(ss,word,',')){
+        if(line_vector.size() > 4) cout << "LINE READ WITH ERROR";
 
-            switch(counter){
-                case 1:
-                    for (auto s: student_vector){
-                        if (s.getUp() == word){ student = s; check = true;}
-                    }
-                    if (check) break;
-                    student.setUp(word);
-                    student_vector.push_back(student);
-                    break;
-                case 2:
-                    if (check) break;
-                    student.setName(word);
-                    break;
-                case 3:
-                    uc_code = word;
-                    break;
-                case 4:
-                    for (auto uc: uc_vector){
-                        if (uc_code == uc.get_code()){
-                            for (auto turma: uc.getTurmas()){
-                                if (word == turma.getClassCode()) student.addUcClass(uc, turma);
-                            }
+        student.setUp(line_vector[0]);
+        student.setName(line_vector[1]);
+
+        bool check_student_doesnt_exist = true;
+
+        for (auto s: student_vector){
+            if (s.getUp() == student.getUp()){
+                check_student_doesnt_exist = false;
+
+                for (auto u: uc_vector){
+                    if(u.get_code() == line_vector[2]){
+                        for (auto t: u.getTurmas()){
+                            if (t.getClassCode() == line_vector[3]) s.addUcClass(u, t);
                         }
                     }
-
+                }
+            }
+        }
+        
+        if (check_student_doesnt_exist){
+            for (auto u: uc_vector){
+                if(u.get_code() == line_vector[2]){
+                    for (auto t: u.getTurmas()){
+                        if (t.getClassCode() == line_vector[3]) student.addUcClass(u, t);
+                    }
+                }  
             }
 
-            counter++;
+            student_vector.push_back(student);
         }
     }
 }
