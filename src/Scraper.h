@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <tuple>
 #include <fstream>
 #include <sstream>
@@ -12,8 +11,9 @@ using namespace std;
 class Scraper
 {
 private:
-    vector<Student> student_vector;
-    vector<Uc> uc_vector;
+    vector<Student> student_vector = {};
+    vector<Uc> uc_vector = {};
+    vector<string> line_vector;
 public:
     Scraper();
     ~Scraper();

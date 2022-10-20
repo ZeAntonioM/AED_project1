@@ -43,6 +43,7 @@ void Date::setEndingTime(Time endingTime)
 // Sets ending time
 void Date::setEndingTime(float endingTime)
 {
+    _endingTime.hours = _startingTime.hours + (int) endingTime;
     _endingTime.minutes = std::modf(endingTime, &_endingTime.hours);
     _endingTime.minutes *= 60;
 }
