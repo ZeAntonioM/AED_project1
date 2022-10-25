@@ -4,7 +4,7 @@
 
 using namespace std;
 
-char Cli::manage_input(vector<char> options_vector, bool allow_back) const
+char Cli::manage_Input(vector<char> options_vector, bool allow_back) const
 {
      char option;
 
@@ -60,16 +60,16 @@ void Cli::startup() const
 
      
      vector<char> v = {'1','2','3','4'};
-     option = manage_input(v, false);
+     option = manage_Input(v, false);
 
      switch (option)
      {
      case '1':
-          student_tab();
+          student_Tab();
           break;
 
      case '2':
-          uc_tab();
+          uc_Tab();
           break;
 
      case '3':
@@ -77,12 +77,12 @@ void Cli::startup() const
           break;
      
      case '4':
-          general_listings_tab();
+          General_Listings_Tab();
           break;
      }
      
 }
-void Cli::student_tab() const
+void Cli::student_Tab() const
 {
      string up;
 
@@ -111,11 +111,11 @@ void Cli::student_tab() const
           << "\n";
 
      vector<char> options = {'1','2'};
-     char option = manage_input(options, true);
+     char option = manage_Input(options, true);
      cout << option;
 }
 
-void Cli::uc_tab() const{
+void Cli::uc_Tab() const{
      system("clear");
      string year;
 
@@ -141,7 +141,7 @@ void Cli::uc_tab() const{
           << "\n";
 }
 
-void Cli::general_listings_tab() const{
+void Cli::General_Listings_Tab() const{
      system("clear");
 
      cout << "///////////    General Listings     ///////////"

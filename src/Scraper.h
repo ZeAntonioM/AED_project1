@@ -12,12 +12,12 @@ class Scraper
 {
 private:
     vector<Student> student_vector = {};
-    vector<Uc> uc_vector = {};
+    vector<Uc*> uc_vector = {};
     vector<string> line_vector;
 public:
     Scraper();
     ~Scraper();
-    void scrape_files();
-    vector<Student> get_student_vector();
-    vector<Uc> get_uc_vector();
-};
+    void scrape_Files();
+    vector<Student> get_Student_Vector();
+    vector<Uc> get_Uc_Vector();
+}

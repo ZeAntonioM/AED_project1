@@ -26,7 +26,7 @@ std::vector<Aula> Uc::get_Turmas(){
     return this->turmas;
 }
 
-void Uc::setTurmas(std::vector<Aula> turmas){
+void Uc::set_Turmas(std::vector<Aula> turmas){
     this->turmas = turmas;
 }
 

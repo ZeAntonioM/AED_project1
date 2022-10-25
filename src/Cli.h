@@ -7,9 +7,9 @@ using namespace std;
 class Cli{
     public:
         void startup() const;
-        void student_tab() const;
-        void uc_tab() const;
-        void class_permute_tab() const;
-        void general_listings_tab() const;
-        char manage_input(vector<char> options_vector, bool allow_back = false /* isto é para decidir se a tab permite ir para trás*/ ) const;
+        void student_Tab() const;
+        void uc_Tab() const;
+        void class_Permute_Tab() const;
+        void General_Listings_Tab() const;
+        char manage_Input(vector<char> options_vector, bool allow_back = false /* isto é para decidir se a tab permite ir para trás*/ ) const;
 };

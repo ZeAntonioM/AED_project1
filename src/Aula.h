@@ -11,14 +11,14 @@ private:
     std::string _classCode;
     Date _date;
     int _studentCount;
-    int _type;
+    std::string _type;
 
 public:
     //Default construtor
     Aula();
 
     //Aula construtor
-    Aula(std::string classCode, Date date, int studentCount, std::string type);
+    Aula(std::string classCode, Date date, std::string type);
 
     //Setters
     //Sets Class Code
@@ -50,6 +50,7 @@ public:
 
     //Checks equality between Aula objects
     bool operator==(Aula aula) const;
+    bool operator<(Aula aula) const;
 };
 
 #endif
