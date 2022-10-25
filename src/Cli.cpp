@@ -101,11 +101,11 @@ void Cli::student_tab() const
           << "Select one of the following options:"
           << "\n"
           << "\n"
-          << "[1] - Get schedule"
+          << "[1] - Get schedule"            //get_StudentSchedule
           << "\n"
-          << "[2] - Get class for each UC"
+          << "[2] - Get class for each UC"   //get_ClassPerUC
           << "\n"
-          << "[B] - Go back to main menu"
+          << "[B] - Go back to main menu"    
           << "\n"
           << "[Q] - Quit tool"
           << "\n";
@@ -133,7 +133,7 @@ void Cli::uc_tab() const{
           << "\n"
           << "[1] - Get UC information"
           << "\n"
-          << "[2] - "
+          << "[2] - Get UC Lectures"
           << "\n"
           << "[B] - Go back to main menu"
           << "\n"
