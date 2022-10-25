@@ -22,26 +22,26 @@ Date::Date(std::string day, float startingTime, float duration)
 };
 
 // Sets starting time
-void Date::setStartingTime(Time startingTime)
+void Date::set_StartingTime(Time startingTime)
 {
     _startingTime = startingTime;
 }
 
 // Sets starting time
-void Date::setStartingTime(float startingTime)
+void Date::set_StartingTime(float startingTime)
 {
     _startingTime.minutes = std::modf(startingTime, &_startingTime.hours);
     _startingTime.minutes *= 60;
 }
 
 // Sets ending time
-void Date::setEndingTime(Time endingTime)
+void Date::set_EndingTime(Time endingTime)
 {
     _endingTime = endingTime;
 }
 
 // Sets ending time
-void Date::setEndingTime(float endingTime)
+void Date::set_EndingTime(float endingTime)
 {
     _endingTime.hours = _startingTime.hours + (int) endingTime;
     _endingTime.minutes = std::modf(endingTime, &_endingTime.hours);
@@ -49,13 +49,13 @@ void Date::setEndingTime(float endingTime)
 }
 
 // Sets day
-void Date::setDay(int day)
+void Date::set_Day(int day)
 {
     _day = day;
 }
 
 // Sets day
-void Date::setDay(std::string day)
+void Date::set_Day(std::string day)
 {
     _day = Weekdays.at(day);
     _stringDay = day;
@@ -64,37 +64,37 @@ void Date::setDay(std::string day)
 // Getters
 
 // Returns starting time in Time
-Time Date::getStartingTime_T()
+Time Date::get_StartingTime_T()
 {
     return _startingTime;
 }
 
 // Returns starting time in float
-float Date::getStartingTime_f()
+float Date::get_StartingTime_f()
 {
     return _startingTime.hours + (_startingTime.minutes / 60);
 }
 
 // Returns ending time in Time
-Time Date::getEndingTime_T()
+Time Date::get_EndingTime_T()
 {
     return _endingTime;
 }
 
 // Returns ending time in float
-float Date::getEndingTime_f()
+float Date::get_EndingTime_f()
 {
     return _endingTime.hours + (_endingTime.minutes / 60);
 }
 
 // Returns day in string
-std::string Date::getDay_s()
+std::string Date::get_Day_s()
 {
     return _stringDay;
 }
 
 // Returns day in int
-int Date::getDay_i()
+int Date::get_Day_i()
 {
     return _day;
 }

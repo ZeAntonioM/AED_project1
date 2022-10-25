@@ -22,29 +22,29 @@ public:
 
     //Setters
     //Sets Class Code
-    void setClassCode(std::string classCode);
+    void set_ClassCode(std::string classCode);
 
     //Sets Class date
-    void setClassDate(Date date);
+    void set_ClassDate(Date date);
 
     //Sets Class Student count
-    void setStudentCount(int studentCount);
+    void set_StudentCount(int studentCount);
 
     //Sets Class Type
-    void setType(std::string type);
+    void set_Type(std::string type);
     
     //Getters
     //Returns the Class Code
-    std::string getClassCode();
+    std::string get_ClassCode();
 
     //Returns the Class Date
-    Date getClassDate();
+    Date get_ClassDate();
 
     //Returns current student count
-    int getStudentCount();
+    int get_StudentCount();
 
     //Gets class's type
-    std::string getType();
+    std::string get_Type();
 
     
 

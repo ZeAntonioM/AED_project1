@@ -14,10 +14,10 @@ class Student{
         Student(string name_, string up_ );
         Student();
         ~Student();
-        string getName();
-        string getUp();
-        void setName(string name_);
-        void setUp(string up_);
-        void addUcClass(Uc cadeira, Aula turma);
-        void removeUcClass(Uc cadeira, Aula turma);
+        string get_Name();
+        string get_Up();
+        void set_Name(string name_);
+        void set_Up(string up_);
+        void add_UcClass(Uc cadeira, Aula turma);
+        void remove_UcClass(Uc cadeira, Aula turma);
 };

@@ -33,22 +33,22 @@ void Scraper::scrape_files(){
         Uc *uc = new Uc(line_vector[1]);
 
         for (auto u: uc_vector){
-            for (auto t: u->getTurmas())
-             cout << "ITEM: " << t.getType() << " and " << line_vector[5] << "\n";
+            for (auto t: u->get_Turmas())
+             cout << "ITEM: " << t.get_Type() << " and " << line_vector[5] << "\n";
         }
 
         bool check_uc_doesnt_exist = true;
 
         for (auto u: uc_vector){
-            if (u->get_code() == uc->get_code()){
+            if (u->get_Code() == uc->get_Code()){
                 check_uc_doesnt_exist = false;
 
-                u->nova_turma(*aula);
+                u->nova_Turma(*aula);
             }   
         }
 
         if (check_uc_doesnt_exist){
-            uc->nova_turma(*aula);
+            uc->nova_Turma(*aula);
             uc_vector.push_back(uc);
         }
     }
@@ -71,19 +71,19 @@ void Scraper::scrape_files(){
 
         if(line_vector.size() > 4) cout << "LINE READ WITH ERROR";
 
-        student.setUp(line_vector[0]);
-        student.setName(line_vector[1]);
+        student.set_Up(line_vector[0]);
+        student.set_Name(line_vector[1]);
 
         bool check_student_doesnt_exist = true;
 
         for (auto s: student_vector){
-            if (s.getUp() == student.getUp()){
+            if (s.get_Up() == student.get_Up()){
                 check_student_doesnt_exist = false;
 
                 for (auto u: uc_vector){
-                    if(u->get_code() == line_vector[2]){
-                        for (auto t: u->getTurmas()){
-                            if (t.getClassCode() == line_vector[3]) s.addUcClass(*u, t);
+                    if(u->get_Code() == line_vector[2]){
+                        for (auto t: u->get_Turmas()){
+                            if (t.get_ClassCode() == line_vector[3]) s.add_UcClass(*u, t);
                         }
                     }
                 }
@@ -92,9 +92,9 @@ void Scraper::scrape_files(){
         
         if (check_student_doesnt_exist){
             for (auto u: uc_vector){
-                if(u->get_code() == line_vector[2]){
-                    for (auto t: u->getTurmas()){
-                        if (t.getClassCode() == line_vector[3]) student.addUcClass(*u, t);
+                if(u->get_Code() == line_vector[2]){
+                    for (auto t: u->get_Turmas()){
+                        if (t.get_ClassCode() == line_vector[3]) student.add_UcClass(*u, t);
                     }
                 }  
             }
