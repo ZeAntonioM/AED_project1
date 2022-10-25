@@ -3,16 +3,10 @@
 
 Aula::Aula(){}
 
-Aula::Aula(std::string classCode, Date date, int studentCount, std::string type){
+Aula::Aula(std::string classCode, Date date, std::string type){
         _classCode = classCode;
         _date = date;
-        _studentCount = studentCount;
-        if(type=="T"){
-            _type = 0;
-        }
-        else if(type=="TP"){
-            _type = 1;
-        }
+        _type = type;
 };
 
 // Setters
@@ -34,12 +28,7 @@ void Aula::setStudentCount(int studentCount){
 
 // Sets Class Type
 void Aula::setType(std::string type){
-    if(type=="T"){
-        _type = 0;
-    }
-    else if(type=="TP"){
-         _type = 1;
-    }
+    _type = type;
 }
 
 // Getters
@@ -59,8 +48,7 @@ int Aula::getStudentCount(){
 }
 
 std::string Aula::getType(){
-    if (_type == 0) return "T";
-    else return "TP";
+    return _type;
 }
 
 //Checks equality for two Aula objects

@@ -16,10 +16,13 @@ using namespace std;
 int main(){
     Scraper students_classes_scraper;
     students_classes_scraper.scrape_files();
+    cout << students_classes_scraper.get_uc_vector().size() << "\n";
     for (auto i: students_classes_scraper.get_uc_vector()){
-        for (auto t: i.getTurmas()){
+        cout << i->get_code() << "    "<< "\n";
+        for (auto t: i->getTurmas()){
             Date date = t.getClassDate();
-            cout << t.getClassCode() << " no dia " << date.getDay_s() << " das " << date.getStartingTime_f() << " às " << date.getEndingTime_f() << "\n";
+            //cout << t.getClassCode() << t.getType() << " no dia " << date.getDay_s() << " das " << date.getStartingTime_f() << " às " << date.getEndingTime_f() << "\n";
+            cout << t.getType();
         }
     }
    
