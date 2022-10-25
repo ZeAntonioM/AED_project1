@@ -19,5 +19,5 @@ public:
     ~Scraper();
     void scrape_Files();
     vector<Student> get_Student_Vector();
-    vector<Uc> get_Uc_Vector();
-}
+    vector<Uc*> get_Uc_Vector();
+};

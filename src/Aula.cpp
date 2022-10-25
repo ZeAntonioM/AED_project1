@@ -27,7 +27,7 @@ void Aula::set_StudentCount(int studentCount){
 }
 
 // Sets Class Type
-void Aula::setType(std::string type){
+void Aula::set_Type(std::string type){
     _type = type;
 }
 
@@ -47,7 +47,7 @@ int Aula::get_StudentCount(){
     return _studentCount;
 }
 
-std::string Aula::getType(){
+std::string Aula::get_Type(){
     return _type;
 }
 
