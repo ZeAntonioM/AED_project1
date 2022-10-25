@@ -31,11 +31,11 @@ void Scraper::scrape_Files(){
         Date *date = new Date(line_vector[2], stof(line_vector[3]), stof(line_vector[4]));
         Aula *aula = new Aula(line_vector[0], *date, line_vector[5]);
         Uc *uc = new Uc(line_vector[1]);
-        
+        /*
         for (auto u: uc_vector){
             for (auto t: u->get_Turmas())
-             cout << "ITEM: " << t.get_Type() << " and " << line_vector[5] << "\n";
-        }
+             //cout << "ITEM: " << t.get_Type() << " and " << line_vector[5] << "\n";
+        }*/
 
         bool check_uc_doesnt_exist = true;
 
