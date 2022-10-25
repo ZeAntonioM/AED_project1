@@ -17,7 +17,7 @@ private:
 public:
     Scraper();
     ~Scraper();
-    void scrape_files();
-    vector<Student> get_student_vector();
-    vector<Uc> get_uc_vector();
+    void scrape_Files();
+    vector<Student> get_Student_Vector();
+    vector<Uc> get_Cc_Vector();
 };
