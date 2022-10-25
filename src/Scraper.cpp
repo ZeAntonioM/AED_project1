@@ -12,7 +12,7 @@ Scraper::Scraper(){}
 
 Scraper::~Scraper(){}
 
-void Scraper::scrape_files(){
+void Scraper::scrape_Files(){
     ifstream file;
     file.open("src/csv/classes.csv");
 
@@ -21,36 +21,34 @@ void Scraper::scrape_files(){
         string line;
         getline(file, line);
         stringstream ss(line);
-        string word;
+        std::string *word = new std::string();
 
-        while(getline(ss, word, ',')){
-            line_vector.push_back(word);
+        while(getline(ss, *word, ',')){
+            line_vector.push_back(*word);
         }
         if (line_vector.size() > 6) cout << "LINE READ WITH ERROR";
         
-        Date date;
-        Aula aula;
-        Uc uc;
-
-        aula.setClassCode(line_vector[0]);
-        uc.set_code(line_vector[1]);
-        date = Date(line_vector[2], stof(line_vector[3]), stof(line_vector[4]));
-        aula.setType(line_vector[5]);
-
-        aula.setClassDate(date);
+        Date *date = new Date(line_vector[2], stof(line_vector[3]), stof(line_vector[4]));
+        Aula *aula = new Aula(line_vector[0], *date, line_vector[5]);
+        Uc *uc = new Uc(line_vector[1]);
+        
+        for (auto u: uc_vector){
+            for (auto t: u->get_Turmas())
+             cout << "ITEM: " << t.get_Type() << " and " << line_vector[5] << "\n";
+        }
 
         bool check_uc_doesnt_exist = true;
 
         for (auto u: uc_vector){
-            if (u.get_code() == uc.get_code()){
+            if (u->get_Code() == uc->get_Code()){
                 check_uc_doesnt_exist = false;
 
-                u.nova_turma(aula);
+                u->nova_Turma(*aula);
             }   
         }
 
         if (check_uc_doesnt_exist){
-            uc.nova_turma(aula);
+            uc->nova_Turma(*aula);
             uc_vector.push_back(uc);
         }
     }
@@ -73,19 +71,19 @@ void Scraper::scrape_files(){
 
         if(line_vector.size() > 4) cout << "LINE READ WITH ERROR";
 
-        student.setUp(line_vector[0]);
-        student.setName(line_vector[1]);
+        student.set_Up(line_vector[0]);
+        student.set_Name(line_vector[1]);
 
         bool check_student_doesnt_exist = true;
 
         for (auto s: student_vector){
-            if (s.getUp() == student.getUp()){
+            if (s.get_Up() == student.get_Up()){
                 check_student_doesnt_exist = false;
 
                 for (auto u: uc_vector){
-                    if(u.get_code() == line_vector[2]){
-                        for (auto t: u.getTurmas()){
-                            if (t.getClassCode() == line_vector[3]) s.addUcClass(u, t);
+                    if(u->get_Code() == line_vector[2]){
+                        for (auto t: u->get_Turmas()){
+                            if (t.get_ClassCode() == line_vector[3]) s.add_UcClass(*u, t);
                         }
                     }
                 }
@@ -94,9 +92,9 @@ void Scraper::scrape_files(){
         
         if (check_student_doesnt_exist){
             for (auto u: uc_vector){
-                if(u.get_code() == line_vector[2]){
-                    for (auto t: u.getTurmas()){
-                        if (t.getClassCode() == line_vector[3]) student.addUcClass(u, t);
+                if(u->get_Code() == line_vector[2]){
+                    for (auto t: u->get_Turmas()){
+                        if (t.get_ClassCode() == line_vector[3]) student.add_UcClass(*u, t);
                     }
                 }  
             }
@@ -106,10 +104,10 @@ void Scraper::scrape_files(){
     }
 }
 
-vector<Student> Scraper::get_student_vector(){
+vector<Student> Scraper::get_Student_Vector(){
     return student_vector;
 }
 
-vector<Uc> Scraper::get_uc_vector(){
+vector<Uc*> Scraper::get_Uc_Vector(){
     return uc_vector;
 }
