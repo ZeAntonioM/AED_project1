@@ -53,5 +53,5 @@ std::string Aula::get_Type(){
 
 //Checks equality for two Aula objects
 bool Aula::operator==(Aula aula) const{
-    return (this->_classCode == aula._classCode && this->_type == aula._type);
+    return (this->_classCode == aula._classCode && this->_date == aula._date);
 }
