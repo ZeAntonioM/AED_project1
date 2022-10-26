@@ -43,9 +43,7 @@ void Cli::startup() const
      system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
      cout << "//////////////   Schedule Tool   //////////////"
           << "\n"
-          << "\n"
           << "Select one of the following options:"
-          << "\n"
           << "\n"
           << "[1] - Search for student or student information" //student_tab()
           << "\n"
@@ -73,7 +71,7 @@ void Cli::startup() const
           break;
 
      case '3':
-          //class_permute_tab();
+          class_Permute_Tab();
           break;
      
      case '4':
@@ -100,7 +98,6 @@ void Cli::student_Tab() const
           << "\n"
           << "Select one of the following options:"
           << "\n"
-          << "\n"
           << "[1] - Get schedule"            //get_StudentSchedule
           << "\n"
           << "[2] - Get class for each UC"   //get_ClassPerUC
@@ -112,7 +109,22 @@ void Cli::student_Tab() const
 
      vector<char> options = {'1','2'};
      char option = manage_Input(options, true);
-     cout << option;
+
+    switch (option)
+    {
+        case '1':
+            student_Tab();
+            break;
+        case '2':
+            uc_Tab();
+            break;
+        case '3':
+            class_Permute_Tab();
+            break;
+        case '4':
+            general_Listings_Tab();
+            break;
+    }
 }
 
 void Cli::uc_Tab() const{
@@ -141,7 +153,7 @@ void Cli::uc_Tab() const{
           << "\n";
 }
 
-void Cli::General_Listings_Tab() const{
+void Cli::general_Listings_Tab() const{
      system("clear");
 
      cout << "///////////    General Listings     ///////////"
@@ -160,5 +172,10 @@ void Cli::General_Listings_Tab() const{
           << "\n"
           << "[Q] - Quit tool"
           << "\n";
+
+}
+
+void Cli::class_Permute_Tab() const {
+    system("clear");
 
 }
