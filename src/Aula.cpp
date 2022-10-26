@@ -87,5 +87,5 @@ std::string Aula::get_Type(){
  * Duas aulas são iguais se a turma associada for a mesma e se ambas ocorrerem ao mesmo tempo.
 */
 bool Aula::operator==(Aula aula) const{
-    return (this->_classCode == aula._classCode && this->_type == aula._type);
+    return (this->_classCode == aula._classCode && this->_date == aula._date);
 }
