@@ -9,6 +9,11 @@
     }
 
     /**
+     * Default Constuctor da classe Student.
+    */
+    Student::Student(){};
+
+    /**
      * Destructor da Classe Student.
     */
     Student::~Student(){};
