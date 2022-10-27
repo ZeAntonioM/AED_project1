@@ -9,7 +9,7 @@ Date::Date() {}
 /**
  * Constutor da class Date: 
  * Recebe como atributos o dia em que acontece a aula, a hora a que começa e a sua duração;
- * Calcula o tempo de sim através de um algoritmo de soma entre o tempo inicial e a duração da aula.
+ * Calcula o ending time através de um algoritmo de soma entre o tempo inicial e a duração da aula.
 */
 Date::Date(std::string day, float startingTime, float duration)
 {
@@ -30,7 +30,7 @@ Date::Date(std::string day, float startingTime, float duration)
 };
 
 /**
- * Atribui uma starting time através de um Time.
+ * Recebe um atributo no formato Time e atribui o mesmo ao _startingTime.
 */
 // Sets starting time
 void Date::set_StartingTime(Time startingTime)
@@ -39,7 +39,7 @@ void Date::set_StartingTime(Time startingTime)
 }
 
 /**
- * Atribui um starting time através de uma string.
+ * Recebe um atributo em floating point que é passado para o formato Time e atribuido ao _startingTime.
 */
 // Sets starting time
 void Date::set_StartingTime(float startingTime)
@@ -49,7 +49,7 @@ void Date::set_StartingTime(float startingTime)
 }
 
 /**
- * Atribui um ending time através de um Time.
+ * Recebe um atributo no formato Time e atribui o mesmo ao _endingTime.
 */
 // Sets ending time
 void Date::set_EndingTime(Time endingTime)
@@ -58,7 +58,7 @@ void Date::set_EndingTime(Time endingTime)
 }
 
 /**
- * Atribui um ending time através de uma string.
+ * Recebe um atributo em floating point que é passado para o formato Time e atribuido ao _endingTime.
 */
 // Sets ending time
 void Date::set_EndingTime(float endingTime)
@@ -69,7 +69,7 @@ void Date::set_EndingTime(float endingTime)
 }
 
 /**
- * Altera o atributo day através de um inteiro.
+ * Atrubui o argumento passado ao _day.
 */
 // Sets day
 void Date::set_Day(int day)
@@ -78,7 +78,8 @@ void Date::set_Day(int day)
 }
 
 /**
- * Altera o atributo day através de uma string.
+ * Recebe como atributo usa string que é passada ao seu valor de int referente ao dia. 
+ * Esse inteiro é então atribuido a _day.
 */
 // Sets day
 void Date::set_Day(std::string day)
@@ -90,7 +91,7 @@ void Date::set_Day(std::string day)
 // Getters
 
 /**
- * Retorna o starting time no tipo Time.
+ * Retorna o _startingTime no tipo Time.
 */
 // Returns starting time in Time
 Time Date::get_StartingTime_T()
@@ -100,7 +101,7 @@ Time Date::get_StartingTime_T()
 
 
 /**
- * Retorna o starting time no tipo Float.
+ * Retorna o _startingTime no tipo Float.
 */
 // Returns starting time in float
 float Date::get_StartingTime_f()
@@ -109,7 +110,7 @@ float Date::get_StartingTime_f()
 }
 
 /**
- * Retorna o ending tome no tipo Time.
+ * Retorna o _endingTime no tipo Time.
 */
 // Returns ending time in Time
 Time Date::get_EndingTime_T()
@@ -118,7 +119,7 @@ Time Date::get_EndingTime_T()
 }
 
 /**
- * Retorna o ending time no tipo Float.
+ * Retorna o _endingTime no tipo Float.
 */
 // Returns ending time in float
 float Date::get_EndingTime_f()
@@ -127,7 +128,7 @@ float Date::get_EndingTime_f()
 }
 
 /**
- * Retorna o dia em string.
+ * Retorna _day em string.
 */
 // Returns day in string
 std::string Date::get_Day_s()
@@ -136,7 +137,7 @@ std::string Date::get_Day_s()
 }
 
 /**
- * Retorna o dia em inteiro.
+ * Retorna _day em inteiro.
 */
 // Returns day in int
 int Date::get_Day_i()
@@ -145,7 +146,12 @@ int Date::get_Day_i()
 }
 
 // Other member functionss
-
+/**
+ * Para duas datas serem iguais é necesário que:
+ *  - Se passem no mesmo dia;
+ *  - Começem à mesma hora;
+ *  - Terminem à mesma hora.
+*/
 bool Date::operator==(Date date) const{
         return (this->_day == date._day && 
         (this->_startingTime.hours == date._startingTime.hours && this->_startingTime.minutes == date._startingTime.minutes) &&

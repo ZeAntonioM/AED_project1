@@ -19,7 +19,7 @@ Aula::Aula(std::string classCode, Date date, std::string type){
 // Setters
 // Sets Class Code
 /**
- * Atribui um código de turma à aula.
+ * Atribui a string passada como atributo ao _classCode da aula.
 */
 void Aula::set_ClassCode(std::string classCode)
 {
@@ -28,7 +28,7 @@ void Aula::set_ClassCode(std::string classCode)
 
 // Sets Class date
 /**
- * Atribui uma data à aula.
+ * Atribui a data passada como atributo ao atributo _date da aula.
 */
 void Aula::set_ClassDate(Date date){
     _date = date;
@@ -36,7 +36,7 @@ void Aula::set_ClassDate(Date date){
 
 //Sets class student count
 /**
- * Atribui a quantidade de alunos incritos nessa aula.
+ * Faz com que o inteiro passado como atributo seja o número de estudantes inscritos para frequentar a aula.
 */
 void Aula::set_StudentCount(int studentCount){
     _studentCount = studentCount;
@@ -44,7 +44,7 @@ void Aula::set_StudentCount(int studentCount){
 
 // Sets Class Type
 /**
- * Atribui um tipo de aula à aula em questão.
+ * Recebe uma string que atribui ao _type da Aula.
 */
 void Aula::set_Type(std::string type){
     _type = type;
@@ -53,7 +53,7 @@ void Aula::set_Type(std::string type){
 // Getters
 // Returns the Class Code
 /**
- * Retorna o código da turma associada à aula.
+ * Retorna o _classcode da aula.
 */
 std::string Aula::get_ClassCode(){
     return _classCode;
@@ -61,7 +61,7 @@ std::string Aula::get_ClassCode(){
 
 // Returns the Class Date
 /**
- * Retorna a data da aula.
+ * Retorna o atributo _date da aula.
 */
 Date Aula::get_ClassDate(){
     return _date;
@@ -69,14 +69,14 @@ Date Aula::get_ClassDate(){
 
 //Returns current student Count
 /**
- * retorna a quantidade de alunos na turma.
+ * Retorna a quantidade de alunos insritos para frequentar a aula.
 */
 int Aula::get_StudentCount(){
     return _studentCount;
 }
 
 /**
- * Retorna o tipo da aula em questão (T, TP, PL, etc..)
+ * Retorna o tipo da aula (T/TP/PL) no formato string.
 */
 std::string Aula::get_Type(){
     return _type;
