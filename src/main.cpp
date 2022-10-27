@@ -16,16 +16,27 @@ using namespace std;
 int main(){
 
     Scraper students_classes_scraper;
-    students_classes_scraper.scrape_Files();
-    cout << students_classes_scraper.get_Uc_Vector().size() << "\n";
-    for (auto i: students_classes_scraper.get_Uc_Vector()){
-        cout << i->get_Code() << "    "<< "\n";
-        for (auto t: i->get_Turmas()){
-            Date date = t.get_ClassDate();
-            //cout << t.getClassCode() << t.getType() << " no dia " << date.getDay_s() << " das " << date.getStartingTime_f() << " às " << date.getEndingTime_f() << "\n";
-            cout << t.get_ClassCode() << t.get_Type() << endl;
+    auto vec1 = students_classes_scraper.scrape_File("src/csv/classes.csv");
+    auto set1 = students_classes_scraper.build_Uc(vec1);
+    auto vec2 = students_classes_scraper.scrape_File("src/csv/students_classes.csv");
+    auto set2 = students_classes_scraper.build_Students(vec2);
+/*
+    for (auto i : set1){
+        cout << i.get_Code() << "\n";
+        for (auto t: i.get_Turmas()){
+            cout << "\t" << t.get_ClassCode() << endl;
         }
     }
+*/
+    for (auto s: set2){
+        cout << s.get_Up() << endl;
+        for (auto u: s.get_Schedule()){
+            cout << "\t" << get<0>(u).get_Code() << " " << get<1>(u).get_ClassCode() << get<1>(u).get_Type() << " no dia " << get<1>(u).get_ClassDate().get_Day_s()
+                 << " das " << get<1>(u).get_ClassDate().get_StartingTime_f() << " às " << get<1>(u).get_ClassDate().get_EndingTime_f() << endl;
+
+        }
+    }
+
    
     // Cli cli;
     // cli.startup();
