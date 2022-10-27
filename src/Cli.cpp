@@ -438,6 +438,9 @@ void Cli::print_Schedule(int up, int day) {
     system("clear");
     cout << "\n------ Student up" << up << " " << Weekdays.at(day) << "'s Schedule ------\n";
         //TODO print horario do estudante no dia x
+
+        cout << "Press any key to continue" << endl;
+        cin.get();
 }
 
 //TODO
@@ -527,8 +530,8 @@ void Cli::list_All_UCs(){
 
 //TODO
 void Cli::list_By_UC(){
-    string ucCode;
 
+    string ucCode;
     cout << "\nIntroduce the UC Code (L.EIC001- L.EIC025): ";
     cin >> ucCode;
     system("clear");
@@ -538,8 +541,8 @@ void Cli::list_By_UC(){
 
 //TODO
 void Cli::get_Class_Occupation() {
-    string ucCode;
 
+    string ucCode;
     cout << "\nIntroduce the UC Code (L.EIC001- L.EIC025): ";
     cin >> ucCode;
     system("clear");
@@ -550,7 +553,7 @@ void Cli::get_Class_Occupation() {
 void Cli::permute_Between_Students(){
     system("clear");
 
-    int studentUp1=0, studentUp2=0;
+    string studentUp1="", studentUp2="";
     cout << "\n----------- Permute two Students -----------\n"
          << "\n"
          << "Choose the first Student (up): ";
@@ -560,7 +563,7 @@ void Cli::permute_Between_Students(){
     cin >> studentUp2;
     cout << "\n";
 
-    if(permute_Between_Students(studentUp1, studentUp2)){
+    if(permute_Between_Students(stoi(studentUp1), stoi(studentUp2))){
         cout << "Student up" << studentUp1 << " changed classes with Student up" << studentUp2 << endl;
     }else{
         cout << "Permute was not possible" << endl;
@@ -573,8 +576,8 @@ bool Cli::permute_Between_Students(int student1, int student2) {return 1;}
 void Cli::permute_One_Student(){
     system("clear");
 
-    int studentUp1;
-    string classCode;
+    string studentUp1="";
+    string classCode="";
     cout << "\n----------- Permute one Student ------------\n"
          << "\n"
          << "Choose Student (up): ";
@@ -584,7 +587,7 @@ void Cli::permute_One_Student(){
     cin  >> classCode;
     cout << "\n";
 
-    if(permute_One_Student(studentUp1, classCode)){
+    if(permute_One_Student(stoi(studentUp1), classCode)){
         cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
     }else{
         cout << "Permutation was not possible due to inbalance between classes";
