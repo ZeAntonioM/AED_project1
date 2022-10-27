@@ -49,9 +49,9 @@ void Cli::startup()
 
         //////////////   Main menu  //////////////
 
-        cout << "\nSelect one of the following options:\n"
+        cout << "\n--- Select one of the following options: ---\n"
              << "\n"
-             << "-------- Lists and searches --------\n"
+             << "------------ Lists and searches ------------\n"
              << "\n"
              << "[1] - Search for student or student information"
              << "\n"
@@ -59,7 +59,7 @@ void Cli::startup()
              << "\n"
              << "[3] - Search for Class or Class information"
              << "\n\n"
-             << "-------------- Tools --------------\n"
+             << "------------------ Tools ------------------\n"
              << "\n"
              << "[4] - Class permute"
              << "\n"
@@ -94,9 +94,9 @@ void Cli::student_Tab()
     check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
-        cout << "////////////   Students Information     ////////////\n"
+        cout << "\n----------- Students Information -----------\n"
              << "\n"
-             << "Select one of the following options:"
+             << "--- Select one of the following options: ---\n"
              << "\n"
              << "[1] - Get schedule"
              << "\n"
@@ -134,9 +134,9 @@ void Cli::uc_Tab() {
         system("clear");
 
 
-        cout << "///////////    Unidades Curriculares    ///////////\n"
+        cout << "\n------------- Unidades Curriculares -------------\n"
              << "\n"
-             << "Select one of the following options:"
+             << "--- Select one of the following options: ---\n"
              << "\n"
              << "[1] - List UCs"
              << "\n"
@@ -179,9 +179,9 @@ void Cli::class_Tab() {
     while(!check_To_Brake) {
         system("clear");
 
-        cout << "///////////    Classes    ///////////\n"
+        cout << "\n----------------- Classes ------------------\n"
              << "\n"
-             << "Select one of the following options:"
+             << "--- Select one of the following options: ---\n"
              << "\n"
              << "[1] - List Classes"
              << "\n"
@@ -219,9 +219,9 @@ void Cli::class_Permute_Tab(){
     while(!check_To_Brake) {
         system("clear");
 
-        cout << "////////////   Class Permute   ////////////\n"
+        cout << "\n--------------- Class Permute --------------\n"
              << "\n"
-             << "Choose how to permute:"
+             << "---------- Choose how to permute -----------\n"
              << "\n"
              << "[1] - Between two students"
              << "\n"
@@ -259,21 +259,20 @@ void Cli::get_Student_Schedule() {
 
     check_To_Brake = false;
     while(!check_To_Brake) {
-        system("clear");
-
         string up;
-        cout << "\n" << "Introduce the student's UP code (only the number): ";
+        cout << "\nIntroduce the student's UP code (only the number): ";
         cin >> up;
         cout << "\n";
+        system("clear");
 
         // função para verificar se o estudante existe
 
         // o plano é para substituir o up no printf pelo nome do estudante
         // mas ainda não os tenho ent vai ficar o up por agr
 
-        cout << "////////////   Student up" << up << "   ////////////\n"
+        cout << "\n----------- Student up" << up << " ------------\n"
              << "\n"
-             << "Choose a day:"
+             << "-------------- Choose a day: ---------------\n"
              << "\n"
              << "[1] - Monday"
              << "\n"
@@ -325,9 +324,9 @@ void Cli::list_Students() {
     while(!check_To_Brake) {
         system("clear");
 
-        cout << "////////////   List Students   ////////////\n"
+        cout << "\n--------------- List Students --------------\n"
              << "\n"
-             << "List by:"
+             << "------------------ List by -----------------\n"
              << "\n"
              << "[1] - Alphabetical Order"
              << "\n"
@@ -364,7 +363,7 @@ void Cli::list_Students_alpha(){
     while(!check_To_Brake) {
         system("clear");
 
-        cout << "////////////   List Students Alphabetically   ////////////\n"
+        cout << "\n------- List Students Alphabetically -------\n"
              << "\n"
              << "[1] - Ascending Order"
              << "\n"
@@ -401,7 +400,7 @@ void Cli::list_Students_UP(){
     while(!check_To_Brake) {
         system("clear");
 
-        cout << "////////////   List Students By UP   ////////////\n"
+        cout << "\n------------ List Students By UP -----------\n"
              << "\n"
              << "[1] - Ascending Order"
              << "\n"
@@ -437,18 +436,19 @@ void Cli::print_Schedule(int up, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
 
     system("clear");
-    cout << "//////////// Student up" << up << " " << Weekdays.at(day) << "'s Schedule ////////////\n";
+    cout << "\n------ Student up" << up << " " << Weekdays.at(day) << "'s Schedule ------\n";
         //TODO print horario do estudante no dia x
 }
 
 //TODO
 void Cli::list_UCs() {
 
-    system("clear");
+
     string year;
 
-    cout << "Introduce the academic year: ";
+    cout << "\nIntroduce the academic year: ";
     cin >> year;
+    system("clear");
 
     //TODO Mostrar a lista de ucs para o ano academico
 
@@ -457,12 +457,11 @@ void Cli::list_UCs() {
 
 //TODO
 void Cli::get_UC_Lectures(){
-
-    system("clear");
     string classCode;
 
-    cout << "Introduce the Class Code (1LEIC01 - 3LEIC15): ";
+    cout << "\nIntroduce the Class Code (1LEIC01 - 3LEIC15): ";
     cin >> classCode;
+    system("clear");
 
     //TODO Mostrar as aulas da uc dado a string de class code
 
@@ -470,12 +469,11 @@ void Cli::get_UC_Lectures(){
 
 //TODO
 void Cli::number_Student_UC() {
-
-    system("clear");
     string ucCode;
 
-    cout << "Introduce the UC Code (L.EIC001- L.EIC025): ";
+    cout << "\nIntroduce the UC Code (L.EIC001- L.EIC025): ";
     cin >> ucCode;
+    system("clear");
 
     //Mostrar o numero de students incritos nessa UC
 
@@ -488,9 +486,9 @@ void Cli::list_Classes(){
     while(!check_To_Brake) {
         system("clear");
 
-        cout << "////////////   List Classes   ////////////\n"
+        cout << "\n--------------- List Classes ---------------\n"
              << "\n"
-             << "List:"
+             << "------------------- List -------------------\n"
              << "\n"
              << "[1] - All"
              << "\n"
@@ -529,22 +527,22 @@ void Cli::list_All_UCs(){
 
 //TODO
 void Cli::list_By_UC(){
-    system("clear");
     string ucCode;
 
-    cout << "Introduce the UC Code (L.EIC001- L.EIC025): ";
+    cout << "\nIntroduce the UC Code (L.EIC001- L.EIC025): ";
     cin >> ucCode;
+    system("clear");
 
     //TODO listar as turmas por UC dada
 }
 
 //TODO
 void Cli::get_Class_Occupation() {
-    system("clear");
     string ucCode;
 
-    cout << "Introduce the UC Code (L.EIC001- L.EIC025): ";
+    cout << "\nIntroduce the UC Code (L.EIC001- L.EIC025): ";
     cin >> ucCode;
+    system("clear");
 
     //TODO mostrar quantidade de alunos inscritos na uc dada
 }
@@ -553,7 +551,7 @@ void Cli::permute_Between_Students(){
     system("clear");
 
     int studentUp1=0, studentUp2=0;
-    cout << "////////////   Permute two Students   ////////////\n"
+    cout << "\n----------- Permute two Students -----------\n"
          << "\n"
          << "Choose the first Student (up): ";
     cin >> studentUp1;
@@ -577,7 +575,7 @@ void Cli::permute_One_Student(){
 
     int studentUp1;
     string classCode;
-    cout << "////////////   Permute one Student   ////////////\n"
+    cout << "\n----------- Permute one Student ------------\n"
          << "\n"
          << "Choose Student (up): ";
     cin  >> studentUp1;
@@ -595,4 +593,4 @@ void Cli::permute_One_Student(){
 }
 
 //TODO
-bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {}
+bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {return 1;}
