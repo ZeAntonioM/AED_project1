@@ -14,7 +14,7 @@ using namespace std;
 
 //! READS THE .CSV FILE
 int main(){
-
+    /*
     Scraper students_classes_scraper;
     students_classes_scraper.scrape_Files();
     cout << students_classes_scraper.get_Uc_Vector().size() << "\n";
@@ -25,10 +25,10 @@ int main(){
             //cout << t.getClassCode() << t.getType() << " no dia " << date.getDay_s() << " das " << date.getStartingTime_f() << " às " << date.getEndingTime_f() << "\n";
             cout << t.get_ClassCode() << t.get_Type() << endl;
         }
-    }
+    }*/
    
-    // Cli cli;
-    // cli.startup();
+    Cli cli;
+    cli.startup();
 
     //Testing the new classes
     /*
