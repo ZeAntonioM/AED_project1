@@ -31,6 +31,18 @@
         }
     }
 
+    void Student::set_Schedule(vector<tuple<Uc,Aula>> schedule){
+        this->schedule = schedule;
+    }
+
+    vector<tuple<Uc,Aula>> Student::get_Schedule(){
+        return schedule;
+    }
+
+    bool Student::operator< (Student s1) const{
+        return (up < s1.up);
+    }
+
 
 
 

@@ -17,6 +17,8 @@ public:
     //Default construtor
     Aula();
 
+    Aula(std::string classCode);
+
     //Aula construtor
     Aula(std::string classCode, Date date, std::string type);
 

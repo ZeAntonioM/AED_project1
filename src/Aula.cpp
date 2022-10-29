@@ -3,6 +3,10 @@
 
 Aula::Aula(){}
 
+Aula::Aula(std::string classCode){
+    _classCode = classCode;
+}
+
 Aula::Aula(std::string classCode, Date date, std::string type){
         _classCode = classCode;
         _date = date;
@@ -55,3 +59,8 @@ std::string Aula::get_Type(){
 bool Aula::operator==(Aula aula) const{
     return (this->_classCode == aula._classCode && this->_type == aula._type);
 }
+
+bool Aula::operator< (Aula aula) const{
+    return (this->_classCode < aula._classCode);
+}
+
