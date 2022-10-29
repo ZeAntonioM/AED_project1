@@ -14,20 +14,19 @@ using namespace std;
 
 //! READS THE .CSV FILE
 int main(){
-
+    /*
     Scraper students_classes_scraper;
     auto vec1 = students_classes_scraper.scrape_File("src/csv/classes.csv");
     auto set1 = students_classes_scraper.build_Uc(vec1);
     auto vec2 = students_classes_scraper.scrape_File("src/csv/students_classes.csv");
     auto set2 = students_classes_scraper.build_Students(vec2);
-/*
+    
     for (auto i : set1){
         cout << i.get_Code() << "\n";
         for (auto t: i.get_Turmas()){
             cout << "\t" << t.get_ClassCode() << endl;
         }
     }
-*/
     for (auto s: set2){
         cout << s.get_Up() << endl;
         for (auto u: s.get_Schedule()){
@@ -36,10 +35,10 @@ int main(){
 
         }
     }
-
+ */
    
-    // Cli cli;
-    // cli.startup();
+    Cli cli;
+    cli.startup();
 
     //Testing the new classes
     /*
