@@ -14,7 +14,7 @@ using namespace std;
 
 class Cli{
     private:
-        bool check_To_Brake = false;
+        bool check_quit;
         set<Student>& _setStudent;
         set<Uc>& _setUc;
 

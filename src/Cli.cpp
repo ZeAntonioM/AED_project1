@@ -19,7 +19,7 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
           cin >> option;
           bool check_to_break = false;
 
-          if (option == 'Q' || option == 'q'){system("clear"); check_To_Brake = true; break;} // quit the tool
+          if (option == 'Q' || option == 'q'){system("clear"); check_quit = true; break;} // quit the tool
 
           // validar o input entre as 3 opções (infelizmente um input tp 14827634 é válido pq o primeiro caracter é válido, é oq é irmauns)
           for (char i : options_vector)
@@ -44,11 +44,12 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 void Cli::startup()
 {
 
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         char option;
 
         system("clear");
+        if(check_quit) break;
 
         //////////////   Main menu  //////////////
 
@@ -94,9 +95,10 @@ void Cli::startup()
 //TODO implementar a list_Students() e get_Student_Schedule()
 void Cli::student_Tab()
 {
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
+        if(check_quit) break;
         cout << "\n----------- Students Information -----------\n"
              << "\n"
              << "--- Select one of the following options: ---\n"
@@ -121,10 +123,10 @@ void Cli::student_Tab()
                 list_Students();
                 break;
             case 'b':
-                startup();
+                check_To_Brake = true;
                 break;
             case 'B':
-                startup();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -132,9 +134,10 @@ void Cli::student_Tab()
 
 //TODO
 void Cli::uc_Tab() {
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
 
         cout << "\n------------- Unidades Curriculares -------------\n"
@@ -166,10 +169,10 @@ void Cli::uc_Tab() {
                 number_Student_UC();
                 break;
             case 'b':
-                startup();
+                check_To_Brake = true;
                 break;
             case 'B':
-                startup();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -178,9 +181,10 @@ void Cli::uc_Tab() {
 //TODO Dont know if this should even exist or not
 void Cli::class_Tab() {
 
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
         cout << "\n----------------- Classes ------------------\n"
              << "\n"
@@ -206,10 +210,10 @@ void Cli::class_Tab() {
                 get_Class_Occupation();
                 break;
             case 'b':
-                startup();
+                check_To_Brake = true;
                 break;
             case 'B':
-                startup();
+                check_To_Brake = true;
                 break;
         }
 
@@ -218,9 +222,10 @@ void Cli::class_Tab() {
 
 //TODO everything
 void Cli::class_Permute_Tab(){
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
         cout << "\n--------------- Class Permute --------------\n"
              << "\n"
@@ -246,10 +251,10 @@ void Cli::class_Permute_Tab(){
                 permute_One_Student();
                 break;
             case 'b':
-                startup();
+                check_To_Brake = true;
                 break;
             case 'B':
-                startup();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -260,13 +265,14 @@ void Cli::class_Permute_Tab(){
 //TODO
 void Cli::get_Student_Schedule() {
 
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         string up;
         cout << "\nIntroduce the student's UP code (only the number): ";
         cin >> up;
         cout << "\n";
         system("clear");
+        if(check_quit) break;
 
         // função para verificar se o estudante existe
 
@@ -312,10 +318,10 @@ void Cli::get_Student_Schedule() {
                 print_Schedule(stoi(up), 5);
                 break;
             case 'b':
-                student_Tab();
+                check_To_Brake = true;
                 break;
             case 'B':
-                student_Tab();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -323,9 +329,10 @@ void Cli::get_Student_Schedule() {
 
 //TODO finish this
 void Cli::list_Students() {
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
         cout << "\n--------------- List Students --------------\n"
              << "\n"
@@ -351,10 +358,10 @@ void Cli::list_Students() {
                 list_Students_UP();
                 break;
             case 'b':
-                student_Tab();
+                check_To_Brake = true;
                 break;
             case 'B':
-                student_Tab();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -362,9 +369,10 @@ void Cli::list_Students() {
 
 //TODO finish this
 void Cli::list_Students_alpha(){
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
         cout << "\n------- List Students Alphabetically -------\n"
              << "\n"
@@ -388,10 +396,10 @@ void Cli::list_Students_alpha(){
                 //TODO for loop to print in descending order
                 break;
             case 'b':
-                list_Students();
+                check_To_Brake = true;
                 break;
             case 'B':
-                list_Students();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -399,9 +407,10 @@ void Cli::list_Students_alpha(){
 
 //TODO finish this
 void Cli::list_Students_UP(){
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
         cout << "\n------------ List Students By UP -----------\n"
              << "\n"
@@ -421,7 +430,7 @@ void Cli::list_Students_UP(){
             case '1':
 
                 for(auto student : _setStudent){
-                    cout <<"\n" << student.get_Up();
+                    cout <<"\n" << student.get_Up() << ": " << student.get_Name();
                 }
                 wait_for_input();
                 break;
@@ -429,10 +438,10 @@ void Cli::list_Students_UP(){
                 //TODO for loop to print in descending order
                 break;
             case 'b':
-                list_Students();
+                check_To_Brake = true;
                 break;
             case 'B':
-                list_Students();
+                check_To_Brake = true;
                 break;
         }
     }
@@ -505,9 +514,10 @@ void Cli::number_Student_UC() {
 //TODO
 void Cli::list_Classes(){
 
-    check_To_Brake = false;
+    bool check_To_Brake = false;
     while(!check_To_Brake) {
         system("clear");
+        if(check_quit) break;
 
         cout << "\n--------------- List Classes ---------------\n"
              << "\n"
@@ -533,10 +543,10 @@ void Cli::list_Classes(){
                 list_By_UC();
                 break;
             case 'b':
-                class_Tab();
+                check_To_Brake = true;
                 break;
             case 'B':
-                class_Tab();
+                check_To_Brake = true;
                 break;
         }
 
