@@ -5,12 +5,15 @@
 
 using namespace std;
 
+//TODO anytime you need to wait for user input to continue use function wait_for_input()
+
 char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 {
      char option;
 
      while (true)
      {
+          
           cout << "\n"
                << "Option: ";
           cin >> option;
@@ -416,7 +419,11 @@ void Cli::list_Students_UP(){
 
         switch (option) {
             case '1':
-                //TODO for loop to print in ascending order
+
+                for(auto student : _setStudent){
+                    cout <<"\n" << student.get_Up();
+                }
+                wait_for_input();
                 break;
             case '2':
                 //TODO for loop to print in descending order
@@ -439,8 +446,7 @@ void Cli::print_Schedule(int up, int day) {
     cout << "\n------ Student up" << up << " " << Weekdays.at(day) << "'s Schedule ------\n";
         //TODO print horario do estudante no dia x
 
-        cout << "Press any key to continue" << endl;
-        cin.get();
+        wait_for_input();
 }
 
 //TODO
@@ -449,12 +455,26 @@ void Cli::list_UCs() {
 
     string year;
 
-    cout << "\nIntroduce the academic year: ";
+    cout << "\nIntroduce the academic year (1-3): ";
     cin >> year;
     system("clear");
+    //TODO check if input if valid between 1 and 3!
+    if(year=="1" or year=="2" or year=="3") {
 
-    //TODO Mostrar a lista de ucs para o ano academico
+        for (auto uc: _setUc) {
 
+            string UcCode = uc.get_Code();
+
+            if ((UcCode[6] - '0') == (stoi(year) - 1)) {
+                cout << "\n" << UcCode;
+            }
+        }
+    }
+    else{cout << "Invalid Input, please try again\n";
+    }
+
+    wait_for_input();
+    system("clear");
 
 }
 
@@ -597,3 +617,13 @@ void Cli::permute_One_Student(){
 
 //TODO
 bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {return 1;}
+
+
+
+
+void Cli::wait_for_input(){
+    cin.clear();
+    cin.ignore(INT16_MAX,'\n'); //clear the buffer to wait for input
+    cout << "\nPress any key to continue" << endl;
+    cin.get();
+}

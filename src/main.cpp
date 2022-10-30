@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 #include <algorithm>
 #include <tuple>
 #include "Scraper.h"
@@ -14,13 +15,13 @@ using namespace std;
 
 //! READS THE .CSV FILE
 int main(){
-    /*
+
     Scraper students_classes_scraper;
     auto vec1 = students_classes_scraper.scrape_File("src/csv/classes.csv");
-    auto set1 = students_classes_scraper.build_Uc(vec1);
+    static auto set1 = students_classes_scraper.build_Uc(vec1);
     auto vec2 = students_classes_scraper.scrape_File("src/csv/students_classes.csv");
-    auto set2 = students_classes_scraper.build_Students(vec2);
-    
+    static auto set2 = students_classes_scraper.build_Students(vec2);
+/*
     for (auto i : set1){
         cout << i.get_Code() << "\n";
         for (auto t: i.get_Turmas()){
@@ -34,21 +35,10 @@ int main(){
                  << " das " << get<1>(u).get_ClassDate().get_StartingTime_f() << " às " << get<1>(u).get_ClassDate().get_EndingTime_f() << endl;
 
         }
-    }
- */
-   
-    Cli cli;
+    }*/
+
+    Cli cli(set2, set1);
     cli.startup();
 
-    //Testing the new classes
-    /*
-    Date date1 = Date("Monday", 10.5, 1.5);
-    Aula aula1 = Aula("1LEIC01", date1, 25, "T");
-
-    cout << "/nTesting new Classes/n" << endl;
-    cout << date1.getStartingTime_f() << ' ' << date1.getEndingTime_f() << ' ' << date1.getDay_i() << endl; 
-    cout << aula1.getClassCode() << ' ' << aula1.getClassDate().getDay_i() << ' ' << aula1.getStudentCount() << endl;
-
-    */
     return 0;
 }

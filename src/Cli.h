@@ -1,5 +1,13 @@
+#ifndef CLI_H
+#define CLI_H
+
 #include <iostream>
+#include <utility>
 #include <vector>
+#include <set>
+#include "Student.h"
+#include "Uc.h"
+
 
 using namespace std;
 
@@ -7,9 +15,17 @@ using namespace std;
 class Cli{
     private:
         bool check_To_Brake = false;
+        set<Student>& _setStudent;
+        set<Uc>& _setUc;
 
     public:
+
+        Cli(set<Student>& setStudent, set<Uc>& setUc) : _setStudent(setStudent), _setUc(setUc) {}
+
         char manage_Input(const vector<char> &options_vector, bool allow_back = false /* isto é para decidir se a tab permite ir para trás*/ );
+
+        //TODO aux function to wait for user input ("Press any key to continue")
+        static void wait_for_input();
 
         void startup();
             //STUDENT TAB
@@ -39,3 +55,5 @@ class Cli{
                 void permute_One_Student();
                     bool permute_One_Student(int studentUp1, string classCodeToChangeTo);
 };
+
+#endif

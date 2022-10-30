@@ -1,3 +1,7 @@
+#ifndef UC_H
+#define UC_H
+
+
 #include <iostream>
 #include "Aula.h"
 #include <vector>
@@ -27,3 +31,5 @@ class Uc{
 
 
 };
+
+#endif

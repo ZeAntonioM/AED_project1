@@ -1,3 +1,7 @@
+#ifndef STUDENT_H
+#define STUDENT_H
+
+
 #include <iostream>
 #include <vector>
 #include "Uc.h"
@@ -24,3 +28,4 @@ class Student{
         void set_Schedule(vector<tuple<Uc,Aula>> schedule);
         bool operator< (Student s1) const;
 };
+#endif

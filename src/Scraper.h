@@ -1,3 +1,6 @@
+#ifndef SCRAPER_H
+#define SCRAPER_H
+
 #include <iostream>
 #include <tuple>
 #include <fstream>
@@ -24,3 +27,5 @@ public:
     set<Student> get_StudentSet();
     set<Uc> get_UcSet();
 };
+
+#endif
