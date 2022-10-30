@@ -11,17 +11,17 @@ using namespace std;
 
 class Student{
     private:
-        string name;
-        string up;
+        string _name;
+        string _up;
         vector<tuple<Uc, Aula>> schedule;
     public:
-        Student(string name_, string up_ );
+        Student(string name, string up );
         Student();
         ~Student();
         string get_Name();
         string get_Up();
-        void set_Name(string name_);
-        void set_Up(string up_);
+        void set_Name(string name);
+        void set_Up(string up);
         void add_UcClass(Uc cadeira, Aula turma);
         void remove_UcClass(Uc cadeira, Aula turma);
         vector<tuple<Uc,Aula>> get_Schedule();

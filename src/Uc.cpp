@@ -2,13 +2,13 @@
 
 Uc::Uc(){};
 
-Uc::Uc(string code_) { _code = code_; }
+Uc::Uc(string code) { _code = code; }
 
 Uc::~Uc(){};
 
 string Uc::get_Code() { return _code; }
 
-void Uc::set_Code(string code_) { _code = code_; }
+void Uc::set_Code(string code) { _code = code; }
 
 void Uc::nova_Turma(Aula turma) {
     _turmas.push_back(turma);

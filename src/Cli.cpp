@@ -455,8 +455,12 @@ void Cli::list_Students_UP(){
 
 void Cli::print_Schedule(int up, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
-
     system("clear");
+
+    //Student student1(student1.get_Name(), up);
+    //auto student = _setStudent.find(student1);
+
+
     cout << "\n------ Student up" << up << " " << Weekdays.at(day) << "'s Schedule ------\n";
     //TODO print horario do estudante no dia x
 
@@ -485,6 +489,7 @@ void Cli::list_UCs() {
     else{
         cout << "Invalid Input, please try again\n";
     }
+    cin.ignore(INT16_MAX, '\n');
 
     wait_for_input();
     system("clear");
@@ -637,7 +642,7 @@ bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {retur
 void Cli::wait_for_input(){
     do
     {
-        cout << '\n' << "Press a key to continue...";
+        cout << '\n' << "Press ENTER to continue...";
     } while (cin.get() != '\n');
 
 }

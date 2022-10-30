@@ -14,7 +14,7 @@ using namespace std;
 
 class Cli{
 private:
-    bool check_quit;
+    bool check_quit=false;
     set<Student>& _setStudent;
     set<Uc>& _setUc;
 
