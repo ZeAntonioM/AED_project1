@@ -33,7 +33,7 @@ public:
         //STUDENT TAB
         void student_Tab();
             void get_Student_Schedule();
-                void print_Schedule(int up, int day); //TODO
+                void print_Schedule(Student student, int day); //TODO
             void list_Students();
                 void list_Students_alpha(); //TODO
                 void list_Students_UP();
@@ -42,7 +42,7 @@ public:
         void uc_Tab();
             void list_UCs();
             void get_UC_Lectures();
-            void number_Student_UC(); //TODO
+            void number_Student_UC();
 
         //CLASS TAB
         void class_Tab();

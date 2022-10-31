@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <iomanip>
 #include "Cli.h"
 
 using namespace std;
@@ -266,18 +267,24 @@ void Cli::class_Permute_Tab(){
 void Cli::get_Student_Schedule() {
 
     bool check_To_Brake = false;
+    bool check_ignore_up = false;
+    string up;
+    Student student;
     while(!check_To_Brake) {
-        string up;
-        cout << "\nIntroduce the student's UP code (only the number): ";
-        cin >> up;
-        cout << "\n";
-        system("clear");
         if(check_quit) break;
+        if(!check_ignore_up){
+            cout << "\nIntroduce the student's UP code (only the number): ";
+            cin >> up;
+            cout << "\n";
 
-        // função para verificar se o estudante existe
+            Student s("nothing", up);
+            auto search = _setStudent.find(s);
 
-        // o plano é para substituir o up no printf pelo nome do estudante
-        // mas ainda não os tenho ent vai ficar o up por agr
+            if (search == _setStudent.end()){cout << "Student not found"; continue;}
+            student = *search;
+        }
+        system("clear");
+        check_ignore_up = true;
 
         cout << "\n----------- Student up" << up << " ------------\n"
              << "\n"
@@ -303,24 +310,19 @@ void Cli::get_Student_Schedule() {
 
         switch (option) {
             case '1':
-                print_Schedule(stoi(up), 1);
-                check_To_Brake = true;
+                print_Schedule(student, 1);
                 break;
             case '2':
-                print_Schedule(stoi(up), 2);
-                check_To_Brake = true;
+                print_Schedule(student, 2);
                 break;
             case '3':
-                print_Schedule(stoi(up), 3);
-                check_To_Brake = true;
+                print_Schedule(student, 3);
                 break;
             case '4':
-                print_Schedule(stoi(up), 4);
-                check_To_Brake = true;
+                print_Schedule(student, 4);
                 break;
             case '5':
-                print_Schedule(stoi(up), 5);
-                check_To_Brake = true;
+                print_Schedule(student, 5);
                 break;
             case 'b':
                 check_To_Brake = true;
@@ -462,16 +464,20 @@ void Cli::list_Students_UP(){
 }
 
 
-void Cli::print_Schedule(int up, int day) {
+void Cli::print_Schedule(Student student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
     system("clear");
 
-    //Student student1(student1.get_Name(), up);
-    //auto student = _setStudent.find(student1);
+    cout << "\n------ Student up" << student.get_Up() << ": " << Weekdays.at(day) << "'s Schedule ------\n\n";
 
-
-    cout << "\n------ Student up" << up << " " << Weekdays.at(day) << "'s Schedule ------\n";
-    //TODO print horario do estudante no dia x
+    for (auto t : student.get_Schedule()){
+        if (get<1>(t).get_ClassDate().get_Day_s() == Weekdays.at(day)){
+        cout << "-> " << get<0>(t).get_Code() << " " << get<1>(t).get_Type() << ": "
+             << get<1>(t).get_ClassCode() << " at "
+             << get<1>(t).get_ClassDate().get_StartingTime_T().hours <<":"<< setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_StartingTime_T().minutes << " until " 
+             << get<1>(t).get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_EndingTime_T().minutes << endl;
+        }
+    }
 
 
     wait_for_input();
