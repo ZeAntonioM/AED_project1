@@ -473,7 +473,9 @@ void Cli::print_Schedule(int up, int day) {
     cout << "\n------ Student up" << up << " " << Weekdays.at(day) << "'s Schedule ------\n";
     //TODO print horario do estudante no dia x
 
+
     wait_for_input();
+    system("clear");
 }
 
 void Cli::list_UCs() {
@@ -499,7 +501,7 @@ void Cli::list_UCs() {
     else{
         cout << "Invalid Input, please try again\n";
     }
-
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -534,7 +536,7 @@ void Cli::get_UC_Lectures(){
     }else{
         cout << "Invalid Input, please try again\n";
     }
-
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -553,7 +555,7 @@ void Cli::number_Student_UC() {
     }else{
         cout << "Invalid Input, please try again\n";
     }
-
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -622,6 +624,7 @@ void Cli::list_By_UC(){
         cout << "Invalid Input, please try again\n";
     }
 
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -640,6 +643,7 @@ void Cli::get_Class_Occupation() {
         cout << "Invalid Input, please try again\n";
     }
 
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -695,7 +699,7 @@ bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {retur
 
 
 void Cli::wait_for_input(){
-    cin.ignore(INT16_MAX, '\n');
+
     do
     {
         cout << '\n' << "Press ENTER to continue...";
