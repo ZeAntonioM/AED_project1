@@ -7,6 +7,14 @@
 Aula::Aula(){}
 
 /**
+ * Constutor de uma Aula.
+ * Recebe apenas o código da turma a que está associada.
+*/
+Aula::Aula(std::string classCode){
+    _classCode = classCode;
+}
+
+/**
  * Contrutor da classe Aula.
  * É atibuida à aula o código da turma a que está associada, uma data associada à mesma e o tipo da aula. 
 */
@@ -87,5 +95,10 @@ std::string Aula::get_Type(){
  * Duas aulas são iguais se a turma associada for a mesma e se ambas ocorrerem ao mesmo tempo.
 */
 bool Aula::operator==(Aula aula) const{
-    return (this->_classCode == aula._classCode && this->_date == aula._date);
+    return (this->_classCode == aula._classCode && this->_type == aula._type);
 }
+
+bool Aula::operator< (Aula aula) const{
+    return (this->_classCode < aula._classCode);
+}
+
