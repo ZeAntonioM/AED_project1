@@ -7,6 +7,8 @@ using namespace std;
 
 //TODO anytime you need to wait for user input to continue use function wait_for_input()
 
+//TODO verificar as funcoes para ver se ha casos em que da para fazer binary search para ser mais eficiente
+
 char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 {
     char option;
@@ -551,7 +553,18 @@ void Cli::number_Student_UC() {
     system("clear");
 
     if(std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
-        //TODO Mostrar o numero de students incritos nessa UC
+        //TODO da para fazer binary search??
+        int studentCount =0;
+        for(Student student : _setStudent){
+            auto schedule = student.get_Schedule();
+            for(auto slot : schedule){
+
+                if(get<0>(slot) == ucCode and get<1>(slot).get_Type() == "T"){
+                    studentCount += get<1>(slot).get_StudentCount();
+                }
+            }
+        }
+        cout << "\nUC " << ucCode << " has " << studentCount << " students enrolled"<< endl;
     }else{
         cout << "Invalid Input, please try again\n";
     }
@@ -606,8 +619,22 @@ void Cli::list_Classes(){
 }
 
 void Cli::list_All_Classes() {
-    //TODO listar todas as turmas
-    //pode ser ainda dividido em turmas de ano x,y,z
+
+    set<Aula> tmpTurmas;
+
+    for(auto uc : _setUc){
+        auto turmas = uc.get_Turmas();
+        for(auto turma : turmas){
+            tmpTurmas.insert(turma);
+        }
+    }
+
+    for(auto turma : tmpTurmas){
+        cout << "\n" << turma.get_ClassCode();
+    }
+
+    wait_for_input();
+    system("clear");
 }
 
 
@@ -619,7 +646,14 @@ void Cli::list_By_UC(){
     system("clear");
 
     if(std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
-        //TODO listar as turmas por UC dada
+        auto uc = _setUc.find(Uc(ucCode));
+
+        auto turmas = uc->get_Turmas();
+        for(auto turma : turmas){
+            if(turma.get_Type() == "T")
+                cout << "\n" << turma.get_ClassCode();
+        }
+
     }else{
         cout << "Invalid Input, please try again\n";
     }
@@ -638,7 +672,25 @@ void Cli::get_Class_Occupation() {
     system("clear");
 
     if(std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) {
-        //TODO mostrar quantidade de alunos inscritos na turma dada
+        //TODO da para fazer binary search??
+        //possivelmente pode nao apresentar todas as aulas dependendo as ordem que aparecem
+
+        for(auto uc : _setUc){
+            auto turmas = uc.get_Turmas();
+            for(auto turma : turmas){
+                if(turma.get_ClassCode() == classCode){
+                    if(turma.get_Type()=="T"){
+                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical classes";
+                    }
+                    if(turma.get_Type()=="TP"){
+                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical-pratice classes";
+                    }
+                    if(turma.get_Type()=="PL"){
+                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in laboratory classes";
+                    }
+                }
+            }
+        }
     }else{
         cout << "Invalid Input, please try again\n";
     }
