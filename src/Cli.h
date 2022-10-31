@@ -8,6 +8,7 @@
 #include "Student.h"
 #include "Uc.h"
 #include <regex>
+#include <tuple>
 
 
 
@@ -42,14 +43,14 @@ public:
         void uc_Tab();
             void list_UCs();
             void get_UC_Lectures();
-            void number_Student_UC();
+            void number_Student_UC(); //TODO not working
 
         //CLASS TAB
         void class_Tab();
             void list_Classes();
-                void list_All_Classes(); //TODO
-                void list_By_UC(); //TODO
-            void get_Class_Occupation(); //TODO
+                void list_All_Classes();
+                void list_By_UC();
+            void get_Class_Occupation(); //TODO bugs
 
         //CLASS PERMUTE TAB
         void class_Permute_Tab();
