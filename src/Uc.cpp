@@ -22,7 +22,7 @@ void Uc::remover_Turma( Aula turma ){
     }
 }
 
-std::vector<Aula> Uc::get_Turmas(){
+std::vector<Aula> Uc::get_Turmas() const {
     return _turmas;
 }
 

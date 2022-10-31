@@ -14,6 +14,7 @@ class Uc{
         string _code;
 
         vector<Aula> _turmas;
+
     public:
         Uc(string code);
         Uc();
@@ -23,7 +24,7 @@ class Uc{
         void set_Code(string code);
         void nova_Turma( Aula turma );
         void remover_Turma( Aula turma ); 
-        vector<Aula> get_Turmas();
+        vector<Aula> get_Turmas() const;
         void set_Turmas(vector<Aula> turmas);
         bool operator==(Uc uc) const;
         void operator* (Uc uc);

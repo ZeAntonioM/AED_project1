@@ -9,6 +9,7 @@
 #include "Student.h"
 #include "Aula.h"
 #include "Date.h"
+#include "Uc.h"
 
 using namespace std;
 

@@ -18,8 +18,8 @@ class Student{
         Student(string name, string up );
         Student();
         ~Student();
-        string get_Name();
-        string get_Up();
+        string get_Name() const;
+        string get_Up() const;
         void set_Name(string name);
         void set_Up(string up);
         void add_UcClass(Uc cadeira, Aula turma);

@@ -13,9 +13,9 @@
 
     void Student::set_Up(string up) { _up = up;}
 
-    string Student::get_Name() { return _name;}
+    string Student::get_Name() const { return _name;}
 
-    string Student::get_Up() { return _up;}
+    string Student::get_Up() const { return _up;}
 
     void Student::add_UcClass(Uc cadeira, Aula turma){
         tuple<Uc,Aula> novaucturma (cadeira, turma);

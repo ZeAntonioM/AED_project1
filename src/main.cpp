@@ -18,9 +18,9 @@ int main(){
 
     Scraper students_classes_scraper;
     auto vec1 = students_classes_scraper.scrape_File("src/csv/classes.csv");
-    static auto set1 = students_classes_scraper.build_Uc(vec1);
+    auto set1 = students_classes_scraper.build_Uc(vec1);
     auto vec2 = students_classes_scraper.scrape_File("src/csv/students_classes.csv");
-    static auto set2 = students_classes_scraper.build_Students(vec2);
+    auto set2 = students_classes_scraper.build_Students(vec2);
 /*
     for (auto i : set1){
         cout << i.get_Code() << "\n";
