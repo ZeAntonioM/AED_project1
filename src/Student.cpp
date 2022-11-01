@@ -4,9 +4,9 @@
      * Contrutor da Classe Student: Recebe como atibutos uma string relativa ao nome e outra relativa ao up do estudante. 
      * Em caso de ser criado um estudante sem atributos, a esses parametros é atribuido o valor NULL.
     */
-    Student::Student(string name_ = NULL, string up_ = NULL){
-        name = name_;
-        up = up_;
+    Student::Student(string name = NULL, string up = NULL){
+        _name = name;
+        _up = up;
     }
 
     /**
@@ -22,22 +22,22 @@
     /**
      * Recebe como atributo uma string que é atribuída ao nome do estudante.
     */
-    void Student::set_Name(string name_) { name = name_;}
+    void Student::set_Name(string name) { _name = name;}
 
     /**
      * Recebe como atributo uma string que é atribuida como up do estudante.
     */
-    void Student::set_Up(string up_) { up = up_;}
+    void Student::set_Up(string up) { _up = up;}
 
     /**
      * Retorna o nome do estudante.
     */
-    string Student::get_Name() { return name;}
+    string Student::get_Name() const { return _name;}
 
     /**
      * Retorna o Up do estudante.
     */
-    string Student::get_Up() { return up;}  
+    string Student::get_Up() const { return _up;}  
 
     /**
      * Recebe uma Unidade Curricular e uma Aula como atributos, os quais são passados como tuplo de modo a serem adicionados ao "Horário" do estudante.
@@ -68,7 +68,7 @@
     }
 
     bool Student::operator< (Student s1) const{
-        return (up < s1.up);
+        return (_up < s1._up);
     }
 
 
