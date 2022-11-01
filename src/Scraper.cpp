@@ -115,6 +115,19 @@ set<Uc> Scraper::build_Uc(vector<string> vector){
     return _uc_Set;
 }
 
+bool reSort(Student s1, Student s2){
+    return (s1.get_Name() <= s2.get_Name());
+}
+
+vector<Student> Scraper::build_StudentsName(){
+    for (auto i: _student_Set){
+        _student_VectorName.push_back(i);
+    }
+
+    sort(_student_VectorName.begin(), _student_VectorName.end(), reSort);
+    return _student_VectorName;
+}
+
 set<Student> Scraper::get_StudentSet(){
     return _student_Set;
 }
