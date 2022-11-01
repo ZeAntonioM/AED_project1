@@ -9,8 +9,8 @@
 #include "Uc.h"
 #include <regex>
 #include <tuple>
-
-
+#include <fstream>
+#include <queue>
 
 using namespace std;
 
@@ -21,6 +21,7 @@ private:
     vector<Student>& _vectorStudent;
     set<Student>& _setStudent;
     set<Uc>& _setUc;
+    queue<string> permuteQueue; //UPcode,StudentName,UCcode,ClassCode
 
 public:
 
@@ -56,9 +57,12 @@ public:
         //CLASS PERMUTE TAB
         void class_Permute_Tab();
             void permute_Between_Students();
-                bool permute_Between_Students(int studentUp1, int studentUp2); //TODO
+                bool permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap); //TODO
             void permute_One_Student();
-                bool permute_One_Student(int studentUp1, string classCodeToChangeTo); //TODO
+                bool permute_One_Student(string studentUp1, string classCodeToChangeTo); //TODO
+
+    void processQueue();
+
 };
 
 #endif
