@@ -102,7 +102,9 @@ void Cli::startup()
 
 }
 
-
+/**
+ * Menu referente a estudantes. Chama as funções a pedido do utilizador dependendo do seu input
+ */
 void Cli::student_Tab()
 {
     bool check_To_Brake = false;
@@ -142,7 +144,9 @@ void Cli::student_Tab()
     }
 }
 
-
+/*
+ * Menu referente a Unidades Curriculares. Chama as funções a pedido do utilizador dependendo do seu input
+ */
 void Cli::uc_Tab() {
     bool check_To_Brake = false;
     while(!check_To_Brake) {
@@ -188,7 +192,9 @@ void Cli::uc_Tab() {
     }
 }
 
-
+/*
+ * Menu referente a turmas. Chama as funções a pedido do utilizador dependendo do seu input
+ */
 void Cli::class_Tab() {
 
     bool check_To_Brake = false;
@@ -230,7 +236,9 @@ void Cli::class_Tab() {
     }
 };
 
-
+/**
+ * Menu referente a permuta de estudantes. Chama as funções a pedido do utilizador dependendo do seu input
+ */
 void Cli::class_Permute_Tab(){
     bool check_To_Brake = false;
     while(!check_To_Brake) {
@@ -271,8 +279,9 @@ void Cli::class_Permute_Tab(){
 }
 
 //SUB MENUS
-
-
+/*
+ * Menu referente aos horários dos estudantes. Chama a funcao print_Schedule() com argumentos conforme as escolhas do utilizador
+ */
 void Cli::get_Student_Schedule() {
 
     bool check_To_Brake = false;
@@ -343,7 +352,9 @@ void Cli::get_Student_Schedule() {
     }
 }
 
-
+/*
+ * Menu referente a listagens de estudantes. Chama uma função consoante a escolha do utilizador
+ */
 void Cli::list_Students() {
     bool check_To_Brake = false;
     while(!check_To_Brake) {
@@ -383,7 +394,9 @@ void Cli::list_Students() {
     }
 }
 
-
+/*
+ * Lista os estudantes por ordem alfabética, crescente ou descrecente
+ */
 void Cli::list_Students_alpha(){
     bool check_To_Brake = false;
     while(!check_To_Brake) {
@@ -428,7 +441,9 @@ void Cli::list_Students_alpha(){
     }
 }
 
-
+/*
+ * Lista os estudantes por ordem de número de UP
+ */
 void Cli::list_Students_UP(){
 
     //Reserve iterator used to list in Descending Order
@@ -479,7 +494,9 @@ void Cli::list_Students_UP(){
     }
 }
 
-
+/*
+ * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador
+ */
 void Cli::print_Schedule(Student student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
     system("clear");
