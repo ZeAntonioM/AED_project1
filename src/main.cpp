@@ -21,6 +21,8 @@ int main(){
     auto set1 = students_classes_scraper.build_Uc(vec1);
     auto vec2 = students_classes_scraper.scrape_File("src/csv/students_classes.csv");
     auto set2 = students_classes_scraper.build_Students(vec2);
+    students_classes_scraper.build_StudentsName(set2);
+    auto set3 = students_classes_scraper.get_StudentSetName();
 /*
     for (auto i : set1){
         cout << i.get_Code() << "\n";
@@ -35,9 +37,13 @@ int main(){
                  << " das " << get<1>(u).get_ClassDate().get_StartingTime_f() << " às " << get<1>(u).get_ClassDate().get_EndingTime_f() << endl;
 
         }
-    }*/
+    }
 
-    Cli cli(set2, set1);
+    for (auto i: set3){
+        cout << i.get_Name() << endl;
+    }
+*/
+    Cli cli(set3, set2, set1);
     cli.startup();
 
     return 0;

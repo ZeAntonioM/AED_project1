@@ -115,6 +115,13 @@ set<Uc> Scraper::build_Uc(vector<string> vector){
     return _uc_Set;
 }
 
+
+void Scraper::build_StudentsName(set<Student> set1){
+    for (auto i: set1){
+        _student_SetName.insert(i);
+    }
+}
+
 set<Student> Scraper::get_StudentSet(){
     return _student_Set;
 }
