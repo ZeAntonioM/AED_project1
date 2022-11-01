@@ -32,7 +32,6 @@ Date::Date(std::string day, float startingTime, float duration)
 /**
  * Recebe um atributo no formato Time e atribui o mesmo ao _startingTime.
 */
-// Sets starting time
 void Date::set_StartingTime(Time startingTime)
 {
     _startingTime = startingTime;
@@ -41,7 +40,6 @@ void Date::set_StartingTime(Time startingTime)
 /**
  * Recebe um atributo em floating point que é passado para o formato Time e atribuido ao _startingTime.
 */
-// Sets starting time
 void Date::set_StartingTime(float startingTime)
 {
     _startingTime.minutes = std::modf(startingTime, &_startingTime.hours);
@@ -51,7 +49,6 @@ void Date::set_StartingTime(float startingTime)
 /**
  * Recebe um atributo no formato Time e atribui o mesmo ao _endingTime.
 */
-// Sets ending time
 void Date::set_EndingTime(Time endingTime)
 {
     _endingTime = endingTime;
@@ -60,7 +57,6 @@ void Date::set_EndingTime(Time endingTime)
 /**
  * Recebe um atributo em floating point que é passado para o formato Time e atribuido ao _endingTime.
 */
-// Sets ending time
 void Date::set_EndingTime(float endingTime)
 {
     _endingTime.hours = _startingTime.hours + (int) endingTime;
@@ -71,7 +67,6 @@ void Date::set_EndingTime(float endingTime)
 /**
  * Atrubui o argumento passado ao _day.
 */
-// Sets day
 void Date::set_Day(int day)
 {
     _day = day;
@@ -81,7 +76,6 @@ void Date::set_Day(int day)
  * Recebe como atributo usa string que é passada ao seu valor de int referente ao dia. 
  * Esse inteiro é então atribuido a _day.
 */
-// Sets day
 void Date::set_Day(std::string day)
 {
     _day = Weekdays.at(day);
@@ -93,7 +87,6 @@ void Date::set_Day(std::string day)
 /**
  * Retorna o _startingTime no tipo Time.
 */
-// Returns starting time in Time
 Time Date::get_StartingTime_T()
 {
     return _startingTime;
@@ -103,7 +96,6 @@ Time Date::get_StartingTime_T()
 /**
  * Retorna o _startingTime no tipo Float.
 */
-// Returns starting time in float
 float Date::get_StartingTime_f()
 {
     return _startingTime.hours + (_startingTime.minutes / 60);
@@ -112,7 +104,6 @@ float Date::get_StartingTime_f()
 /**
  * Retorna o _endingTime no tipo Time.
 */
-// Returns ending time in Time
 Time Date::get_EndingTime_T()
 {
     return _endingTime;
@@ -121,7 +112,6 @@ Time Date::get_EndingTime_T()
 /**
  * Retorna o _endingTime no tipo Float.
 */
-// Returns ending time in float
 float Date::get_EndingTime_f()
 {
     return _endingTime.hours + (_endingTime.minutes / 60);
@@ -139,13 +129,11 @@ std::string Date::get_Day_s()
 /**
  * Retorna _day em inteiro.
 */
-// Returns day in int
 int Date::get_Day_i()
 {
     return _day;
 }
 
-// Other member functionss
 /**
  * Para duas datas serem iguais é necesário que:
  *  - Se passem no mesmo dia;

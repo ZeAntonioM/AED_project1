@@ -65,6 +65,9 @@ bool Uc::operator==(Uc uc) const{
     return (_code == uc._code);
 }
 
+/**
+ * As Unidades Curriculares são ordenadas pelo seu código. Se o código da UC for menor que o código da UC uc1, então a Uc também é "menor"
+*/
 bool Uc::operator<(Uc uc1) const{
     return (_code < uc1._code);
 }

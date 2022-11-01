@@ -10,6 +10,10 @@ using namespace std;
 
 //TODO verificar as funcoes para ver se ha casos em que da para fazer binary search para ser mais eficiente
 
+/**
+ * Função chamada sempre após cada interface. É usada para gerir os inputs do utilizador e também para controlar o buffer. 
+ * Retorna a opção do utilizador.
+*/
 char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 {
     char option;
@@ -44,6 +48,9 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
     return option;
 }
 
+/**
+ * Interface inicial do programa. Chama a função manageInput() de modo a receber o input do utilizador.
+*/
 void Cli::startup()
 {
 

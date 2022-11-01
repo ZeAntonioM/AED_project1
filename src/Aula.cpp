@@ -25,7 +25,6 @@ Aula::Aula(std::string classCode, Date date, std::string type){
 };
 
 // Setters
-// Sets Class Code
 /**
  * Atribui a string passada como atributo ao _classCode da aula.
 */
@@ -34,7 +33,6 @@ void Aula::set_ClassCode(std::string classCode)
     _classCode = classCode;
 }
 
-// Sets Class date
 /**
  * Atribui a data passada como atributo ao atributo _date da aula.
 */
@@ -42,7 +40,6 @@ void Aula::set_ClassDate(Date date){
     _date = date;
 }
 
-//Sets class student count
 /**
  * Faz com que o inteiro passado como atributo seja o número de estudantes inscritos para frequentar a aula.
 */
@@ -50,7 +47,6 @@ void Aula::set_StudentCount(int studentCount){
     _studentCount = studentCount;
 }
 
-// Sets Class Type
 /**
  * Recebe uma string que atribui ao _type da Aula.
 */
@@ -59,7 +55,6 @@ void Aula::set_Type(std::string type){
 }
 
 // Getters
-// Returns the Class Code
 /**
  * Retorna o _classcode da aula.
 */
@@ -67,7 +62,6 @@ std::string Aula::get_ClassCode(){
     return _classCode;
 }
 
-// Returns the Class Date
 /**
  * Retorna o atributo _date da aula.
 */
@@ -75,7 +69,6 @@ Date Aula::get_ClassDate(){
     return _date;
 }
 
-//Returns current student Count
 /**
  * Retorna a quantidade de alunos insritos para frequentar a aula.
 */
@@ -90,7 +83,6 @@ std::string Aula::get_Type(){
     return _type;
 }
 
-//Checks equality for two Aula objects
 /**
  * Duas aulas são iguais se a turma associada for a mesma e se ambas ocorrerem ao mesmo tempo.
 */
@@ -98,6 +90,9 @@ bool Aula::operator==(Aula aula) const{
     return (this->_classCode == aula._classCode && this->_type == aula._type);
 }
 
+/**
+ * Uma turma é menor que outra se e só se o seu _classCode for menor que o _classCode do objeto com que estamos a comparar.
+*/
 bool Aula::operator< (Aula aula) const{
     return (this->_classCode < aula._classCode);
 }

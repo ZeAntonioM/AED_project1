@@ -59,14 +59,23 @@
         }
     }
 
+    /**
+     * Recebe um horário já existente e atribui esse horário ao estudante.
+    */
     void Student::set_Schedule(vector<tuple<Uc,Aula>> schedule){
         this->schedule = schedule;
     }
 
+    /**
+     * Retorna o horário atribuido ao estudante.
+    */
     vector<tuple<Uc,Aula>> Student::get_Schedule(){
         return schedule;
     }
 
+    /**
+     * Os estudantes são ordenados pelo seu up. Se o Up do estudante for menor que o do estudante s1, então o estudante é "menor".
+    */
     bool Student::operator< (Student s1) const{
         return (_up < s1._up);
     }
