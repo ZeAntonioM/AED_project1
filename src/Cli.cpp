@@ -399,10 +399,17 @@ void Cli::list_Students_alpha(){
 
         switch (option) {
             case '1':
-                //TODO for loop to print in ascending order
+                for (auto student: _vectorStudent){
+                    cout <<"\n" << student.get_Up() << ": " << student.get_Name();
+                }
+                wait_for_input();
                 break;
             case '2':
-                //TODO for loop to print in descending order
+                for(auto rit = _vectorStudent.rbegin(); rit != _vectorStudent.rend(); rit++){
+                    cout << "\n" << (*rit).get_Up() << ": " << (*rit).get_Name();
+                }
+
+                wait_for_input();
                 break;
             case 'b':
                 check_To_Brake = true;

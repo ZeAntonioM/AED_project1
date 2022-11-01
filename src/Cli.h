@@ -14,22 +14,17 @@
 
 using namespace std;
 
-struct reSort{
-    bool operator() (Student s1, Student s2){
-        return (s1.get_Name() <= s2.get_Name());
-    }
-};
 
 class Cli{
 private:
     bool check_quit = false;
-    set<Student, reSort>& _setStudentName;
+    vector<Student>& _vectorStudent;
     set<Student>& _setStudent;
     set<Uc>& _setUc;
 
 public:
 
-    Cli(set<Student, reSort>& setStudentName, set<Student>& setStudent, set<Uc>& setUc) : _setStudentName(setStudentName), _setStudent(setStudent), _setUc(setUc) {}
+    Cli(vector<Student>& vectorStudent, set<Student>& setStudent, set<Uc>& setUc) : _vectorStudent(vectorStudent), _setStudent(setStudent), _setUc(setUc) {}
 
     char manage_Input(const vector<char> &options_vector, bool allow_back = false /* isto é para decidir se a tab permite ir para trás*/ );
 
@@ -42,7 +37,7 @@ public:
             void get_Student_Schedule();
                 void print_Schedule(Student student, int day);
             void list_Students();
-                void list_Students_alpha(); //TODO
+                void list_Students_alpha();
                 void list_Students_UP();
 
         //UC TAB
