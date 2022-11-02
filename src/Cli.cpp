@@ -794,35 +794,30 @@ void Cli::permute_Between_Students(){
 
 }
 
-
 bool Cli::permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap) {
 
     vector<tuple<Uc, Aula>> tmpSchedule1, tmpSchedule2;
 
     auto student1it = _setStudent.find(Student("",studentUp1));
     if(student1it != _setStudent.end()){
-       tmpSchedule1 = (*student1it).get_Schedule();
-       bool ucFound = false;
-       for(auto slot : tmpSchedule1){
-           if(get<0>(slot)==ucToSwap){
-               ucFound=true;
-               break;
-           }
-       }
-
-    permuteQueue.push((*student2it).get_Up());
-    permuteQueue.push((*student2it).get_Name());
-    permuteQueue.push(ucToSwap);
-
-    for(auto slot : tmpSchedule1){
-        if(get<0>(slot)==ucToSwap){
-            permuteQueue.push(get<1>(slot).get_ClassCode());
-            break;
+        tmpSchedule1 = (*student1it).get_Schedule();
+        bool ucFound = false;
+        for(auto slot : tmpSchedule1){
+            if(get<0>(slot)==ucToSwap){
+                ucFound=true;
+                break;
+            }
         }
-    }
 
-    return true;
-}
+        if(!ucFound) {
+            cout << "\nStudent up" << studentUp1 << " does not have UC " << ucToSwap << " ,please try again";
+            return false;
+        }
+
+    } else{
+        cout << "\nStudent up" << studentUp1 << " was not found, please try again";
+        return false;
+    }
 
     auto student2it = _setStudent.find(Student("",studentUp2));
     if(student2it != _setStudent.end()){
@@ -870,7 +865,6 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
 
     return true;
 }
-
 
 /**
  * Pede ao utilizador para introduzir o up do estudante, a Uc e a turma para que o mesmo quer mudar.
