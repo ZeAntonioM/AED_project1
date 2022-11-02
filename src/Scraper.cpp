@@ -54,6 +54,7 @@ set<Student> Scraper::build_Students(vector<string> vector){
         Uc existing_uc = *uc_search;
 
         Aula turma_tp, turma_t, turma_pl;
+
         bool check_t = false, check_tp = false, check_pl = false;
 
         for (auto t: existing_uc.get_Turmas()){
@@ -64,6 +65,7 @@ set<Student> Scraper::build_Students(vector<string> vector){
             }
 
         }
+
         if (student_search == _student_Set.end()){ // se o student não existir
             if(check_t)student.add_UcClass(existing_uc, turma_t);
             if(check_tp)student.add_UcClass(existing_uc, turma_tp);
@@ -128,7 +130,26 @@ vector<Student> Scraper::build_StudentsName(){
     return _student_VectorName;
 }
 
-set<Student> Scraper::get_StudentSet(){
+void Scraper::update_StudentCount(){
+    bool check = true;
+    for (auto s: _student_Set){
+        for (auto t: s.get_Schedule()){
+            check = true;
+
+            for(auto &tup: _student_Count){
+                if(get<0>(tup) == get<0>(t).get_Code() && get<1>(tup) == (get<1>(t).get_ClassCode()+get<1>(t).get_Type())){
+                    get<2>(tup) = get<2>(tup) + 1; check = false;
+                }
+            }
+            
+            if (check){
+                _student_Count.push_back(make_tuple(get<0>(t).get_Code(), get<1>(t).get_ClassCode() + get<1>(t).get_Type(), 1));
+            }
+        }
+    }
+}
+
+set<Student>& Scraper::get_StudentSet(){
     return _student_Set;
 }
 

@@ -35,7 +35,7 @@
         this->schedule = schedule;
     }
 
-    vector<tuple<Uc,Aula>> Student::get_Schedule(){
+    vector<tuple<Uc,Aula>> Student::get_Schedule() const {
         return schedule;
     }
 
