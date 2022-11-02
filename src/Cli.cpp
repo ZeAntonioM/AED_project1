@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <iomanip>
+#include <unistd.h>
 #include "Cli.h"
 
 using namespace std;
@@ -573,7 +574,7 @@ void Cli::number_Student_UC() {
         int studentCount = 0;
         
         for (auto t: _studentCount){
-            if (get<0>(t) == ucCode){
+            if (get<0>(t) == ucCode && get<1>(t).length() == 8){
                 studentCount += get<2>(t);
             }
         }
@@ -810,27 +811,74 @@ void Cli::permute_One_Student(){
 
     string studentUp1="";
     string classCode="";
+    string ucCode="";
     cout << "\n----------- Permute one Student ------------\n"
          << "\n"
-         << "Choose Student (up): ";
+         << "Introduce Student (up): ";
     cin  >> studentUp1;
     cout << "\n"
-         << "Choose Class to move student (1LEIC01 - 3LEIC15): ";
+         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+    cin >> ucCode;
+    cout << "\n"
+         << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
     cin  >> classCode;
     cout << "\n";
-
-    if(permute_One_Student(studentUp1, classCode)){
-        cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
-    }else{
-        cout << "Permutation was not possible due to inbalance between classes";
+    if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) cout << "Invalid UC input, please try again\n"; 
+    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) cout << "Invalid Class code input, please try again \n";
+    else{
+        if(permute_One_Student(studentUp1, ucCode,  classCode)){
+            cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
+        }else{
+            cout << "Permutation was not possible, please try again";
+        }
     }
-
+    cin.ignore(INT16_MAX, '\n');
+    wait_for_input();
+    system("clear");
 }
 
-bool Cli::permute_One_Student(string studentUp1, string classCodeToChangeTo) {return 1;}
+bool Cli::permute_One_Student(string studentUp1, string ucCode, string classCodeToChangeTo) {
 
+    auto s_search = _setStudent.find(Student("", studentUp1));
+    int minimum = INT16_MAX;
+    string current_class;
+    bool check = true;
+    bool check2 = false;
+    Student stu = *s_search;
 
+    if (s_search != _setStudent.end()){
+        for (auto t: stu.get_Schedule()){
+            if (get<0>(t).get_Code() == ucCode) current_class = get<1>(t).get_ClassCode();
+        }
+        for (auto &tup: _studentCount){
+            if(get<0>(tup) == ucCode){
+                check = false;
+                minimum = min(minimum, get<2>(tup));
+                if(get<1>(tup).substr(0,7) == classCodeToChangeTo){
+                    if(get<2>(tup) < _cap && get<2>(tup) + 1 < minimum + 4 && !check2){
+                        check2 = true;
+                        permuteQueue.push(studentUp1);
+                        permuteQueue.push(stu.get_Name());
+                        permuteQueue.push(ucCode);
+                        permuteQueue.push(classCodeToChangeTo);
+                    }
+                    else if(!check2) {cout << "Permute wasn't possible due to an imbalance between classes\n";wait_for_input(); return false;}
+                }
+            }
+        }
 
+        for (auto &tup: _studentCount){
+            if (check2){
+                if (get<0>(tup) == ucCode && get<1>(tup).substr(0,7) == current_class) get<2>(tup) -= 1;
+            }
+        }
+
+        if (check){ cout << "UC wasn't found or the Class specified doesn't belog to the UC\n";wait_for_input(); return false;}
+        return true;
+    }
+    else{cout << "Student wasn't found\n"; wait_for_input();}
+    return false;
+}
 
 void Cli::wait_for_input(){
 
@@ -846,7 +894,7 @@ void Cli::processQueue() {
     if(!permuteQueue.empty()){
 
         ofstream ProcessedPermutes;
-        ProcessedPermutes.open("output/ProcessedPermutes.csv", std::ofstream::app);//opens file to write
+        ProcessedPermutes.open("output/ProcessedPermutes.csv", ios::out | ios::app);//opens file to write
 
         int count=0;
         while(!permuteQueue.empty()){
@@ -864,8 +912,8 @@ void Cli::processQueue() {
                 count++;
             }
         }
-
+        ProcessedPermutes << endl;
         ProcessedPermutes.close();
-        cout << "\nPermute queue was processed";
+        cout << "\nPermute queue was processed\n";
     }
 }
