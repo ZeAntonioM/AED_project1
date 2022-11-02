@@ -24,7 +24,7 @@ class Student{
         void set_Up(string up);
         void add_UcClass(Uc cadeira, Aula turma);
         void remove_UcClass(Uc cadeira, Aula turma);
-        vector<tuple<Uc,Aula>>& get_Schedule();
+        vector<tuple<Uc,Aula>> get_Schedule() const;
         void set_Schedule(vector<tuple<Uc,Aula>> schedule);
         bool operator< (Student s1) const;
 };
