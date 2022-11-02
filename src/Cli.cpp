@@ -566,17 +566,14 @@ void Cli::number_Student_UC() {
     system("clear");
 
     if(std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
-        //TODO da para fazer binary search??
-        int studentCount =0;
-        for(Student student : _setStudent){
-            auto schedule = student.get_Schedule();
-            for(auto slot : schedule){
-
-                if(get<0>(slot) == ucCode and get<1>(slot).get_Type() == "T"){
-                    studentCount += get<1>(slot).get_StudentCount();
-                }
+        int studentCount = 0;
+        
+        for (auto t: _studentCount){
+            if (get<0>(t) == ucCode){
+                studentCount += get<2>(t);
             }
         }
+        
         cout << "\nUC " << ucCode << " has " << studentCount << " students enrolled"<< endl;
     }else{
         cout << "Invalid Input, please try again\n";
@@ -693,13 +690,13 @@ void Cli::get_Class_Occupation() {
             for(auto turma : turmas){
                 if(turma.get_ClassCode() == classCode){
                     if(turma.get_Type()=="T"){
-                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical classes";
+                        //cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical classes";
                     }
                     if(turma.get_Type()=="TP"){
-                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical-pratice classes";
+                       // cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical-pratice classes";
                     }
                     if(turma.get_Type()=="PL"){
-                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in laboratory classes";
+                       // cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in laboratory classes";
                     }
                 }
             }

@@ -19,6 +19,7 @@ private:
     set<Student> _student_Set;
     vector<Student> _student_VectorName;
     set<Uc> _uc_Set;
+    set<tuple<string, string, int>> _student_Count;
     int _columns = 0;
 public:
     Scraper();
@@ -27,8 +28,10 @@ public:
     set<Student> build_Students(vector<string> vector);
     vector<Student> build_StudentsName();
     set<Uc> build_Uc(vector<string> vector);
-    set<Student> get_StudentSet();
-    vector<Student> get_StudentVectorName(){return _student_VectorName;}
+    void update_StudentCount();
+    set<Student>& get_StudentSet();
+    vector<Student>& get_StudentVectorName(){return _student_VectorName;}
+    set<tuple<string, string, int>>& get_StudentCount(){return _student_Count;}
     set<Uc> get_UcSet();
 };
 

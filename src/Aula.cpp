@@ -25,11 +25,6 @@ void Aula::set_ClassDate(Date date){
     _date = date;
 }
 
-//Sets class student count
-void Aula::set_StudentCount(int studentCount){
-    _studentCount = studentCount;
-}
-
 // Sets Class Type
 void Aula::set_Type(std::string type){
     _type = type;
@@ -44,11 +39,6 @@ std::string Aula::get_ClassCode(){
 // Returns the Class Date
 Date Aula::get_ClassDate(){
     return _date;
-}
-
-//Returns current student Count
-int Aula::get_StudentCount(){
-    return _studentCount;
 }
 
 std::string Aula::get_Type(){

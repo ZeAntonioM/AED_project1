@@ -17,12 +17,11 @@ using namespace std;
 int main(){
 
     Scraper students_classes_scraper;
-    auto vec1 = students_classes_scraper.scrape_File("src/csv/classes.csv");
-    auto uc_set = students_classes_scraper.build_Uc(vec1);
-    auto vec2 = students_classes_scraper.scrape_File("src/csv/students_classes.csv");
-    auto student_set = students_classes_scraper.build_Students(vec2);
+    auto uc_set = students_classes_scraper.build_Uc(students_classes_scraper.scrape_File("src/csv/classes.csv"));
+    auto student_set = students_classes_scraper.build_Students(students_classes_scraper.scrape_File("src/csv/students_classes.csv"));
     auto name_vec = students_classes_scraper.build_StudentsName();
-
+    students_classes_scraper.update_StudentCount();
+    auto studentCount_vec = students_classes_scraper.get_StudentCount();
 /*
     for (auto i : uc_set){
         cout << i.get_Code() << "\n";
@@ -42,8 +41,14 @@ int main(){
     for (auto i: name_vec){
         cout << i.get_Name() << endl;
     }
-*/
-    Cli cli(name_vec, student_set, uc_set);
+
+    cout << students_classes_scraper.get_StudentCount().size();
+    for (auto p: students_classes_scraper.get_StudentCount()){
+        
+        cout << get<0>(p) << " " << get<1>(p) << ": " << get<2>(p) << endl;
+    }
+    */
+    Cli cli(studentCount_vec, name_vec, student_set, uc_set);
     cli.startup();
 
     return 0;

@@ -18,13 +18,14 @@ using namespace std;
 class Cli{
 private:
     bool check_quit = false;
+    set<tuple<string,string,int>>& _studentCount;
     vector<Student>& _vectorStudent;
     set<Student>& _setStudent;
     set<Uc>& _setUc;
 
 public:
 
-    Cli(vector<Student>& vectorStudent, set<Student>& setStudent, set<Uc>& setUc) : _vectorStudent(vectorStudent), _setStudent(setStudent), _setUc(setUc) {}
+    Cli(set<tuple<string,string,int>>& studentCount, vector<Student>& vectorStudent, set<Student>& setStudent, set<Uc>& setUc) :_studentCount(studentCount), _vectorStudent(vectorStudent), _setStudent(setStudent), _setUc(setUc) {}
 
     char manage_Input(const vector<char> &options_vector, bool allow_back = false /* isto é para decidir se a tab permite ir para trás*/ );
 
