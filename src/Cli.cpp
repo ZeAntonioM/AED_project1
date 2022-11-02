@@ -146,7 +146,7 @@ void Cli::student_Tab()
     }
 }
 
-/*
+/**
  * Menu referente a Unidades Curriculares.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
@@ -195,7 +195,7 @@ void Cli::uc_Tab() {
     }
 }
 
-/*
+/**
  * Menu referente a turmas. 
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
@@ -284,7 +284,7 @@ void Cli::class_Permute_Tab(){
 }
 
 //SUB MENUS
-/*
+/**
  * Menu referente aos horários dos estudantes. 
  * Invoca a função manageInput de modo a obter o input do utilizador, que será referente ao dia da semana escolhido pelo mesmo. 
  * Chama a funcao print_Schedule() com argumentos conforme as escolhas do utilizador
@@ -359,7 +359,7 @@ void Cli::get_Student_Schedule() {
     }
 }
 
-/*
+/**
  * Menu referente a listagens orenada de estudantes.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
@@ -402,7 +402,7 @@ void Cli::list_Students() {
     }
 }
 
-/*
+/**
  * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por ordem alfabética, crescente ou descrecente dependendo do resultado.
  */
 void Cli::list_Students_alpha(){
@@ -449,7 +449,7 @@ void Cli::list_Students_alpha(){
     }
 }
 
-/*
+/**
  * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por UC dependendo do resultado.
  */
 void Cli::list_Students_UP(){
@@ -502,7 +502,7 @@ void Cli::list_Students_UP(){
     }
 }
 
-/*
+/**
  * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador. 
  */
 void Cli::print_Schedule(Student student, int day) {
