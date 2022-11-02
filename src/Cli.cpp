@@ -11,7 +11,7 @@ using namespace std;
 //TODO verificar as funcoes para ver se ha casos em que da para fazer binary search para ser mais eficiente
 
 /**
- * Função chamada sempre após cada interface. É usada para gerir os inputs do utilizador e também para controlar o buffer. 
+ * Função chamada sempre durante cada função de interface. É usada para gerir os inputs do utilizador e também para controlar o buffer. 
  * Retorna a opção do utilizador.
 */
 char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
@@ -49,7 +49,8 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 }
 
 /**
- * Interface inicial do programa. Chama a função manageInput() de modo a receber o input do utilizador.
+ * Interface inicial do programa.
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
 */
 void Cli::startup()
 {
@@ -103,7 +104,8 @@ void Cli::startup()
 }
 
 /**
- * Menu referente a estudantes. Chama as funções a pedido do utilizador dependendo do seu input
+ * Menu referente a estudantes.
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
 void Cli::student_Tab()
 {
@@ -145,7 +147,8 @@ void Cli::student_Tab()
 }
 
 /*
- * Menu referente a Unidades Curriculares. Chama as funções a pedido do utilizador dependendo do seu input
+ * Menu referente a Unidades Curriculares.
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
 void Cli::uc_Tab() {
     bool check_To_Brake = false;
@@ -193,7 +196,8 @@ void Cli::uc_Tab() {
 }
 
 /*
- * Menu referente a turmas. Chama as funções a pedido do utilizador dependendo do seu input
+ * Menu referente a turmas. 
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
 void Cli::class_Tab() {
 
@@ -237,7 +241,8 @@ void Cli::class_Tab() {
 };
 
 /**
- * Menu referente a permuta de estudantes. Chama as funções a pedido do utilizador dependendo do seu input
+ * Menu referente a permuta de estudantes. 
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
 void Cli::class_Permute_Tab(){
     bool check_To_Brake = false;
@@ -280,7 +285,9 @@ void Cli::class_Permute_Tab(){
 
 //SUB MENUS
 /*
- * Menu referente aos horários dos estudantes. Chama a funcao print_Schedule() com argumentos conforme as escolhas do utilizador
+ * Menu referente aos horários dos estudantes. 
+ * Invoca a função manageInput de modo a obter o input do utilizador, que será referente ao dia da semana escolhido pelo mesmo. 
+ * Chama a funcao print_Schedule() com argumentos conforme as escolhas do utilizador
  */
 void Cli::get_Student_Schedule() {
 
@@ -353,7 +360,8 @@ void Cli::get_Student_Schedule() {
 }
 
 /*
- * Menu referente a listagens de estudantes. Chama uma função consoante a escolha do utilizador
+ * Menu referente a listagens orenada de estudantes.
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
  */
 void Cli::list_Students() {
     bool check_To_Brake = false;
@@ -395,7 +403,7 @@ void Cli::list_Students() {
 }
 
 /*
- * Lista os estudantes por ordem alfabética, crescente ou descrecente
+ * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por ordem alfabética, crescente ou descrecente dependendo do resultado.
  */
 void Cli::list_Students_alpha(){
     bool check_To_Brake = false;
@@ -442,7 +450,7 @@ void Cli::list_Students_alpha(){
 }
 
 /*
- * Lista os estudantes por ordem de número de UP
+ * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por UC dependendo do resultado.
  */
 void Cli::list_Students_UP(){
 
@@ -495,7 +503,7 @@ void Cli::list_Students_UP(){
 }
 
 /*
- * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador
+ * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador. 
  */
 void Cli::print_Schedule(Student student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
@@ -505,18 +513,23 @@ void Cli::print_Schedule(Student student, int day) {
 
     for (auto t : student.get_Schedule()){
         if (get<1>(t).get_ClassDate().get_Day_s() == Weekdays.at(day)){
-        cout << "-> " << get<0>(t).get_Code() << " " << get<1>(t).get_Type() << ": "
-             << get<1>(t).get_ClassCode() << " at "
-             << get<1>(t).get_ClassDate().get_StartingTime_T().hours <<":"<< setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_StartingTime_T().minutes << " until " 
-             << get<1>(t).get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_EndingTime_T().minutes << endl;
+        cout << "\n" << "UC: " << get<0>(t).get_Code() << "\n"
+             << "Class: " << get<1>(t).get_ClassCode() << " (" << get<1>(t).get_Type() << ") "  << "\n"
+             << get<1>(t).get_ClassDate().get_StartingTime_T().hours <<":"<< setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_StartingTime_T().minutes << " -> " 
+             << get<1>(t).get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_EndingTime_T().minutes << endl ;
         }
     }
+    cout << "\n";
 
 
     wait_for_input();
     system("clear");
 }
 
+
+/**
+ * Lista todas as Unidades curriculares num determinado ano escolhido pelo input do utilizador. 
+*/
 void Cli::list_UCs() {
 
     string year;
@@ -546,7 +559,10 @@ void Cli::list_UCs() {
 
 }
 
-
+/**
+ * Pede ao utilizador a UC cujas aulas o mesmo quer verificar. 
+ * Após o utilizador introduzir um código de UC válido, a função lista as aulas.
+*/
 void Cli::get_UC_Lectures(){
     string ucCode;
 
@@ -565,12 +581,12 @@ void Cli::get_UC_Lectures(){
         }
         vector<Aula> lectures = (*UcCode).get_Turmas();
         int count = 1;
+        cout << "\n ------------------------------------ Lectures of UC " << ucCode << " ------------------------------------\n";
         for (Aula lecture: lectures) {
-            cout << "\nLecture number " << count << " on " << lecture.get_ClassDate().get_Day_s() << " at "
-                 << lecture.get_ClassDate().get_StartingTime_f() << " until "
-                 << lecture.get_ClassDate().get_EndingTime_f();
+            cout << "\nLecture number " << count << " on " << lecture.get_ClassDate().get_Day_s() <<  ":\n"
+                 << lecture.get_ClassDate().get_StartingTime_T().hours << ":" << setw(2) << setfill('0') << lecture.get_ClassDate().get_StartingTime_T().minutes << " -> "
+                 << lecture.get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << lecture.get_ClassDate().get_EndingTime_T().minutes << "\n";
             count++;
-            //TODO talvez uma maneira mais simpatica de apresentar as aulas?
         }
     }else{
         cout << "Invalid Input, please try again\n";
@@ -582,6 +598,10 @@ void Cli::get_UC_Lectures(){
 }
 
 
+/**
+ * Pede ao utilizador para introduzir o código da UC cujo utilizador pretende verificar a quantidade de alunos. 
+ * Após o utilizador introduzir uma input válido, a função imprime a quantidade de alunos que a UC tem.
+*/
 void Cli::number_Student_UC() {
     string ucCode;
 
@@ -612,7 +632,10 @@ void Cli::number_Student_UC() {
 
 }
 
-
+/**
+ * Menu referente à seleção do tipo de listagem de turmas.
+ * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+*/
 void Cli::list_Classes(){
 
     bool check_To_Brake = false;
@@ -655,6 +678,10 @@ void Cli::list_Classes(){
 
 }
 
+
+/**
+ * Lista todos as turmas em todas as Unidades curriculares.
+*/
 void Cli::list_All_Classes() {
 
     set<Aula> tmpTurmas;
@@ -674,7 +701,10 @@ void Cli::list_All_Classes() {
     system("clear");
 }
 
-
+/**
+* Pede ao utilizador para introduzir o código da UC cujo utilizador pretende listar as várias turmas existentes.
+*  Após um input válido, a função lista o código da turma e o tipo de aulas que a turma tem.
+*/
 void Cli::list_By_UC(){
 
     string ucCode;
@@ -700,7 +730,10 @@ void Cli::list_By_UC(){
     system("clear");
 }
 
-
+/**
+ * Pede ao utilizador para introduzir o código da turma cujo utilizador pretende verificar a quantidade de alunos. 
+ * Após um input válido a função lista a quantidade de alunos da turma para aulas T,TP e PL.
+*/
 void Cli::get_Class_Occupation() {
 
     string classCode;
@@ -737,6 +770,10 @@ void Cli::get_Class_Occupation() {
     system("clear");
 }
 
+/**
+ * Realiza a troca de turmas entre dois estudantes.
+ * Pede o up dos dois estudantes e a turma a que os mesmos querem trocar. Se a troca se verificar posssível então é realizada.
+*/
 void Cli::permute_Between_Students(){
     system("clear");
 
@@ -757,9 +794,15 @@ void Cli::permute_Between_Students(){
     }
 }
 
-
+//que é isto?
 bool Cli::permute_Between_Students(int student1, int student2) {return 1;}
 
+
+/**
+ * Pede ao utilizador para introduzir o up do estudante, a Uc e a turma para que o mesmo quer mudar.
+ * Após um input válido em todas as informações, a função verifica se é possivel realizar a troca sem que sejam quebradas regras de equilibrio.
+ * Se for possível realizar a troca, então a mesma é colocada em uma queue.
+*/
 void Cli::permute_One_Student(){
     system("clear");
 
@@ -781,12 +824,15 @@ void Cli::permute_One_Student(){
     }
 
 }
-
+//OK?
 bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {return 1;}
 
 
 
-
+/**
+ * Imprime "Press ENTER to continue...".
+ * É geralmente chamada após uma função de listagem, de modo a que o utilizador possa decidir que já verificou os dados que pretende verificar.
+*/
 void Cli::wait_for_input(){
 
     do
