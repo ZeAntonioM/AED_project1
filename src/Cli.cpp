@@ -686,23 +686,9 @@ void Cli::get_Class_Occupation() {
     system("clear");
 
     if(std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) {
-        //TODO da para fazer binary search??
-        //possivelmente pode nao apresentar todas as aulas dependendo as ordem que aparecem
-
-        for(auto uc : _setUc){
-            auto turmas = uc.get_Turmas();
-            for(auto turma : turmas){
-                if(turma.get_ClassCode() == classCode){
-                    if(turma.get_Type()=="T"){
-                        //cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical classes";
-                    }
-                    if(turma.get_Type()=="TP"){
-                       // cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical-pratice classes";
-                    }
-                    if(turma.get_Type()=="PL"){
-                       // cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in laboratory classes";
-                    }
-                }
+        for(auto t: _studentCount) {
+            if(get<1>(t).substr(0, 7) == classCode){
+                cout <<"\nClass " << get<1>(t) << " in UC " << get<0>(t) << " has " << get<2>(t) << " students enrolled";
             }
         }
     }else{
