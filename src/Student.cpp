@@ -69,7 +69,7 @@
     /**
      * Retorna o horário atribuido ao estudante.
     */
-    vector<tuple<Uc,Aula>> Student::get_Schedule(){
+    vector<tuple<Uc,Aula>> Student::get_Schedule() const {
         return schedule;
     }
 

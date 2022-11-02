@@ -41,13 +41,6 @@ void Aula::set_ClassDate(Date date){
 }
 
 /**
- * Faz com que o inteiro passado como atributo seja o número de estudantes inscritos para frequentar a aula.
-*/
-void Aula::set_StudentCount(int studentCount){
-    _studentCount = studentCount;
-}
-
-/**
  * Recebe uma string que atribui ao _type da Aula.
 */
 void Aula::set_Type(std::string type){
@@ -67,13 +60,6 @@ std::string Aula::get_ClassCode(){
 */
 Date Aula::get_ClassDate(){
     return _date;
-}
-
-/**
- * Retorna a quantidade de alunos insritos para frequentar a aula.
-*/
-int Aula::get_StudentCount(){
-    return _studentCount;
 }
 
 /**

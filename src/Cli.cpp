@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <iomanip>
+#include <unistd.h>
 #include "Cli.h"
 
 using namespace std;
@@ -26,7 +27,11 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
         cin >> option;
         bool check_to_break = false;
 
-        if (option == 'Q' || option == 'q'){system("clear"); check_quit = true; break;} // quit the tool
+        if (option == 'Q' || option == 'q'){system("clear");
+            check_quit = true;
+            processQueue();
+            break;
+        } // quit the tool
 
         // validar o input entre as 3 opções (infelizmente um input tp 14827634 é válido pq o primeiro caracter é válido, é oq é irmauns)
         for (char i : options_vector)
@@ -610,17 +615,14 @@ void Cli::number_Student_UC() {
     system("clear");
 
     if(std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
-        //TODO da para fazer binary search??
-        int studentCount =0;
-        for(Student student : _setStudent){
-            auto schedule = student.get_Schedule();
-            for(auto slot : schedule){
-
-                if(get<0>(slot) == ucCode and get<1>(slot).get_Type() == "T"){
-                    studentCount += get<1>(slot).get_StudentCount();
-                }
+        int studentCount = 0;
+        
+        for (auto t: _studentCount){
+            if (get<0>(t) == ucCode && get<1>(t).length() == 8){
+                studentCount += get<2>(t);
             }
         }
+        
         cout << "\nUC " << ucCode << " has " << studentCount << " students enrolled"<< endl;
     }else{
         cout << "Invalid Input, please try again\n";
@@ -742,23 +744,9 @@ void Cli::get_Class_Occupation() {
     system("clear");
 
     if(std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) {
-        //TODO da para fazer binary search??
-        //possivelmente pode nao apresentar todas as aulas dependendo as ordem que aparecem
-
-        for(auto uc : _setUc){
-            auto turmas = uc.get_Turmas();
-            for(auto turma : turmas){
-                if(turma.get_ClassCode() == classCode){
-                    if(turma.get_Type()=="T"){
-                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical classes";
-                    }
-                    if(turma.get_Type()=="TP"){
-                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in theoretical-pratice classes";
-                    }
-                    if(turma.get_Type()=="PL"){
-                        cout << "\nClass " << classCode << " has " << turma.get_StudentCount() << " students in laboratory classes";
-                    }
-                }
+        for(auto t: _studentCount) {
+            if(get<1>(t).substr(0, 7) == classCode){
+                cout <<"\nClass " << get<1>(t) << " in UC " << get<0>(t) << " has " << get<2>(t) << " students enrolled";
             }
         }
     }else{
@@ -777,7 +765,7 @@ void Cli::get_Class_Occupation() {
 void Cli::permute_Between_Students(){
     system("clear");
 
-    string studentUp1="", studentUp2="";
+    string studentUp1="", studentUp2="", ucCode="";
     cout << "\n----------- Permute two Students -----------\n"
          << "\n"
          << "Choose the first Student (up): ";
@@ -787,15 +775,101 @@ void Cli::permute_Between_Students(){
     cin >> studentUp2;
     cout << "\n";
 
-    if(permute_Between_Students(stoi(studentUp1), stoi(studentUp2))){
-        cout << "Student up" << studentUp1 << " changed classes with Student up" << studentUp2 << endl;
-    }else{
-        cout << "Permute was not possible" << endl;
+    cout << "Choose UC to swap students (L.EIC001 - L.EIC025): ";
+    cin >> ucCode;
+    cout << "\n";
+
+    if(std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
+        if (permute_Between_Students(studentUp1, studentUp2, ucCode)) {
+            cout << "Student up" << studentUp1 << " changed UC " << ucCode << " classes with Student up" << studentUp2 << endl;
+        } else {
+            cout << "Permute was not possible" << endl;
+        }
+    } else{
+        cout << "Invalid Input, please try again\n";
     }
+    cin.ignore(INT16_MAX, '\n');
+    wait_for_input();
+    system("clear");
+
 }
 
-//que é isto?
-bool Cli::permute_Between_Students(int student1, int student2) {return 1;}
+
+bool Cli::permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap) {
+
+    vector<tuple<Uc, Aula>> tmpSchedule1, tmpSchedule2;
+
+    auto student1it = _setStudent.find(Student("",studentUp1));
+    if(student1it != _setStudent.end()){
+       tmpSchedule1 = (*student1it).get_Schedule();
+       bool ucFound = false;
+       for(auto slot : tmpSchedule1){
+           if(get<0>(slot)==ucToSwap){
+               ucFound=true;
+               break;
+           }
+       }
+
+    permuteQueue.push((*student2it).get_Up());
+    permuteQueue.push((*student2it).get_Name());
+    permuteQueue.push(ucToSwap);
+
+    for(auto slot : tmpSchedule1){
+        if(get<0>(slot)==ucToSwap){
+            permuteQueue.push(get<1>(slot).get_ClassCode());
+            break;
+        }
+    }
+
+    return true;
+}
+
+    auto student2it = _setStudent.find(Student("",studentUp2));
+    if(student2it != _setStudent.end()){
+        tmpSchedule2 = (*student2it).get_Schedule();
+        bool ucFound = false;
+        for(auto slot : tmpSchedule2){
+            if(get<0>(slot)==ucToSwap){
+                ucFound=true;
+                break;
+            }
+        }
+
+        if(!ucFound) {
+            cout << "\nStudent up" << studentUp2 << " does not have UC " << ucToSwap << " ,please try again";
+            return false;
+        }
+
+    } else{
+        cout << "\nStudent up" << studentUp2 << " was not found, please try again";
+        return false;
+    }
+
+
+    permuteQueue.push((*student1it).get_Up());
+    permuteQueue.push((*student1it).get_Name());
+    permuteQueue.push(ucToSwap);
+
+    for(auto slot : tmpSchedule2){
+        if(get<0>(slot) == ucToSwap) {
+            permuteQueue.push(get<1>(slot).get_ClassCode());
+            break;
+        }
+    }
+
+    permuteQueue.push((*student2it).get_Up());
+    permuteQueue.push((*student2it).get_Name());
+    permuteQueue.push(ucToSwap);
+
+    for(auto slot : tmpSchedule1){
+        if(get<0>(slot)==ucToSwap){
+            permuteQueue.push(get<1>(slot).get_ClassCode());
+            break;
+        }
+    }
+
+    return true;
+}
 
 
 /**
@@ -808,27 +882,74 @@ void Cli::permute_One_Student(){
 
     string studentUp1="";
     string classCode="";
+    string ucCode="";
     cout << "\n----------- Permute one Student ------------\n"
          << "\n"
-         << "Choose Student (up): ";
+         << "Introduce Student (up): ";
     cin  >> studentUp1;
     cout << "\n"
-         << "Choose Class to move student (1LEIC01 - 3LEIC15): ";
+         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+    cin >> ucCode;
+    cout << "\n"
+         << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
     cin  >> classCode;
     cout << "\n";
-
-    if(permute_One_Student(stoi(studentUp1), classCode)){
-        cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
-    }else{
-        cout << "Permutation was not possible due to inbalance between classes";
+    if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) cout << "Invalid UC input, please try again\n"; 
+    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) cout << "Invalid Class code input, please try again \n";
+    else{
+        if(permute_One_Student(studentUp1, ucCode,  classCode)){
+            cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
+        }else{
+            cout << "Permutation was not possible, please try again";
+        }
     }
-
+    cin.ignore(INT16_MAX, '\n');
+    wait_for_input();
+    system("clear");
 }
-//OK?
-bool Cli::permute_One_Student(int studentUp1, string classCodeToChangeTo) {return 1;}
 
+bool Cli::permute_One_Student(string studentUp1, string ucCode, string classCodeToChangeTo) {
 
+    auto s_search = _setStudent.find(Student("", studentUp1));
+    int minimum = INT16_MAX;
+    string current_class;
+    bool check = true;
+    bool check2 = false;
+    Student stu = *s_search;
 
+    if (s_search != _setStudent.end()){
+        for (auto t: stu.get_Schedule()){
+            if (get<0>(t).get_Code() == ucCode) current_class = get<1>(t).get_ClassCode();
+        }
+        for (auto &tup: _studentCount){
+            if(get<0>(tup) == ucCode){
+                check = false;
+                minimum = min(minimum, get<2>(tup));
+                if(get<1>(tup).substr(0,7) == classCodeToChangeTo){
+                    if(get<2>(tup) < _cap && get<2>(tup) + 1 < minimum + 4 && !check2){
+                        check2 = true;
+                        permuteQueue.push(studentUp1);
+                        permuteQueue.push(stu.get_Name());
+                        permuteQueue.push(ucCode);
+                        permuteQueue.push(classCodeToChangeTo);
+                    }
+                    else if(!check2) {cout << "Permute wasn't possible due to an imbalance between classes\n";wait_for_input(); return false;}
+                }
+            }
+        }
+
+        for (auto &tup: _studentCount){
+            if (check2){
+                if (get<0>(tup) == ucCode && get<1>(tup).substr(0,7) == current_class) get<2>(tup) -= 1;
+            }
+        }
+
+        if (check){ cout << "UC wasn't found or the Class specified doesn't belog to the UC\n";wait_for_input(); return false;}
+        return true;
+    }
+    else{cout << "Student wasn't found\n"; wait_for_input();}
+    return false;
+}
 /**
  * Imprime "Press ENTER to continue...".
  * É geralmente chamada após uma função de listagem, de modo a que o utilizador possa decidir que já verificou os dados que pretende verificar.
@@ -840,4 +961,33 @@ void Cli::wait_for_input(){
         cout << '\n' << "Press ENTER to continue...";
     } while (cin.get() != '\n');
 
+}
+
+void Cli::processQueue() {
+
+    if(!permuteQueue.empty()){
+
+        ofstream ProcessedPermutes;
+        ProcessedPermutes.open("output/ProcessedPermutes.csv", ios::out | ios::app);//opens file to write
+
+        int count=0;
+        while(!permuteQueue.empty()){
+            if(count==4){
+                count=0;
+                ProcessedPermutes << endl;
+            }else if(count==3){
+                ProcessedPermutes << permuteQueue.front();
+                permuteQueue.pop();
+                count++;
+
+            } else{
+                ProcessedPermutes << permuteQueue.front() << ',';
+                permuteQueue.pop();
+                count++;
+            }
+        }
+        ProcessedPermutes << endl;
+        ProcessedPermutes.close();
+        cout << "\nPermute queue was processed\n";
+    }
 }

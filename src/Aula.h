@@ -10,7 +10,6 @@ class Aula{
 private:
     std::string _classCode;
     Date _date;
-    int _studentCount;
     std::string _type;
 
 public:
@@ -30,7 +29,6 @@ public:
     void set_ClassDate(Date date);
 
     //Sets Class Student count
-    void set_StudentCount(int studentCount);
 
     //Sets Class Type
     void set_Type(std::string type);
@@ -43,7 +41,6 @@ public:
     Date get_ClassDate();
 
     //Returns current student count
-    int get_StudentCount();
 
     //Gets class's type
     std::string get_Type();
