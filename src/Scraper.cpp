@@ -10,16 +10,19 @@ using namespace std;
 
 /**
  * Default constructor da classe Scrapper.
+ * Complexity: O(1).
 */
 Scraper::Scraper(){}
 
 /**
  * Destuctor da classe Scrapper.
+ * Complexity: O(1).
 */
 Scraper::~Scraper(){}
 
 /**
  * Lê um ficheiro e passa todas as palavras separadas por virgulas para um vetor.
+ * Complexity: O(n), sendo n o número de strings individuais (string entre duas vírgulas) presentes no ficheiro.
  * @param filename string referente ao nome do file que irá ser lido
  * @return vetor que contém todas as palavras do ficheiro.
 */
@@ -56,6 +59,7 @@ vector<string> Scraper::scrape_File(string filename){
 /**
  * Itera o vetor das palavras do ficheiro students_classes.csv e cria estudantes adicionando os mesmos ao set deestudantes. 
  * Atribui também aos mesmos as aulas que estes têm, juntamente com o tipo da aula.
+ * Complexity: O(n log(w) log(q)), sendo n o número de elementos no vetor que contém as strings lidas no ficheiro, w o número de estudantes já presentes no _student_Set, e q o número de UCs já presentes no _uc_Set.
  * @param vector vetor que contem as palavras recebidas do ficheiro students_classes
  * @return Set de estudantes
 */
@@ -106,6 +110,7 @@ set<Student> Scraper::build_Students(vector<string> vector){
 
 /**
  * Cria um set com todas as unidades curriculares. Atibui às mesmas aulas e também datas a essas mesmas aulas.
+ * Complexity: O(n log(w)), sendo n o número de elementos no vetor que contém as strings lidas no ficheiro, e w o número de UCs já presentes no _uc_Set.
  * @param vector vetor que contem as palavras do ficheiro classes
  * @return set de Unidades Curriculares existentes e suas respetivas aulas com horários.
 */
@@ -139,6 +144,7 @@ set<Uc> Scraper::build_Uc(vector<string> vector){
 
 /**
  * Ordena dois estudantes a partir dos seus nomes
+ * Complexity: O(1), compara sempre dois estudantes.
  * @param s1 estudante que pretende ser menor
  * @param s2 estudante que pretende ser maior
  * @return se o estudante s1 é menor ou igual ao estudante s2 segundo o seu nome.
@@ -149,6 +155,7 @@ bool reSort(Student s1, Student s2){
 
 /**
  * Ordena os estudantes a partir da função reSort().
+ * Complexity: O(n), sendo n o número de elementos do _student_Set.
  * @return vetor com os estudantes ordenados pelo seu nome
 */
 vector<Student> Scraper::build_StudentsName(){
@@ -162,6 +169,7 @@ vector<Student> Scraper::build_StudentsName(){
 
 /**
  * Percorre cada estudante e aumenta a quuantidade de estudantes em cada aula.
+ * Complexity: O(n*w*q), sendo n o número de elementos no _student_Set, w o número de elementos no vetor get_Schedule() de cada estudante, e q o número de elementos no vetor _student_Count.
 */
 void Scraper::update_StudentCount(){
     bool check = true;
@@ -184,6 +192,7 @@ void Scraper::update_StudentCount(){
 
 /**
  * Getter do set de estudantes
+ * Complexity: O(1)
  * @return set de estudantes
 */
 set<Student>& Scraper::get_StudentSet(){
@@ -191,17 +200,22 @@ set<Student>& Scraper::get_StudentSet(){
 }
 
 /**
+ * Getter do vetor de estudantes ordenados por nome
+ * Complexity: O(1)
  * @return vetor com os estudantes ordenados pelo nome          
 */
 vector<Student>& Scraper::get_StudentVectorName(){return _student_VectorName;}
 
 /**
+ * Getter do vetor que contém o número de estudantes por cada turma de cada UC
+ * Complexity: O(1)
  * @return Quantidade de alunos
 */
 vector<tuple<string, string, int>>& Scraper::get_StudentCount(){return _student_Count;}
 
 /**
  * Getter do set de Unidades Curriculares.
+ * Complexity: O(1)
  * @return set de Unidades Currículares
 */
 set<Uc> Scraper::get_UcSet(){
