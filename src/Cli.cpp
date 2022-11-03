@@ -13,6 +13,7 @@ using namespace std;
 
 /**
  * Função chamada sempre durante cada função de interface. É usada para gerir os inputs do utilizador e também para controlar o buffer. 
+ * Complexity: User Dependent, so there is no valid complexity
  * @param options_vector vector com elementos do tipo char. É o vetor que contém os inputs aceitos.
  * @param allow_back boolean que define se é possível utilizar o char 'B' ou não.
  * @return Retorna a opção do utilizador no tipo char.
@@ -58,6 +59,7 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 /**
  * Interface inicial do programa.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
 */
 void Cli::startup()
 {
@@ -113,6 +115,7 @@ void Cli::startup()
 /**
  * Menu referente a estudantes.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::student_Tab()
 {
@@ -156,6 +159,7 @@ void Cli::student_Tab()
 /**
  * Menu referente a Unidades Curriculares.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::uc_Tab() {
     bool check_To_Brake = false;
@@ -205,6 +209,7 @@ void Cli::uc_Tab() {
 /**
  * Menu referente a turmas. 
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::class_Tab() {
 
@@ -250,6 +255,7 @@ void Cli::class_Tab() {
 /**
  * Menu referente a permuta de estudantes. 
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::class_Permute_Tab(){
     bool check_To_Brake = false;
@@ -295,6 +301,7 @@ void Cli::class_Permute_Tab(){
  * Menu referente aos horários dos estudantes. 
  * Invoca a função manageInput de modo a obter o input do utilizador, que será referente ao dia da semana escolhido pelo mesmo. 
  * Chama a funcao print_Schedule() com argumentos conforme as escolhas do utilizador
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::get_Student_Schedule() {
 
@@ -369,6 +376,7 @@ void Cli::get_Student_Schedule() {
 /**
  * Menu referente a listagens orenada de estudantes.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::list_Students() {
     bool check_To_Brake = false;
@@ -411,6 +419,7 @@ void Cli::list_Students() {
 
 /**
  * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por ordem alfabética, crescente ou descrecente dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::list_Students_alpha(){
     bool check_To_Brake = false;
@@ -458,6 +467,7 @@ void Cli::list_Students_alpha(){
 
 /**
  * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por ordem de número mecanografico, crescente ou descrecente dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::list_Students_UP(){
 
@@ -510,7 +520,8 @@ void Cli::list_Students_UP(){
 }
 
 /**
- * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador. 
+ * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador.
+ * Complexity: O(n*log n) aside from user input
  * @param student É o estudante cujo horário será imprimido.
  * @param day inteiro referente ao dia cujo utilizador decidiu verificar o horário.
  */
@@ -521,7 +532,7 @@ void Cli::print_Schedule(const Student& student, int day) {
     cout << "\n------ Student up" << student.get_Up() << ": " << Weekdays.at(day) << "'s Schedule ------\n\n";
 
     for (auto t : student.get_Schedule()){
-        if (get<1>(t).get_ClassDate().get_Day_s() == Weekdays.at(day)){
+        if (get<1>(t).get_ClassDate().get_Day_s() == Weekdays.at(day) /* O(log n) */){
         cout << "\n" << "UC: " << get<0>(t).get_Code() << "\n"
              << "Class: " << get<1>(t).get_ClassCode() << " (" << get<1>(t).get_Type() << ") "  << "\n"
              << get<1>(t).get_ClassDate().get_StartingTime_T().hours <<":"<< setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_StartingTime_T().minutes << " -> " 
@@ -530,14 +541,14 @@ void Cli::print_Schedule(const Student& student, int day) {
     }
     cout << "\n";
 
-
     wait_for_input();
     system("clear");
 }
 
 
 /**
- * Lista todas as Unidades curriculares num determinado ano escolhido pelo input do utilizador. 
+ * Lista todas as Unidades curriculares num determinado ano escolhido pelo input do utilizador.
+ * Complexity: O(n) aside from user input
 */
 void Cli::list_UCs() {
 
@@ -571,6 +582,7 @@ void Cli::list_UCs() {
 /**
  * Pede ao utilizador a UC cujas aulas o mesmo quer verificar. 
  * Após o utilizador introduzir um código de UC válido, a função lista as aulas.
+ * Complexity: O(n) aside from user input
 */
 void Cli::get_UC_Lectures(){
     string ucCode;
@@ -610,6 +622,7 @@ void Cli::get_UC_Lectures(){
 /**
  * Pede ao utilizador para introduzir o código da UC cujo utilizador pretende verificar a quantidade de alunos. 
  * Após o utilizador introduzir uma input válido, a função imprime a quantidade de alunos que a UC tem.
+ * Complexity: O(n) aside from user input
 */
 void Cli::number_Student_UC() {
     string ucCode;
@@ -641,6 +654,7 @@ void Cli::number_Student_UC() {
 /**
  * Menu referente à seleção do tipo de listagem de turmas.
  * Invoca a função manageInput de modo a obter o input do utilizador e leva o mesmo a uma nova interface dependendo do resultado.
+ * Complexity: User Dependent, so there is no valid complexity
 */
 void Cli::list_Classes(){
 
@@ -686,6 +700,7 @@ void Cli::list_Classes(){
 
 /**
  * Lista todas as turmas em todas as Unidades curriculares.
+ * Complexity: O(n²) aside from user input
 */
 void Cli::list_All_Classes() {
 
@@ -709,6 +724,7 @@ void Cli::list_All_Classes() {
 /**
  * Pede ao utilizador para introduzir o código da UC cujo utilizador pretende listar as várias turmas existentes.
  * Após um input válido, a função lista o código da turma e o tipo de aulas que a turma tem.
+ * Complexity: O(n) aside from the user input
 */
 void Cli::list_By_UC(){
 
@@ -738,6 +754,7 @@ void Cli::list_By_UC(){
 /**
  * Pede ao utilizador para introduzir o código da turma cujo utilizador pretende verificar a quantidade de alunos. 
  * Após um input válido a função lista a quantidade de alunos da turma para aulas T,TP e PL.
+ * Complexity: O(n) aside from user input
 */
 void Cli::get_Class_Occupation() {
 
@@ -765,6 +782,7 @@ void Cli::get_Class_Occupation() {
  * Interface para a troca de turmas entre dois estudantes.
  * Pede o up dos dois estudantes e a Unidade Curricular a que os mesmos querem trocar.
  * Se a Unidade Curricular se verificar válida, entao chama a função permute_Between_Students(studentUp1, studentUp2, ucCode)
+ * Complexity: O(1) aside from user input
 */
 void Cli::permute_Between_Students(){
     system("clear");
@@ -802,6 +820,7 @@ void Cli::permute_Between_Students(){
 /**
  * Troca as turmas de dois estudantes, numa mesma Uc.
  * Após verificar se os números up estão corretos e se não existir sobreposições entre aulas, então a mesma é colocada em uma queue.
+ * Complexity: O(n²)
  * @param studentUp1 String relativa ao up do estudante 1
  * @param studentUP2 string relativa ao up do estudante 2
  * @param ucToSwap string relativa ao código da UC cujos alunos querem trocar de turma.
@@ -811,7 +830,7 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
 
     vector<tuple<Uc, Aula>> tmpSchedule1, tmpSchedule2;
 
-    auto student1it = _setStudent.find(Student("",studentUp1));
+    auto student1it = _setStudent.find(Student("",studentUp1)); //O(log n)
     if(student1it != _setStudent.end()){
         tmpSchedule1 = (*student1it).get_Schedule();
         bool ucFound = false;
@@ -903,6 +922,7 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
  * Interface para a mudança de turma de um estudante
  * Pede ao utilizador para introduzir o up do estudante, a Uc e a turma para que o mesmo quer mudar.
  * Apś verificar a validade da Uc e da turma, é chamada a função permute_One_Student(studentUp1, ucCode, classCode)
+ * Complexity: 0(n) aside from user input and assuming regex_match() complexity is O(n)
 */
 void Cli::permute_One_Student(){
     system("clear");
@@ -942,6 +962,7 @@ void Cli::permute_One_Student(){
  * Altera a turma de um aluno a uma UC em que o mesmo esteja inscrito.
  * Para verificarmos se é possível alterar, tem de se verificar o equilibrio entre turmas e se há sobreposição de aulas
  * Estas alterações são mandadas para uma queue de alterações.
+ * Complexity: O(n)
  * @param studentUp1 string referente ao Up do aluno que o utlizador pretende mudar de turmma
  * @param ucCode string referente ao código da unidade curricular onde o aluno irá mudar de turma
  * @param classCodeToChangeTo string referente ao código da turma para que o aluno pretende mudar
@@ -1007,6 +1028,7 @@ bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, co
 /**
  * Imprime "Press ENTER to continue...".
  * É geralmente chamada após uma função de listagem, de modo a que o utilizador possa decidir que já verificou os dados que pretende verificar.
+ * Complexity: User Dependent, so there is no valid complexity
 */
 void Cli::wait_for_input(){
 
@@ -1022,6 +1044,7 @@ void Cli::wait_for_input(){
  * Produz um ficheiro .csv na pasta "output" com as permutas ja processadas.
  * Se o ficheiro já existir, adiciona as novas permutas a este mesmo.
  * É chamada só no fim do programa.
+ * Complexity: O(n) aside from user input and assuming constant time for creating or/and openning .csv file
  */
 void Cli::processQueue() {
 
