@@ -38,7 +38,7 @@ public:
         //STUDENT TAB
         void student_Tab();
             void get_Student_Schedule();
-                void print_Schedule(Student student, int day);
+                void print_Schedule(const Student& student, int day);
             void list_Students();
                 void list_Students_alpha();
                 void list_Students_UP();
@@ -61,7 +61,7 @@ public:
             void permute_Between_Students();
                 bool permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap);
             void permute_One_Student();
-                bool permute_One_Student(string studentUp1, string ucCode, string classCodeToChangeTo);
+                bool permute_One_Student(const string& studentUp1, const string& ucCode, const string& classCodeToChangeTo);
 
     void processQueue();
 

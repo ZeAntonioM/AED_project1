@@ -514,7 +514,7 @@ void Cli::list_Students_UP(){
  * @param student É o estudante cujo horário será imprimido.
  * @param day inteiro referente ao dia cujo utilizador decidiu verificar o horário.
  */
-void Cli::print_Schedule(Student student, int day) {
+void Cli::print_Schedule(const Student& student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
     system("clear");
 
@@ -928,7 +928,7 @@ void Cli::permute_One_Student(){
  * @param classCodeToChangeTo string referente ao código da turma para que o aluno pretende mudar
  * @return boolean que fica a true caso a troca seja efetuada, ou a falso caso contrário.
 */
-bool Cli::permute_One_Student(string studentUp1, string ucCode, string classCodeToChangeTo) {
+bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, const string& classCodeToChangeTo) {
 
     auto s_search = _setStudent.find(Student("", studentUp1));
     int minimum = INT16_MAX;
@@ -1016,5 +1016,8 @@ void Cli::processQueue() {
         ProcessedPermutes << endl;
         ProcessedPermutes.close();
         cout << "\nPermute queue was processed\n";
+
+        cin.ignore(INT16_MAX, '\n');
+        wait_for_input();
     }
 }
