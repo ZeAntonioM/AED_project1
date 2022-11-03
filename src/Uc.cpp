@@ -76,12 +76,17 @@ bool Uc::operator==(const Uc& uc) const{
 /**
  * As Unidades Curriculares são ordenadas pelo seu código. Se o código da UC for menor que o código da UC uc1, então a Uc também é "menor"
  * @param uc1 objeto do tipo Uc a ser comparado
- * @return verdadeiro se o código da Uc for menor que o da cc1
+ * @return verdadeiro se o código da Uc for menor que o da uc1
 */
 bool Uc::operator<(const Uc& uc1) const{
     return (_code < uc1._code);
 }
 
+/**
+ * Duas unidades curriculares são diferente se os seus códigos forem diferentes.
+ * @param uc Objeto do tipo UC a ser comparado
+ * @return verdadeiro se o código das UCs forem diferentes
+*/
 bool Uc::operator!=(const Uc &uc) const {
     return (_code != uc._code);
 }

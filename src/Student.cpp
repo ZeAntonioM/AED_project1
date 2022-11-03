@@ -90,6 +90,7 @@ vector<tuple<Uc, Aula>> Student::get_Schedule() const {
 
 /**
  * Os estudantes são ordenados pelo seu up. Se o Up do estudante for menor que o do estudante s1, então o estudante é "menor".
+ * @param s1 Objeto do tipo student que irá ser comparado
  * @return verdadeiro se o Up do estudante for menor que o do estudante s1
 */
 bool Student::operator<(const Student& s1) const {
