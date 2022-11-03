@@ -162,6 +162,11 @@ bool Date::operator==(const Date& date) const{
         (this->_endingTime.hours == date._endingTime.hours && this->_endingTime.minutes == date._endingTime.minutes));
 }
 
+/**
+ * Verifica se uma data se sobrepoem a outra
+ * @param d2 objeto do tipo Date a verificar
+ * @return verdadeiro se no mesmo dia, data a comparar se sobrepor de alguma maneira á data comparada
+ */
 bool Date::collides(const Date& d2) const{
     return (this->get_Day_i() == d2.get_Day_i()) && (((this->get_StartingTime_f() > d2.get_StartingTime_f()) && (this->get_StartingTime_f() < d2.get_EndingTime_f())) ||
             ((this->get_EndingTime_f() > d2.get_StartingTime_f()) && (this->get_EndingTime_f() < d2.get_EndingTime_f())) ||

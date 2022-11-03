@@ -801,7 +801,7 @@ void Cli::permute_Between_Students(){
 
 /**
  * Troca as turmas de dois estudantes, numa mesma Uc.
- * Após verificar se os números up estão corretos e se for possível realizar a troca, então a mesma é colocada em uma queue.
+ * Após verificar se os números up estão corretos e se não existir sobreposições entre aulas, então a mesma é colocada em uma queue.
  * @param studentUp1 String relativa ao up do estudante 1
  * @param studentUP2 string relativa ao up do estudante 2
  * @param ucToSwap string relativa ao código da UC cujos alunos querem trocar de turma.
@@ -939,7 +939,8 @@ void Cli::permute_One_Student(){
 
 
 /**
- * Altera a turma de um aluno a uma UC em que o mesmo esteja inscrito. Para verificarmos se é possível alterar, tem de se verificar o equilibrio entre turmas.
+ * Altera a turma de um aluno a uma UC em que o mesmo esteja inscrito.
+ * Para verificarmos se é possível alterar, tem de se verificar o equilibrio entre turmas e se há sobreposição de aulas
  * Estas alterações são mandadas para uma queue de alterações.
  * @param studentUp1 string referente ao Up do aluno que o utlizador pretende mudar de turmma
  * @param ucCode string referente ao código da unidade curricular onde o aluno irá mudar de turma
