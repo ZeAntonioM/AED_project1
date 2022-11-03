@@ -19,7 +19,7 @@ Scraper::Scraper(){}
 Scraper::~Scraper(){}
 
 /**
- * lê um ficheiro e passa todas as palavras separadas por virgulas para um vetor.
+ * Lê um ficheiro e passa todas as palavras separadas por virgulas para um vetor.
  * @param filename string referente ao nome do file que irá ser lido
  * @return vetor que contém todas as palavras do ficheiro.
 */
@@ -191,7 +191,7 @@ set<Student>& Scraper::get_StudentSet(){
 }
 
 /**
- * @return vetor com os estudantes ordenados pelo nome
+ * @return vetor com os estudantes ordenados pelo nome          
 */
 vector<Student>& Scraper::get_StudentVectorName(){return _student_VectorName;}
 
