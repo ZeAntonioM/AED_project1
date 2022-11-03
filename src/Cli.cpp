@@ -455,7 +455,7 @@ void Cli::list_Students_alpha(){
 }
 
 /**
- * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por UC dependendo do resultado.
+ * Invoca a função manageInput de modo a obter o input do utilizador e lista os estudantes por ordem de número mecanografico, crescente ou descrecente dependendo do resultado.
  */
 void Cli::list_Students_UP(){
 
@@ -682,7 +682,7 @@ void Cli::list_Classes(){
 
 
 /**
- * Lista todos as turmas em todas as Unidades curriculares.
+ * Lista todas as turmas em todas as Unidades curriculares.
 */
 void Cli::list_All_Classes() {
 
@@ -704,8 +704,8 @@ void Cli::list_All_Classes() {
 }
 
 /**
-* Pede ao utilizador para introduzir o código da UC cujo utilizador pretende listar as várias turmas existentes.
-*  Após um input válido, a função lista o código da turma e o tipo de aulas que a turma tem.
+ * Pede ao utilizador para introduzir o código da UC cujo utilizador pretende listar as várias turmas existentes.
+ * Após um input válido, a função lista o código da turma e o tipo de aulas que a turma tem.
 */
 void Cli::list_By_UC(){
 
@@ -759,13 +759,14 @@ void Cli::get_Class_Occupation() {
 }
 
 /**
- * Realiza a troca de turmas entre dois estudantes.
- * Pede o up dos dois estudantes e a turma a que os mesmos querem trocar. Se a troca se verificar posssível então é realizada.
+ * Interface para a troca de turmas entre dois estudantes.
+ * Pede o up dos dois estudantes e a Unidade Curricular a que os mesmos querem trocar.
+ * Se a Unidade Curricular se verificar válida, entao chama a função permute_Between_Students(studentUp1, studentUp2, ucCode)
 */
 void Cli::permute_Between_Students(){
     system("clear");
 
-    string studentUp1="", studentUp2="", ucCode="";
+    string studentUp1, studentUp2, ucCode;
     cout << "\n----------- Permute two Students -----------\n"
          << "\n"
          << "Choose the first Student (up): ";
@@ -794,6 +795,11 @@ void Cli::permute_Between_Students(){
 
 }
 
+
+/**
+ * Troca as turmas de dois estudantes, numa mesma Uc.
+ * Após verificar se os números up estão corretos e se for possível realizar a troca, então a mesma é colocada em uma queue.
+*/
 bool Cli::permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap) {
 
     vector<tuple<Uc, Aula>> tmpSchedule1, tmpSchedule2;
@@ -867,16 +873,16 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
 }
 
 /**
+ * Interface para a mudança de turma de um estudante
  * Pede ao utilizador para introduzir o up do estudante, a Uc e a turma para que o mesmo quer mudar.
- * Após um input válido em todas as informações, a função verifica se é possivel realizar a troca sem que sejam quebradas regras de equilibrio.
- * Se for possível realizar a troca, então a mesma é colocada em uma queue.
+ * Apś verificar a validade da Uc e da turma, é chamada a função permute_One_Student(studentUp1, ucCode, classCode)
 */
 void Cli::permute_One_Student(){
     system("clear");
 
-    string studentUp1="";
-    string classCode="";
-    string ucCode="";
+    string studentUp1;
+    string classCode;
+    string ucCode;
     cout << "\n----------- Permute one Student ------------\n"
          << "\n"
          << "Introduce Student (up): ";
@@ -888,8 +894,11 @@ void Cli::permute_One_Student(){
          << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
     cin  >> classCode;
     cout << "\n";
-    if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) cout << "Invalid UC input, please try again\n"; 
-    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) cout << "Invalid Class code input, please try again \n";
+
+    if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]")))
+        cout << "Invalid UC input, please try again\n";
+    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]")))
+        cout << "Invalid Class code input, please try again \n";
     else{
         if(permute_One_Student(studentUp1, ucCode,  classCode)){
             cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
@@ -897,11 +906,16 @@ void Cli::permute_One_Student(){
             cout << "Permutation was not possible, please try again";
         }
     }
+
     cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
 
+/*
+ * Após um input válido em todas as informações, a função verifica se é possivel realizar a troca sem que sejam quebradas regras de equilibrio.
+ * Se for possível realizar a troca, então a mesma é colocada em uma queue.
+ */
 bool Cli::permute_One_Student(string studentUp1, string ucCode, string classCodeToChangeTo) {
 
     auto s_search = _setStudent.find(Student("", studentUp1));
@@ -957,6 +971,12 @@ void Cli::wait_for_input(){
 
 }
 
+/**
+ * Processa os dados colocados na queue.
+ * Produz um ficheiro .csv na pasta "output" com as permutas ja processadas.
+ * Se o ficheiro já existir, adiciona as novas permutas a este mesmo.
+ * É chamada só no fim do programa.
+ */
 void Cli::processQueue() {
 
     if(!permuteQueue.empty()){
