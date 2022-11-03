@@ -13,7 +13,9 @@ using namespace std;
 
 /**
  * Função chamada sempre durante cada função de interface. É usada para gerir os inputs do utilizador e também para controlar o buffer. 
- * Retorna a opção do utilizador.
+ * @param options_vector vector com elementos do tipo char. É o vetor que contém os inputs aceitos.
+ * @param allow_back boolean que define se é possível utilizar o char 'B' ou não.
+ * @return Retorna a opção do utilizador no tipo char.
 */
 char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 {
@@ -509,6 +511,8 @@ void Cli::list_Students_UP(){
 
 /**
  * Apresenta o horário de certo dia de um dado estudante escolhido pelo utilizador. 
+ * @param student É o estudante cujo horário será imprimido.
+ * @param day inteiro referente ao dia cujo utilizador decidiu verificar o horário.
  */
 void Cli::print_Schedule(Student student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
@@ -680,7 +684,6 @@ void Cli::list_Classes(){
 
 }
 
-
 /**
  * Lista todos as turmas em todas as Unidades curriculares.
 */
@@ -794,6 +797,13 @@ void Cli::permute_Between_Students(){
 
 }
 
+/**
+ * Realiza a troca entre dois estudantes caso seja possível.
+ * @param studentUp1 String relativa ao up do estudante 1
+ * @param studentUP2 string relativa ao up do estudante 2
+ * @param ucToSwap string relativa ao código da UC cujos alunos querem trocar de turma.
+ * @return boolean que ficará a true caso a troca seja efetuado, e a falso caso contrário.
+*/
 bool Cli::permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap) {
 
     vector<tuple<Uc, Aula>> tmpSchedule1, tmpSchedule2;
@@ -902,6 +912,14 @@ void Cli::permute_One_Student(){
     system("clear");
 }
 
+/**
+ * Altera a turma de um aluno a uma UC em que o mesmo esteja inscrito. Para verificarmos se é possível alterar, tem de se verificar o equilibrio entre turmas.
+ * Estas alterações são mandadas para uma queue de alterações.
+ * @param studentUp1 string referente ao Up do aluno que o utlizador pretende mudar de turmma
+ * @param ucCode string referente ao código da unidade curricular onde o aluno irá mudar de turma
+ * @param classCodeToChangeTo string referente ao código da turma para que o aluno pretende mudar
+ * @return boolean que fica a true caso a troca seja efetuada, ou a falso caso contrário.
+*/
 bool Cli::permute_One_Student(string studentUp1, string ucCode, string classCodeToChangeTo) {
 
     auto s_search = _setStudent.find(Student("", studentUp1));
@@ -944,6 +962,7 @@ bool Cli::permute_One_Student(string studentUp1, string ucCode, string classCode
     else{cout << "Student wasn't found\n"; wait_for_input();}
     return false;
 }
+
 /**
  * Imprime "Press ENTER to continue...".
  * É geralmente chamada após uma função de listagem, de modo a que o utilizador possa decidir que já verificou os dados que pretende verificar.

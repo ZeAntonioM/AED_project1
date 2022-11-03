@@ -50,6 +50,7 @@ void Aula::set_Type(std::string type){
 // Getters
 /**
  * Retorna o _classcode da aula.
+ * @return código da Turma
 */
 std::string Aula::get_ClassCode(){
     return _classCode;
