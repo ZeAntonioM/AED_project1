@@ -79,7 +79,6 @@ set<Student> Scraper::build_Students(vector<string> vector){
                 if (t.get_Type() == "TP"){ turma_tp = t; check_tp = true;}
                 if (t.get_Type() == "PL"){ turma_pl = t; check_pl = true;}
             }
-
         }
 
         if (student_search == _student_Set.end()){ // se o student não existir

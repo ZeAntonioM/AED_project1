@@ -167,4 +167,3 @@ bool Date::collides(const Date& d2) const{
             ((this->get_EndingTime_f() > d2.get_StartingTime_f()) && (this->get_EndingTime_f() < d2.get_EndingTime_f())) ||
             (*this == d2));
 }
-}
