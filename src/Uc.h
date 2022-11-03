@@ -27,6 +27,7 @@ class Uc{
         vector<Aula> get_Turmas() const;
         void set_Turmas(const vector<Aula>& turmas);
         bool operator==(const Uc& uc) const;
+        bool operator!=(const Uc& uc) const;
         bool operator<(const Uc& uc1) const;
 
 

@@ -815,8 +815,8 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
     if(student1it != _setStudent.end()){
         tmpSchedule1 = (*student1it).get_Schedule();
         bool ucFound = false;
-        for(auto slot : tmpSchedule1){
-            if(get<0>(slot)==ucToSwap){
+        for(auto slot = tmpSchedule1.begin(); slot != tmpSchedule1.end(); slot++){
+            if(get<0>(*slot)==ucToSwap){
                 ucFound=true;
                 break;
             }
@@ -836,8 +836,8 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
     if(student2it != _setStudent.end()){
         tmpSchedule2 = (*student2it).get_Schedule();
         bool ucFound = false;
-        for(auto slot : tmpSchedule2){
-            if(get<0>(slot)==ucToSwap){
+        for(auto slot = tmpSchedule2.begin(); slot != tmpSchedule2.end(); slot++){
+            if(get<0>(*slot)==ucToSwap){
                 ucFound=true;
                 break;
             }
@@ -859,9 +859,19 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
     permuteQueue.push(ucToSwap);
 
     for(auto slot : tmpSchedule2){
-        if(get<0>(slot) == ucToSwap) {
-            permuteQueue.push(get<1>(slot).get_ClassCode());
-            break;
+        if(get<0>(slot) == ucToSwap) {  //encontrar a uc a mudar no horario do segundo estudante
+            bool overlaps=false;
+            for(auto slot1 : tmpSchedule1){ //ver se ha colisoes no horario do estudante 1
+                if(get<1>(slot1).get_ClassDate().collides(get<1>(slot).get_ClassDate()) && get<0>(slot1) != ucToSwap){
+                    overlaps=true;
+                    cout << "\nPermute is not possible because overlapping between some classes occurs";
+                    break;
+                }
+            }
+            if(!overlaps) {
+                permuteQueue.push(get<1>(slot).get_ClassCode());
+                break;
+            }
         }
     }
 
@@ -871,8 +881,18 @@ bool Cli::permute_Between_Students(const string& studentUp1, const string& stude
 
     for(auto slot : tmpSchedule1){
         if(get<0>(slot)==ucToSwap){
-            permuteQueue.push(get<1>(slot).get_ClassCode());
-            break;
+            bool overlaps=false;
+            for(auto slot2 : tmpSchedule2){
+                if(get<1>(slot2).get_ClassDate().collides(get<1>(slot).get_ClassDate()) && get<0>(slot2) != ucToSwap){
+                    overlaps=true;
+                    cout << "\nPermute is not possible because overlapping between some classes occurs";
+                    break;
+                }
+            }
+            if(!overlaps){
+                permuteQueue.push(get<1>(slot).get_ClassCode());
+                break;
+            }
         }
     }
 

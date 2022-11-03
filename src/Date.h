@@ -47,24 +47,24 @@ public:
 
     //Getters
     //Returns starting time in Time 
-    Time get_StartingTime_T();
+    Time get_StartingTime_T() const;
 
     //Returns starting time in float
-    float get_StartingTime_f();
+    float get_StartingTime_f() const;
 
     //Returns ending time in Time 
-    Time get_EndingTime_T();
+    Time get_EndingTime_T() const;
 
     //Returns ending time in float
-    float get_EndingTime_f();
+    float get_EndingTime_f() const;
 
     //Returns day in string
-    std::string get_Day_s();
+    std::string get_Day_s() const;
 
     //Returns day in int
-    int get_Day_i();
+    int get_Day_i() const;
 
-    bool colides(Date d1);
+    bool collides(const Date& d2) const;
 
     bool operator== (const Date& date) const;
 };

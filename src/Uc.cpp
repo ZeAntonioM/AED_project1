@@ -81,3 +81,7 @@ bool Uc::operator==(const Uc& uc) const{
 bool Uc::operator<(const Uc& uc1) const{
     return (_code < uc1._code);
 }
+
+bool Uc::operator!=(const Uc &uc) const {
+    return (_code != uc._code);
+}

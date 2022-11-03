@@ -97,7 +97,7 @@ void Date::set_Day(const std::string& day)
  * Retorna o _startingTime no tipo Time.
  * @return objeto do tipo Time referente à hora de começo
 */
-Time Date::get_StartingTime_T()
+Time Date::get_StartingTime_T() const
 {
     return _startingTime;
 }
@@ -107,7 +107,7 @@ Time Date::get_StartingTime_T()
  * Retorna o _startingTime no tipo Float.
  * @return float referente à hora de começo
 */
-float Date::get_StartingTime_f()
+float Date::get_StartingTime_f() const
 {
     return _startingTime.hours + (_startingTime.minutes / 60);
 }
@@ -116,7 +116,7 @@ float Date::get_StartingTime_f()
  * Retorna o _endingTime no tipo Time.
  * @return objeto do tipo Time referente à hora de término
 */
-Time Date::get_EndingTime_T()
+Time Date::get_EndingTime_T() const
 {
     return _endingTime;
 }
@@ -125,7 +125,7 @@ Time Date::get_EndingTime_T()
  * Retorna o _endingTime no tipo Float.
  * @return float referente à hora de término
 */
-float Date::get_EndingTime_f()
+float Date::get_EndingTime_f() const
 {
     return _endingTime.hours + (_endingTime.minutes / 60);
 }
@@ -134,7 +134,7 @@ float Date::get_EndingTime_f()
  * Retorna _day em string.
  * @return string com o dia da semana referente
 */
-std::string Date::get_Day_s()
+std::string Date::get_Day_s() const
 {
     return _stringDay;
 }
@@ -143,7 +143,7 @@ std::string Date::get_Day_s()
  * Retorna _day em inteiro.
  * @return int com o dia da semana referente
 */
-int Date::get_Day_i()
+int Date::get_Day_i() const
 {
     return _day;
 }
@@ -162,8 +162,9 @@ bool Date::operator==(const Date& date) const{
         (this->_endingTime.hours == date._endingTime.hours && this->_endingTime.minutes == date._endingTime.minutes));
 }
 
-bool Date::colides(Date d2){
-    return ((this->get_StartingTime_f() > d2.get_StartingTime_f()) && (this->get_StartingTime_f() < d2.get_EndingTime_f())) ||
-           ((this->get_EndingTime_f() > d2.get_StartingTime_f()) && (this->get_EndingTime_f() < d2.get_EndingTime_f())) || 
-           (*this == d2);
+bool Date::collides(const Date& d2) const{
+    return (this->get_Day_i() == d2.get_Day_i()) && (((this->get_StartingTime_f() > d2.get_StartingTime_f()) && (this->get_StartingTime_f() < d2.get_EndingTime_f())) ||
+            ((this->get_EndingTime_f() > d2.get_StartingTime_f()) && (this->get_EndingTime_f() < d2.get_EndingTime_f())) ||
+            (*this == d2));
+}
 }
