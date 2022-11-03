@@ -26,7 +26,6 @@ public:
     //Date construtor
     Date(const std::string& day, const float& startingTime, const float& duration);
 
-
     //Setters
     //Sets starting time
     void set_StartingTime(const Time& startingTime);
@@ -64,6 +63,8 @@ public:
 
     //Returns day in int
     int get_Day_i();
+
+    bool colides(Date d1);
 
     bool operator== (const Date& date) const;
 };

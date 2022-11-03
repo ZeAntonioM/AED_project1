@@ -157,7 +157,13 @@ int Date::get_Day_i()
  *  @return verdadeiro se as condições necessárias se confirmarem
 */
 bool Date::operator==(const Date& date) const{
-        return (this->_day == date._day && 
+    return (this->_day == date._day && 
         (this->_startingTime.hours == date._startingTime.hours && this->_startingTime.minutes == date._startingTime.minutes) &&
         (this->_endingTime.hours == date._endingTime.hours && this->_endingTime.minutes == date._endingTime.minutes));
+}
+
+bool Date::colides(Date d2){
+    return ((this->get_StartingTime_f() > d2.get_StartingTime_f()) && (this->get_StartingTime_f() < d2.get_EndingTime_f())) ||
+           ((this->get_EndingTime_f() > d2.get_StartingTime_f()) && (this->get_EndingTime_f() < d2.get_EndingTime_f())) || 
+           (*this == d2);
 }

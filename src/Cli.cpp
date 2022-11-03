@@ -904,13 +904,11 @@ void Cli::permute_One_Student(){
 
     if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]")))
         cout << "Invalid UC input, please try again\n";
-    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]")))
+    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][123456789]")))
         cout << "Invalid Class code input, please try again \n";
     else{
         if(permute_One_Student(studentUp1, ucCode,  classCode)){
             cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
-        }else{
-            cout << "Permutation was not possible, please try again";
         }
     }
 
@@ -931,16 +929,30 @@ void Cli::permute_One_Student(){
 bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, const string& classCodeToChangeTo) {
 
     auto s_search = _setStudent.find(Student("", studentUp1));
+    auto u_search = _setUc.find(Uc(ucCode));
+    Date new_date;
     int minimum = INT16_MAX;
     string current_class;
     bool check = true;
     bool check2 = false;
     Student stu = *s_search;
+    Uc uc = *u_search;
+    vector<Date> student_dates;
 
     if (s_search != _setStudent.end()){
         for (auto t: stu.get_Schedule()){
+            student_dates.push_back(get<1>(t).get_ClassDate()); 
             if (get<0>(t).get_Code() == ucCode) current_class = get<1>(t).get_ClassCode();
         }
+
+        for(auto c: uc.get_Turmas()){
+            if (c.get_ClassCode() == classCodeToChangeTo) new_date = c.get_ClassDate();
+        }
+
+        for (auto d: student_dates){
+            if (d.colides(new_date)){cout << "Permute wasn't possible due to class overposition\n"; return false;}
+        }
+
         for (auto &tup: _studentCount){
             if(get<0>(tup) == ucCode){
                 check = false;
@@ -964,7 +976,7 @@ bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, co
             }
         }
 
-        if (check){ cout << "UC wasn't found or the Class specified doesn't belog to the UC\n";wait_for_input(); return false;}
+        if (check){ cout << "UC wasn't found or the Class specified doesn't belong to the UC\n";wait_for_input(); return false;}
         return true;
     }
     else{cout << "Student wasn't found\n"; wait_for_input();}
