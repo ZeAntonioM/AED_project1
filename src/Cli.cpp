@@ -976,6 +976,9 @@ void Cli::wait_for_input(){
 
 }
 
+/**
+ * Processa os resultados que foram postos em queue e coloca os mesmos num file "Processed Permutes".
+*/
 void Cli::processQueue() {
 
     if(!permuteQueue.empty()){
