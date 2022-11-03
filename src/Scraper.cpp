@@ -8,11 +8,21 @@
 
 using namespace std;
 
-
+/**
+ * Default constructor da classe Scrapper.
+*/
 Scraper::Scraper(){}
 
+/**
+ * Destuctor da classe Scrapper.
+*/
 Scraper::~Scraper(){}
 
+/**
+ * lê um ficheiro e passa todas as palavras separadas por virgulas para um vetor.
+ * @param filename string referente ao nome do file que irá ser lido
+ * @return vetor que contém todas as palavras do ficheiro.
+*/
 vector<string> Scraper::scrape_File(string filename){
     _columns = 0;
     ifstream file;
@@ -43,6 +53,12 @@ vector<string> Scraper::scrape_File(string filename){
     return result;
 }
 
+/**
+ * Itera o vetor das palavras do ficheiro students_classes.csv e cria estudantes adicionando os mesmos ao set deestudantes. 
+ * Atribui também aos mesmos as aulas que estes têm, juntamente com o tipo da aula.
+ * @param vector vetor que contem as palavras recebidas do ficheiro students_classes
+ * @return Set de estudantes
+*/
 set<Student> Scraper::build_Students(vector<string> vector){
 
     for (int i = 0; i < (int) vector.size(); i += _columns){
@@ -89,6 +105,11 @@ set<Student> Scraper::build_Students(vector<string> vector){
     return _student_Set;
 }
 
+/**
+ * Cria um set com todas as unidades curriculares. Atibui às mesmas aulas e também datas a essas mesmas aulas.
+ * @param vector vetor que contem as palavras do ficheiro classes
+ * @return set de Unidades Curriculares existentes e suas respetivas aulas com horários.
+*/
 set<Uc> Scraper::build_Uc(vector<string> vector){
 
     for (int i = 0; i < (int)vector.size(); i += _columns){
@@ -117,10 +138,20 @@ set<Uc> Scraper::build_Uc(vector<string> vector){
     return _uc_Set;
 }
 
+/**
+ * Ordena dois estudantes a partir dos seus nomes
+ * @param s1 estudante que pretende ser menor
+ * @param s2 estudante que pretende ser maior
+ * @return se o estudante s1 é menor ou igual ao estudante s2 segundo o seu nome.
+*/
 bool reSort(Student s1, Student s2){
     return (s1.get_Name() <= s2.get_Name());
 }
 
+/**
+ * Ordena os estudantes a partir da função reSort().
+ * @return vetor com os estudantes ordenados pelo seu nome
+*/
 vector<Student> Scraper::build_StudentsName(){
     for (auto i: _student_Set){
         _student_VectorName.push_back(i);
@@ -130,6 +161,9 @@ vector<Student> Scraper::build_StudentsName(){
     return _student_VectorName;
 }
 
+/**
+ * Percorre cada estudante e aumenta a quuantidade de estudantes em cada aula.
+*/
 void Scraper::update_StudentCount(){
     bool check = true;
     for (auto s: _student_Set){
@@ -149,10 +183,18 @@ void Scraper::update_StudentCount(){
     }
 }
 
+/**
+ * Getter do set de estudantes
+ * @return set de estudantes
+*/
 set<Student>& Scraper::get_StudentSet(){
     return _student_Set;
 }
 
+/**
+ * Getter do set de Unidades Curriculares.
+ * @return set de Unidades Currículares
+*/
 set<Uc> Scraper::get_UcSet(){
     return _uc_Set;
 }

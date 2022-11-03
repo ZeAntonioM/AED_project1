@@ -985,7 +985,7 @@ void Cli::wait_for_input(){
 }
 
 /**
- * Processa os dados colocados na queue.
+ * Processa os resultados colocados anteriormente na queue.
  * Produz um ficheiro .csv na pasta "output" com as permutas ja processadas.
  * Se o ficheiro já existir, adiciona as novas permutas a este mesmo.
  * É chamada só no fim do programa.
