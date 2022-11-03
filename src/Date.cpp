@@ -162,8 +162,8 @@ bool Date::operator==(const Date& date) const{
         (this->_endingTime.hours == date._endingTime.hours && this->_endingTime.minutes == date._endingTime.minutes));
 }
 
-bool Date::colides(Date d2){
-    return ((this->get_StartingTime_f() > d2.get_StartingTime_f()) && (this->get_StartingTime_f() < d2.get_EndingTime_f())) ||
+bool Date::collides(Date d2){
+    return (this->get_Day_i() == d2.get_Day_i()) && (((this->get_StartingTime_f() > d2.get_StartingTime_f()) && (this->get_StartingTime_f() < d2.get_EndingTime_f())) ||
            ((this->get_EndingTime_f() > d2.get_StartingTime_f()) && (this->get_EndingTime_f() < d2.get_EndingTime_f())) || 
-           (*this == d2);
+           (*this == d2));
 }

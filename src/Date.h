@@ -64,7 +64,7 @@ public:
     //Returns day in int
     int get_Day_i();
 
-    bool colides(Date d1);
+    bool collides(Date d1);
 
     bool operator== (const Date& date) const;
 };

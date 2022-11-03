@@ -950,7 +950,7 @@ bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, co
         }
 
         for (auto d: student_dates){
-            if (d.colides(new_date)){cout << "Permute wasn't possible due to class overposition\n"; return false;}
+            if (d.collides(new_date)){cout << "Permute wasn't possible due to class overposition\n"; return false;}
         }
 
         for (auto &tup: _studentCount){
