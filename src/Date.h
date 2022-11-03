@@ -14,7 +14,7 @@ static std::map<std::string, int> Weekdays = {{"Monday", 1}, {"Tuesday", 2}, {"W
 
 class Date{
 private:    
-    int _day;
+    int _day{};
     std::string _stringDay;
 
     Time _startingTime = {0,0};
@@ -24,27 +24,27 @@ public:
     //Default constructor
     Date();
     //Date construtor
-    Date(std::string day, float startingTime, float duration);
+    Date(const std::string& day, const float& startingTime, const float& duration);
 
 
     //Setters
     //Sets starting time
-    void set_StartingTime(Time startingTime);
+    void set_StartingTime(const Time& startingTime);
 
     //Sets starting time
-    void set_StartingTime(float startingTime);
+    void set_StartingTime(const float& startingTime);
 
     //Sets ending time
-    void set_EndingTime(Time endingTime);
+    void set_EndingTime(const Time& endingTime);
 
     //Sets ending time
-    void set_EndingTime(float endingTime);
+    void set_EndingTime(const float& endingTime);
 
     //Sets day
-    void set_Day(int day);
+    void set_Day(const int& day);
 
     //Sets day
-    void set_Day(std::string day);
+    void set_Day(const std::string& day);
 
     //Getters
     //Returns starting time in Time 
@@ -65,7 +65,7 @@ public:
     //Returns day in int
     int get_Day_i();
 
-    bool operator== (Date date) const;
+    bool operator== (const Date& date) const;
 };
 
 #endif

@@ -16,22 +16,22 @@ public:
     //Default construtor
     Aula();
 
-    Aula(std::string classCode);
+    Aula(const std::string& classCode);
 
     //Aula construtor
-    Aula(std::string classCode, Date date, std::string type);
+    Aula(const std::string& classCode, const Date& date, const std::string& type);
 
     //Setters
     //Sets Class Code
-    void set_ClassCode(std::string classCode);
+    void set_ClassCode(const std::string& classCode);
 
     //Sets Class date
-    void set_ClassDate(Date date);
+    void set_ClassDate(const Date& date);
 
     //Sets Class Student count
 
     //Sets Class Type
-    void set_Type(std::string type);
+    void set_Type(const std::string& type);
     
     //Getters
     //Returns the Class Code
@@ -48,8 +48,8 @@ public:
     
 
     //Checks equality between Aula objects
-    bool operator==(Aula aula) const;
-    bool operator<(Aula aula) const;
+    bool operator==(const Aula& aula) const;
+    bool operator<(const Aula& aula) const;
 };
 
 #endif

@@ -10,8 +10,11 @@ Date::Date() {}
  * Constutor da class Date: 
  * Recebe como atributos o dia em que acontece a aula, a hora a que começa e a sua duração;
  * Calcula o ending time através de um algoritmo de soma entre o tempo inicial e a duração da aula.
+ * @param day string relativa ao dia a definir
+ * @param duration float referente á hora de começo
+ * @param startingTime float referente á dureção
 */
-Date::Date(std::string day, float startingTime, float duration)
+Date::Date(const std::string& day, const float& startingTime, const float& duration)
 {
     // Turns string into int for easier searching later maybe
     _day = Weekdays.at(day);
@@ -31,16 +34,18 @@ Date::Date(std::string day, float startingTime, float duration)
 
 /**
  * Recebe um atributo no formato Time e atribui o mesmo ao _startingTime.
+ * @param startingTime objeto do tipo Time referente à hora de começo
 */
-void Date::set_StartingTime(Time startingTime)
+void Date::set_StartingTime(const Time& startingTime)
 {
     _startingTime = startingTime;
 }
 
 /**
  * Recebe um atributo em floating point que é passado para o formato Time e atribuido ao _startingTime.
+ * @param startingTime objeto float referente à hora de começo
 */
-void Date::set_StartingTime(float startingTime)
+void Date::set_StartingTime(const float& startingTime)
 {
     _startingTime.minutes = std::modf(startingTime, &_startingTime.hours);
     _startingTime.minutes *= 60;
@@ -48,16 +53,18 @@ void Date::set_StartingTime(float startingTime)
 
 /**
  * Recebe um atributo no formato Time e atribui o mesmo ao _endingTime.
+ * @param endingTime objeto do tipo Time referente à hora de término
 */
-void Date::set_EndingTime(Time endingTime)
+void Date::set_EndingTime(const Time& endingTime)
 {
     _endingTime = endingTime;
 }
 
 /**
  * Recebe um atributo em floating point que é passado para o formato Time e atribuido ao _endingTime.
+ * @param endingTime objeto float referente à hora de término
 */
-void Date::set_EndingTime(float endingTime)
+void Date::set_EndingTime(const float& endingTime)
 {
     _endingTime.hours = _startingTime.hours + (int) endingTime;
     _endingTime.minutes = std::modf(endingTime, &_endingTime.hours);
@@ -66,8 +73,9 @@ void Date::set_EndingTime(float endingTime)
 
 /**
  * Atrubui o argumento passado ao _day.
+ * @param day int referente ao dia a ser definido
 */
-void Date::set_Day(int day)
+void Date::set_Day(const int& day)
 {
     _day = day;
 }
@@ -75,8 +83,9 @@ void Date::set_Day(int day)
 /**
  * Recebe como atributo usa string que é passada ao seu valor de int referente ao dia. 
  * Esse inteiro é então atribuido a _day.
+ * @param day string referente ao dia a ser definido
 */
-void Date::set_Day(std::string day)
+void Date::set_Day(const std::string& day)
 {
     _day = Weekdays.at(day);
     _stringDay = day;
@@ -86,6 +95,7 @@ void Date::set_Day(std::string day)
 
 /**
  * Retorna o _startingTime no tipo Time.
+ * @return objeto do tipo Time referente à hora de começo
 */
 Time Date::get_StartingTime_T()
 {
@@ -95,6 +105,7 @@ Time Date::get_StartingTime_T()
 
 /**
  * Retorna o _startingTime no tipo Float.
+ * @return float referente à hora de começo
 */
 float Date::get_StartingTime_f()
 {
@@ -103,6 +114,7 @@ float Date::get_StartingTime_f()
 
 /**
  * Retorna o _endingTime no tipo Time.
+ * @return objeto do tipo Time referente à hora de término
 */
 Time Date::get_EndingTime_T()
 {
@@ -111,6 +123,7 @@ Time Date::get_EndingTime_T()
 
 /**
  * Retorna o _endingTime no tipo Float.
+ * @return float referente à hora de término
 */
 float Date::get_EndingTime_f()
 {
@@ -119,8 +132,8 @@ float Date::get_EndingTime_f()
 
 /**
  * Retorna _day em string.
+ * @return string com o dia da semana referente
 */
-// Returns day in string
 std::string Date::get_Day_s()
 {
     return _stringDay;
@@ -128,6 +141,7 @@ std::string Date::get_Day_s()
 
 /**
  * Retorna _day em inteiro.
+ * @return int com o dia da semana referente
 */
 int Date::get_Day_i()
 {
@@ -139,8 +153,10 @@ int Date::get_Day_i()
  *  - Se passem no mesmo dia;
  *  - Começem à mesma hora;
  *  - Terminem à mesma hora.
+ *  @param date objeto do tipo Date a comparar
+ *  @return verdadeiro se as condições necessárias se confirmarem
 */
-bool Date::operator==(Date date) const{
+bool Date::operator==(const Date& date) const{
         return (this->_day == date._day && 
         (this->_startingTime.hours == date._startingTime.hours && this->_startingTime.minutes == date._startingTime.minutes) &&
         (this->_endingTime.hours == date._endingTime.hours && this->_endingTime.minutes == date._endingTime.minutes));
