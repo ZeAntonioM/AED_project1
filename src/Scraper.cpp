@@ -191,6 +191,16 @@ set<Student>& Scraper::get_StudentSet(){
 }
 
 /**
+ * @return vetor com os estudantes ordenados pelo nome
+*/
+vector<Student>& Scraper::get_StudentVectorName(){return _student_VectorName;}
+
+/**
+ * @return Quantidade de alunos
+*/
+vector<tuple<string, string, int>>& Scraper::get_StudentCount(){return _student_Count;}
+
+/**
  * Getter do set de Unidades Curriculares.
  * @return set de Unidades Currículares
 */
