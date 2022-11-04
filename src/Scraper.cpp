@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <unistd.h>
 #include "Scraper.h"
 
 using namespace std;
@@ -186,6 +187,66 @@ void Scraper::update_StudentCount(){
             if (check){
                 _student_Count.push_back(make_tuple(get<0>(t).get_Code(), get<1>(t).get_ClassCode() + get<1>(t).get_Type(), 1));
             }
+        }
+    }
+}
+
+void Scraper::read_Permutes(){
+    auto vec = scrape_File("output/ProcessedPermutes.csv");
+
+    for (int i = 0; i < (int)vec.size(); i += _columns){
+        
+        if (vec[i].substr(0,1) != "-"){
+            auto s_search = _student_Set.find(Student(vec[i + 1], vec[i]));
+            auto u_search = _uc_Set.find(Uc(vec[2+i]));
+
+            Student stu = *s_search;
+            Uc uc = *u_search;
+            Aula turma_t, turma_tp, turma_pl;
+            bool check1 = false, check2 = false, check3 = false;
+
+            for (auto &a: uc.get_Turmas()){
+                if (a.get_ClassCode() == vec[3 + i] && a.get_Type() == "T"){ turma_t = a; check1 = true;}
+                if (a.get_ClassCode() == vec[3 + i] && a.get_Type() == "TP"){ turma_tp = a; check2 = true;}
+                if (a.get_ClassCode() == vec[3 + i] && a.get_Type() == "PL"){ turma_pl = a; check3 = true;}
+            }
+
+            Student new_student = Student(vec[i + 1], vec[i]);
+            new_student.set_Schedule(stu.get_Schedule());
+
+            for (auto t: new_student.get_Schedule()){
+                if (get<0>(t).get_Code() == vec[2+i]) new_student.remove_UcClass(get<0>(t), get<1>(t));
+            }
+
+            if (check1) new_student.add_UcClass(uc, turma_t);
+            if (check2) new_student.add_UcClass(uc, turma_tp);
+            if (check3) new_student.add_UcClass(uc, turma_pl);
+
+            _student_Set.erase(s_search);
+            _student_Set.insert(new_student);
+        }
+        else if(vec[i].substr(0,1) == "-"){
+            auto s_search = _student_Set.find(Student(vec[i + 1], vec[i].substr(1,9)));
+            auto u_search = _uc_Set.find(Uc(vec[2+i]));
+
+            Student stu = *s_search;
+            Uc uc = *u_search;
+            Aula turma_t, turma_tp, turma_pl;
+            bool check1 = false, check2 = false, check3 = false;
+
+            for (auto &a: uc.get_Turmas()){
+                if (a.get_ClassCode() == vec[3 + i] && a.get_Type() == "T"){ turma_t = a; check1 = true;}
+                if (a.get_ClassCode() == vec[3 + i] && a.get_Type() == "TP"){ turma_tp = a; check2 = true;}
+                if (a.get_ClassCode() == vec[3 + i] && a.get_Type() == "PL"){ turma_pl = a; check3 = true;}
+            }
+
+            Student new_student = Student(vec[i + 1], vec[i].substr(1,9));
+            new_student.set_Schedule(stu.get_Schedule());
+            if (check1) new_student.remove_UcClass(uc, turma_t);
+            if (check2) new_student.remove_UcClass(uc, turma_tp);
+            if (check3) new_student.remove_UcClass(uc, turma_pl);
+            _student_Set.erase(s_search);
+            _student_Set.insert(new_student);
         }
     }
 }
