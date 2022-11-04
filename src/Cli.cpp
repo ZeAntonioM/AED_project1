@@ -271,12 +271,14 @@ void Cli::class_Permute_Tab(){
              << "\n"
              << "[2] - One student only"
              << "\n"
+             << "[3] - Enroll in a UC"
+             << "\n"
              << "[B] - Go to previous menu"
              << "\n"
              << "[Q] - Quit tool"
              << "\n";
 
-        vector<char> options = {'1', '2'};
+        vector<char> options = {'1', '2', '3'};
         char option = manage_Input(options, true);
 
         switch (option) {
@@ -285,6 +287,9 @@ void Cli::class_Permute_Tab(){
                 break;
             case '2':
                 permute_One_Student();
+                break;
+            case '3':
+                enroll_In();
                 break;
             case 'b':
                 check_To_Brake = true;
@@ -1023,6 +1028,71 @@ bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, co
     }
     else{cout << "Student wasn't found\n"; wait_for_input();}
     return false;
+}
+
+void Cli::enroll_In(){
+    system("clear");
+
+    string ucCode;
+    string classCode;
+    string studentUp1;
+
+    cout << "\n----------- Enroll in Uc ------------\n"
+         << "\n"
+         << "Introduce Student (up): ";
+    cin  >> studentUp1;
+    cout << "\n"
+         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+    cin >> ucCode;
+    cout << "\n"
+         << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
+    cin  >> classCode;
+    cout << "\n";
+    cin.ignore(INT16_MAX, '\n');
+
+    auto s_search = _setStudent.find(Student("", studentUp1));
+    auto u_search = _setUc.find(Uc(ucCode));
+
+    if (s_search == _setStudent.end()){cout << "Student not found\n"; wait_for_input(); return;}
+    if (u_search == _setUc.end()){cout << "Uc not found\n"; wait_for_input(); return;}
+
+    Student stu = *s_search;
+    Uc uc = *u_search;
+    bool check_class = true;
+    vector<Date> student_dates;
+    int minimum = INT16_MAX;
+
+    for (auto d: stu.get_Schedule()){
+        student_dates.push_back(get<1>(d).get_ClassDate());
+    }
+
+
+    for (auto c: uc.get_Turmas()){
+        if (c.get_ClassCode() == classCode){
+            check_class = false;
+            for (auto d: student_dates){
+                if (d.collides(c.get_ClassDate())){cout << "Enrollment wasn't possible due to class overposition\n"; wait_for_input(); return;}
+            }
+            for (auto tup: _studentCount){
+                minimum = min(get<2>(tup), minimum);
+                if (get<0>(tup) == ucCode && get<1>(tup).substr(0,7) == classCode){
+                    if (get<2>(tup) == _cap || get<2>(tup) + 1 >= minimum + 4){
+                        cout << "Enrollment wasn't possible due to inbalance between classes\n";
+                        wait_for_input();
+                        return;
+                    }
+                }
+            }
+        }
+    }
+    if (check_class){cout <<"Class not found or isn't assigned to the Uc\n"; wait_for_input(); return;}
+
+    permuteQueue.push(studentUp1);
+    permuteQueue.push(stu.get_Name());
+    permuteQueue.push(ucCode);
+    permuteQueue.push(classCode);
+    cout << "Enrollment was done succesfully\n";
+    wait_for_input();
 }
 
 /**

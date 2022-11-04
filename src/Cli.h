@@ -62,6 +62,8 @@ public:
                 bool permute_Between_Students(const string& studentUp1, const string& studentUp2, const string& ucToSwap);
             void permute_One_Student();
                 bool permute_One_Student(const string& studentUp1, const string& ucCode, const string& classCodeToChangeTo);
+            void enroll_In();
+            void delist();
 
     void processQueue();
 
