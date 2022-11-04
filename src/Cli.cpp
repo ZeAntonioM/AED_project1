@@ -550,9 +550,7 @@ void Cli::print_Schedule(const Student& student, int day) {
         }
     }
     cout << "\n";
-
     wait_for_input();
-    system("clear");
 }
 
 
@@ -950,7 +948,7 @@ void Cli::permute_One_Student(){
 
     if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]")))
         cout << "Invalid UC input, please try again\n";
-    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][123456789]")))
+    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][0123456789]")))
         cout << "Invalid Class code input, please try again \n";
     else{
         if(permute_One_Student(studentUp1, ucCode,  classCode)){

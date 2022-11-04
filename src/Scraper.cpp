@@ -191,6 +191,11 @@ void Scraper::update_StudentCount(){
     }
 }
 
+/**
+ * Lê o ficheiro csv que contém as alterações a fazer aos estudantes carrgados, e realiza as alterações no _setStudent
+ * Complexity: O(n), sendo n o número de alterações presentes no ficheiro
+*/
+
 void Scraper::read_Permutes(){
     auto vec = scrape_File("output/ProcessedPermutes.csv");
 
