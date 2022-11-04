@@ -273,12 +273,14 @@ void Cli::class_Permute_Tab(){
              << "\n"
              << "[3] - Enroll in a UC"
              << "\n"
+             << "[4] - Delist from a UC"
+             << "\n"
              << "[B] - Go to previous menu"
              << "\n"
              << "[Q] - Quit tool"
              << "\n";
 
-        vector<char> options = {'1', '2', '3'};
+        vector<char> options = {'1', '2', '3', '4'};
         char option = manage_Input(options, true);
 
         switch (option) {
@@ -290,6 +292,9 @@ void Cli::class_Permute_Tab(){
                 break;
             case '3':
                 enroll_In();
+                break;
+            case '4':
+                delist();
                 break;
             case 'b':
                 check_To_Brake = true;
@@ -534,7 +539,7 @@ void Cli::print_Schedule(const Student& student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
     system("clear");
 
-    cout << "\n------ Student up" << student.get_Up() << ": " << Weekdays.at(day) << "'s Schedule ------\n\n";
+    cout << "\n------ Student " << student.get_Name() << ": " << Weekdays.at(day) << "'s Schedule ------\n\n";
 
     for (auto t : student.get_Schedule()){
         if (get<1>(t).get_ClassDate().get_Day_s() == Weekdays.at(day) /* O(log n) */){
@@ -578,7 +583,7 @@ void Cli::list_UCs() {
     else{
         cout << "Invalid Input, please try again\n";
     }
-    cin.ignore(INT16_MAX, '\n');
+
     wait_for_input();
     system("clear");
 
@@ -617,7 +622,7 @@ void Cli::get_UC_Lectures(){
     }else{
         cout << "Invalid Input, please try again\n";
     }
-    cin.ignore(INT16_MAX, '\n');
+
     wait_for_input();
     system("clear");
 
@@ -649,7 +654,6 @@ void Cli::number_Student_UC() {
     }else{
         cout << "Invalid Input, please try again\n";
     }
-    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -751,7 +755,6 @@ void Cli::list_By_UC(){
         cout << "Invalid Input, please try again\n";
     }
 
-    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -778,7 +781,6 @@ void Cli::get_Class_Occupation() {
         cout << "Invalid Input, please try again\n";
     }
 
-    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -795,10 +797,10 @@ void Cli::permute_Between_Students(){
     string studentUp1, studentUp2, ucCode;
     cout << "\n----------- Permute two Students -----------\n"
          << "\n"
-         << "Choose the first Student (up): ";
+         << "Choose the first Student's UP (number only): ";
     cin >> studentUp1;
 
-    cout << "\nChoose the second Student (up): ";
+    cout << "\nChoose the second Student's UP (number only): ";
     cin >> studentUp2;
     cout << "\n";
 
@@ -815,7 +817,6 @@ void Cli::permute_Between_Students(){
     } else{
         cout << "Invalid Input, please try again\n";
     }
-    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -937,7 +938,7 @@ void Cli::permute_One_Student(){
     string ucCode;
     cout << "\n----------- Permute one Student ------------\n"
          << "\n"
-         << "Introduce Student (up): ";
+         << "Introduce Student's UP (number only): ";
     cin  >> studentUp1;
     cout << "\n"
          << "Introduce desired UC (L.EIC001 - L.EIC025): ";
@@ -957,7 +958,6 @@ void Cli::permute_One_Student(){
         }
     }
 
-    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -1030,6 +1030,13 @@ bool Cli::permute_One_Student(const string& studentUp1, const string& ucCode, co
     return false;
 }
 
+/**
+ * Inscreve um aluno numa Uc, ou seja adiciona uma UC e e uma turma dessa UC ao horário do aluno especificado
+ * Para verificarmos se é possível adicionar, tem de se verificar o equilibrio entre turmas e se há sobreposição de aulas
+ * Estas alterações são mandadas para uma queue de alterações.
+ * Complexity: O(n)
+*/
+
 void Cli::enroll_In(){
     system("clear");
 
@@ -1039,7 +1046,7 @@ void Cli::enroll_In(){
 
     cout << "\n----------- Enroll in Uc ------------\n"
          << "\n"
-         << "Introduce Student (up): ";
+         << "Introduce Student's UP (number only): ";
     cin  >> studentUp1;
     cout << "\n"
          << "Introduce desired UC (L.EIC001 - L.EIC025): ";
@@ -1048,7 +1055,6 @@ void Cli::enroll_In(){
          << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
     cin  >> classCode;
     cout << "\n";
-    cin.ignore(INT16_MAX, '\n');
 
     auto s_search = _setStudent.find(Student("", studentUp1));
     auto u_search = _setUc.find(Uc(ucCode));
@@ -1096,12 +1102,58 @@ void Cli::enroll_In(){
 }
 
 /**
+ * Desnscreve um aluno numa Uc, ou seja remove uma UC especificada do horário do estudante apresentado
+ * Estas alterações são mandadas para uma queue de alterações.
+ * Complexity: O(n)
+*/
+
+void Cli::delist(){
+    system("clear");
+
+    string ucCode;
+    string studentUp;
+
+    cout << "\n----------- Delist out of Uc ------------\n"
+         << "\n"
+         << "Introduce Student's up (number only): ";
+    cin  >> studentUp;
+    cout << "\n"
+         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+    cin >> ucCode;
+    cout << "\n";
+
+    auto s_search = _setStudent.find(Student("", studentUp));
+    auto u_search = _setUc.find(Uc(ucCode));
+
+    if (s_search == _setStudent.end()){cout << "Student not found\n"; wait_for_input(); return;}
+    if (u_search == _setUc.end()){cout << "Uc not found\n"; wait_for_input(); return;}
+
+    Student stu = *s_search;
+    Uc uc = *u_search;
+    string classCode;
+    bool uc_check = true;
+
+    for (auto s: stu.get_Schedule()){
+        if (get<0>(s).get_Code() == ucCode){uc_check = false; classCode = get<1>(s).get_ClassCode();}
+    }
+
+    if (uc_check){cout << "Stundent isn't enrolled in specified UC\n"; wait_for_input(); return;}
+
+    permuteQueue.push('-' + studentUp);
+    permuteQueue.push(stu.get_Name());
+    permuteQueue.push(ucCode);
+    permuteQueue.push(classCode);
+    cout << "You have succesfully delisted from the UC " << ucCode << "\n";
+    wait_for_input();
+}
+
+/**
  * Imprime "Press ENTER to continue...".
  * É geralmente chamada após uma função de listagem, de modo a que o utilizador possa decidir que já verificou os dados que pretende verificar.
  * Complexity: User Dependent, so there is no valid complexity
 */
 void Cli::wait_for_input(){
-
+    cin.ignore(INT16_MAX, '\n');
     do
     {
         cout << '\n' << "Press ENTER to continue...";
@@ -1143,7 +1195,6 @@ void Cli::processQueue() {
         ProcessedPermutes.close();
         cout << "\nPermute queue was processed\n";
 
-        cin.ignore(INT16_MAX, '\n');
         wait_for_input();
     }
 }
