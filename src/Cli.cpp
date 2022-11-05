@@ -332,10 +332,12 @@ void Cli::get_Student_Schedule() {
             if (search == _setStudent.end()){cout << "Student not found"; continue;}
             student = *search;
         }
+
+
         system("clear");
         check_ignore_up = true;
 
-        cout << "\n----------- Student up" << up << " ------------\n"
+        cout << "\n----------- Student " << student.get_Name() << " ------------\n"
              << "\n"
              << "-------------- Choose a day: ---------------\n"
              << "\n"
@@ -356,6 +358,7 @@ void Cli::get_Student_Schedule() {
 
         vector<char> options = {'1', '2', '3', '4', '5'};
         char option = manage_Input(options, true);
+
 
         switch (option) {
             case '1':
@@ -539,18 +542,19 @@ void Cli::print_Schedule(const Student& student, int day) {
     static std::map<int, std::string> Weekdays = {{1, "Monday"}, { 2,"Tuesday"}, {3,"Wednesday"}, {4,"Thursday"}, {5,"Friday"}};
     system("clear");
 
-    cout << "\n------ Student " << student.get_Name() << ": " << Weekdays.at(day) << "'s Schedule ------\n\n";
+    cout << "\n------ Student " << student.get_Name() << ": " << Weekdays.at(day) << "'s Schedule ------\n";
 
     for (auto t : student.get_Schedule()){
         if (get<1>(t).get_ClassDate().get_Day_s() == Weekdays.at(day) /* O(log n) */){
         cout << "\n" << "UC: " << get<0>(t).get_Code() << "\n"
              << "Class: " << get<1>(t).get_ClassCode() << " (" << get<1>(t).get_Type() << ") "  << "\n"
              << get<1>(t).get_ClassDate().get_StartingTime_T().hours <<":"<< setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_StartingTime_T().minutes << " -> " 
-             << get<1>(t).get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_EndingTime_T().minutes << endl ;
+             << get<1>(t).get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << get<1>(t).get_ClassDate().get_EndingTime_T().minutes << endl; ;
         }
     }
-    cout << "\n";
+
     wait_for_input();
+    system("clear");
 }
 
 
@@ -581,7 +585,7 @@ void Cli::list_UCs() {
     else{
         cout << "Invalid Input, please try again\n";
     }
-
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -609,18 +613,19 @@ void Cli::get_UC_Lectures(){
             cout << "The entered UC was not found, please try again" << endl;
         }
         vector<Aula> lectures = (*UcCode).get_Turmas();
-        int count = 1;
-        cout << "\n ------------------------------------ Lectures of UC " << ucCode << " ------------------------------------\n";
+
+        cout << "\n---------------- Lectures of UC " << ucCode << " ----------------\n";
         for (Aula lecture: lectures) {
-            cout << "\nLecture number " << count << " on " << lecture.get_ClassDate().get_Day_s() <<  ":\n"
+            cout << "\nLecture of Class " << lecture.get_ClassCode() << " on " << lecture.get_ClassDate().get_Day_s() <<  ":\n"
                  << lecture.get_ClassDate().get_StartingTime_T().hours << ":" << setw(2) << setfill('0') << lecture.get_ClassDate().get_StartingTime_T().minutes << " -> "
                  << lecture.get_ClassDate().get_EndingTime_T().hours << ":" << setw(2) << setfill('0') << lecture.get_ClassDate().get_EndingTime_T().minutes << "\n";
-            count++;
+
         }
     }else{
         cout << "Invalid Input, please try again\n";
     }
 
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -652,6 +657,7 @@ void Cli::number_Student_UC() {
     }else{
         cout << "Invalid Input, please try again\n";
     }
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -724,6 +730,7 @@ void Cli::list_All_Classes() {
         cout << "\n" << turma.get_ClassCode();
     }
 
+
     wait_for_input();
     system("clear");
 }
@@ -753,6 +760,7 @@ void Cli::list_By_UC(){
         cout << "Invalid Input, please try again\n";
     }
 
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -769,16 +777,17 @@ void Cli::get_Class_Occupation() {
     cin >> classCode;
     system("clear");
 
-    if(std::regex_match(classCode, std::regex("[123](LEIC)[01][12345]"))) {
+    if(std::regex_match(classCode, std::regex("[123](LEIC)([0][123456789]|[1][0-6])"))) {
         for(auto t: _studentCount) {
             if(get<1>(t).substr(0, 7) == classCode){
-                cout <<"\nClass " << get<1>(t) << " in UC " << get<0>(t) << " has " << get<2>(t) << " students enrolled";
+                cout <<"\nClass " << get<1>(t).substr(0,7) << "(" << get<1>(t).substr(7,2) << ")" << " in UC " << get<0>(t) << " has " << get<2>(t) << " students enrolled";
             }
         }
     }else{
         cout << "Invalid Input, please try again\n";
     }
 
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -787,7 +796,7 @@ void Cli::get_Class_Occupation() {
  * Interface para a troca de turmas entre dois estudantes.
  * Pede o up dos dois estudantes e a Unidade Curricular a que os mesmos querem trocar.
  * Se a Unidade Curricular se verificar válida, entao chama a função permute_Between_Students(studentUp1, studentUp2, ucCode)
- * Complexity: O(1) aside from user input
+ * Complexity: O(n) aside from user input and assuming regex_match() is O(n)
 */
 void Cli::permute_Between_Students(){
     system("clear");
@@ -798,23 +807,44 @@ void Cli::permute_Between_Students(){
          << "Choose the first Student's UP (number only): ";
     cin >> studentUp1;
 
-    cout << "\nChoose the second Student's UP (number only): ";
-    cin >> studentUp2;
-    cout << "\n";
+    auto search = _setStudent.find(Student("", studentUp1)); //O(log n)
+    if (search != _setStudent.end()) {
 
-    cout << "Choose UC to swap students (L.EIC001 - L.EIC025): ";
-    cin >> ucCode;
-    cout << "\n";
+        cout << "\nChoose the second Student's UP (number only): ";
+        cin >> studentUp2;
+        cout << "\n";
 
-    if(std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
-        if (permute_Between_Students(studentUp1, studentUp2, ucCode)) {
-            cout << "Student up" << studentUp1 << " changed UC " << ucCode << " classes with Student up" << studentUp2 << endl;
+        search = _setStudent.find(Student("", studentUp2)); //O(log n)
+        if (search != _setStudent.end()) {
+
+            cout << "Choose UC to swap students (L.EIC001 - L.EIC025): ";
+            cin >> ucCode;
+            cout << "\n";
+
+            if (std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
+                if (permute_Between_Students(studentUp1, studentUp2, ucCode)) {
+                    cout << "Student up" << studentUp1 << " changed UC " << ucCode << " classes with Student up"
+                         << studentUp2 << endl;
+                } else {
+                    cout << "Permute was not possible" << endl;
+                }
+            } else {
+                cout << "Invalid UC Code, please try again\n";
+            }
         } else {
-            cout << "Permute was not possible" << endl;
+            cout << "Student not found";
+            cin.ignore(INT16_MAX, '\n');
+            wait_for_input();
+            return;
         }
     } else{
-        cout << "Invalid Input, please try again\n";
+        cout << "Student not found";
+        cin.ignore(INT16_MAX, '\n');
+        wait_for_input();
+        return;
     }
+
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 
@@ -934,28 +964,51 @@ void Cli::permute_One_Student(){
     string studentUp1;
     string classCode;
     string ucCode;
+
     cout << "\n----------- Permute one Student ------------\n"
          << "\n"
          << "Introduce Student's UP (number only): ";
     cin  >> studentUp1;
-    cout << "\n"
-         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
-    cin >> ucCode;
-    cout << "\n"
-         << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
-    cin  >> classCode;
-    cout << "\n";
 
-    if(!std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]")))
-        cout << "Invalid UC input, please try again\n";
-    else if(!std::regex_match(classCode, std::regex("[123](LEIC)[01][0123456789]")))
-        cout << "Invalid Class code input, please try again \n";
-    else{
-        if(permute_One_Student(studentUp1, ucCode,  classCode)){
-            cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
+    auto search = _setStudent.find(Student("", studentUp1)); //O(log n)
+    if (search != _setStudent.end()) {
+
+        cout << "\n"
+             << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+        cin >> ucCode;
+
+        if (std::regex_match(ucCode, std::regex("(L.EIC0)[012][12345]"))) {
+
+            cout << "\n"
+                 << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
+            cin >> classCode;
+            cout << "\n";
+
+            if (std::regex_match(classCode, std::regex("[123](LEIC)([0][123456789]|[1][0-6])"))) {
+                if (permute_One_Student(studentUp1, ucCode, classCode)) {
+                    cout << "Student up" << studentUp1 << " was changed to class " << classCode << endl;
+                }
+
+            } else {
+                cout << "Invalid Class code input, please try again \n";
+                cin.ignore(INT16_MAX, '\n');
+                wait_for_input();
+                return;
+            }
+
+        } else {
+            cout << "Invalid UC input, please try again\n";
+            cin.ignore(INT16_MAX, '\n');
+            wait_for_input();
+            return;
         }
-    }
+    } else{
+        cout << "Student not found";
+        cin.ignore(INT16_MAX, '\n');
+        wait_for_input();
+        return;}
 
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
     system("clear");
 }
@@ -1046,57 +1099,84 @@ void Cli::enroll_In(){
          << "\n"
          << "Introduce Student's UP (number only): ";
     cin  >> studentUp1;
-    cout << "\n"
-         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
-    cin >> ucCode;
-    cout << "\n"
-         << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
-    cin  >> classCode;
-    cout << "\n";
 
     auto s_search = _setStudent.find(Student("", studentUp1));
-    auto u_search = _setUc.find(Uc(ucCode));
+    if (s_search != _setStudent.end()) {
+        cout << "\n"
+             << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+        cin >> ucCode;
 
-    if (s_search == _setStudent.end()){cout << "Student not found\n"; wait_for_input(); return;}
-    if (u_search == _setUc.end()){cout << "Uc not found\n"; wait_for_input(); return;}
-
-    Student stu = *s_search;
-    Uc uc = *u_search;
-    bool check_class = true;
-    vector<Date> student_dates;
-    int minimum = INT16_MAX;
-
-    for (auto d: stu.get_Schedule()){
-        student_dates.push_back(get<1>(d).get_ClassDate());
-    }
+        auto u_search = _setUc.find(Uc(ucCode));
+        if (u_search != _setUc.end()) {
+            cout << "\n"
+                 << "Introduce the class you wish to permute to (1LEIC01 - 3LEIC15): ";
+            cin >> classCode;
+            cout << "\n";
 
 
-    for (auto c: uc.get_Turmas()){
-        if (c.get_ClassCode() == classCode){
-            check_class = false;
-            for (auto d: student_dates){
-                if (d.collides(c.get_ClassDate())){cout << "Enrollment wasn't possible due to class overposition\n"; wait_for_input(); return;}
+            Student stu = *s_search;
+            Uc uc = *u_search;
+            bool check_class = true;
+            vector<Date> student_dates;
+            int minimum = INT16_MAX;
+
+            for (auto d: stu.get_Schedule()){
+                student_dates.push_back(get<1>(d).get_ClassDate());
             }
-            for (auto tup: _studentCount){
-                minimum = min(get<2>(tup), minimum);
-                if (get<0>(tup) == ucCode && get<1>(tup).substr(0,7) == classCode){
-                    if (get<2>(tup) == _cap || get<2>(tup) + 1 >= minimum + 4){
-                        cout << "Enrollment wasn't possible due to inbalance between classes\n";
-                        wait_for_input();
-                        return;
+
+
+            for (auto c: uc.get_Turmas()){
+                if (c.get_ClassCode() == classCode){
+                    check_class = false;
+                    for (auto d: student_dates){
+                        if (d.collides(c.get_ClassDate())){
+                            cout << "Enrollment wasn't possible due to class overposition\n";
+                            cin.ignore(INT16_MAX, '\n');
+                            wait_for_input();
+                            return;}
+                    }
+                    for (auto tup: _studentCount){
+                        minimum = min(get<2>(tup), minimum);
+                        if (get<0>(tup) == ucCode && get<1>(tup).substr(0,7) == classCode){
+                            if (get<2>(tup) == _cap || get<2>(tup) + 1 >= minimum + 4){
+                                cout << "Enrollment wasn't possible due to inbalance between classes\n";
+                                cin.ignore(INT16_MAX, '\n');
+                                wait_for_input();
+                                return;
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
-    if (check_class){cout <<"Class not found or isn't assigned to the Uc\n"; wait_for_input(); return;}
+            if (check_class){
+                cout <<"Class not found or isn't assigned to the Uc\n";
+                cin.ignore(INT16_MAX, '\n');
+                wait_for_input();
+                return;
+            }
 
-    permuteQueue.push(studentUp1);
-    permuteQueue.push(stu.get_Name());
-    permuteQueue.push(ucCode);
-    permuteQueue.push(classCode);
-    cout << "Enrollment was done succesfully\n";
+            permuteQueue.push(studentUp1);
+            permuteQueue.push(stu.get_Name());
+            permuteQueue.push(ucCode);
+            permuteQueue.push(classCode);
+            cout << "Enrollment was done succesfully\n";
+
+        } else {
+            cout << "Invalid UC input, please try again\n";
+            cin.ignore(INT16_MAX, '\n');
+            wait_for_input();
+            return;
+        }
+    } else {
+        cout << "Student not found\n";
+        cin.ignore(INT16_MAX, '\n');
+        wait_for_input();
+        return;
+    }
+
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
+    system("clear");
 }
 
 /**
@@ -1115,34 +1195,56 @@ void Cli::delist(){
          << "\n"
          << "Introduce Student's up (number only): ";
     cin  >> studentUp;
-    cout << "\n"
-         << "Introduce desired UC (L.EIC001 - L.EIC025): ";
-    cin >> ucCode;
-    cout << "\n";
 
     auto s_search = _setStudent.find(Student("", studentUp));
-    auto u_search = _setUc.find(Uc(ucCode));
+    if (s_search != _setStudent.end()) {
 
-    if (s_search == _setStudent.end()){cout << "Student not found\n"; wait_for_input(); return;}
-    if (u_search == _setUc.end()){cout << "Uc not found\n"; wait_for_input(); return;}
+        cout << "\n"
+             << "Introduce desired UC (L.EIC001 - L.EIC025): ";
+        cin >> ucCode;
+        cout << "\n";
 
-    Student stu = *s_search;
-    Uc uc = *u_search;
-    string classCode;
-    bool uc_check = true;
+        auto u_search = _setUc.find(Uc(ucCode));
+        if (u_search != _setUc.end()) {
 
-    for (auto s: stu.get_Schedule()){
-        if (get<0>(s).get_Code() == ucCode){uc_check = false; classCode = get<1>(s).get_ClassCode();}
+            Student stu = *s_search;
+            Uc uc = *u_search;
+            string classCode;
+            bool uc_check = true;
+
+            for (auto s: stu.get_Schedule()){
+                if (get<0>(s).get_Code() == ucCode){uc_check = false; classCode = get<1>(s).get_ClassCode();}
+            }
+
+            if (uc_check){
+                cout << "Stundent isn't enrolled in specified UC\n";
+                cin.ignore(INT16_MAX, '\n');
+                wait_for_input();
+                return;}
+
+            permuteQueue.push('-' + studentUp);
+            permuteQueue.push(stu.get_Name());
+            permuteQueue.push(ucCode);
+            permuteQueue.push(classCode);
+            cout << "You have succesfully delisted from the UC " << ucCode << "\n";
+
+        } else {
+            cout << "Invalid UC input, please try again\n";
+            cin.ignore(INT16_MAX, '\n');
+            wait_for_input();
+            return;
+        }
+
+    } else {
+        cout << "Student not found\n";
+        cin.ignore(INT16_MAX, '\n');
+        wait_for_input();
+        return;
     }
 
-    if (uc_check){cout << "Stundent isn't enrolled in specified UC\n"; wait_for_input(); return;}
-
-    permuteQueue.push('-' + studentUp);
-    permuteQueue.push(stu.get_Name());
-    permuteQueue.push(ucCode);
-    permuteQueue.push(classCode);
-    cout << "You have succesfully delisted from the UC " << ucCode << "\n";
+    cin.ignore(INT16_MAX, '\n');
     wait_for_input();
+    system("clear");
 }
 
 /**
@@ -1151,7 +1253,7 @@ void Cli::delist(){
  * Complexity: User Dependent, so there is no valid complexity
 */
 void Cli::wait_for_input(){
-    cin.ignore(INT16_MAX, '\n');
+
     do
     {
         cout << '\n' << "Press ENTER to continue...";
