@@ -13,7 +13,14 @@ using namespace std;
  * Default constructor da classe Scrapper.
  * Complexity: O(1).
 */
-Scraper::Scraper(){}
+Scraper::Scraper(string students_filename, string ucs_filename){
+    build_Uc(scrape_File(ucs_filename));
+    build_Students(scrape_File(students_filename));
+    build_StudentsName();
+    update_StudentCount();
+    get_StudentCount();
+    read_Permutes();
+}
 
 /**
  * Destuctor da classe Scrapper.

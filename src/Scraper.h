@@ -21,8 +21,9 @@ private:
     set<Uc> _uc_Set;
     vector<tuple<string, string, int>> _student_Count;
     int _columns = 0;
+
 public:
-    Scraper();
+    Scraper(string students_filename, string ucs_filename);
     ~Scraper();
     vector<string> scrape_File(string filename);
     set<Student> build_Students(vector<string> vector);
@@ -30,9 +31,9 @@ public:
     set<Uc> build_Uc(vector<string> vector);
     void update_StudentCount();
     void read_Permutes();
-    set<Student>& get_StudentSet();
-    vector<Student>& get_StudentVectorName();
-    vector<tuple<string, string, int>>& get_StudentCount();
+    set<Student> &get_StudentSet();
+    vector<Student> &get_StudentVectorName();
+    vector<tuple<string, string, int>> &get_StudentCount();
     set<Uc> get_UcSet();
 };
 

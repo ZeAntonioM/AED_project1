@@ -4,16 +4,17 @@
 /**
  * Default construtor da classe Aula.
  * Complexity: O(1)
-*/
-Aula::Aula(){}
+ */
+Aula::Aula() {}
 
 /**
  * Constutor de uma Aula.
  * Recebe apenas o código da turma a que está associada.
  * @param classCode string relativa a turma que se pretende definir
  * Complexity: O(1)
-*/
-Aula::Aula(const std::string& classCode){
+ */
+Aula::Aula(const std::string &classCode)
+{
     _classCode = classCode;
 }
 
@@ -24,11 +25,12 @@ Aula::Aula(const std::string& classCode){
  * @param date objeto do tipo Date referente à data que se pretende definir
  * @param type string relativa ao tipo da aula que se pretende definir
  * Complexity: O(1)
-*/
-Aula::Aula(const std::string& classCode, const Date& date, const std::string& type){
-        _classCode = classCode;
-        _date = date;
-        _type = type;
+ */
+Aula::Aula(const std::string &classCode, const Date &date, const std::string &type)
+{
+    _classCode = classCode;
+    _date = date;
+    _type = type;
 };
 
 // Setters
@@ -36,8 +38,8 @@ Aula::Aula(const std::string& classCode, const Date& date, const std::string& ty
  * Atribui a string passada como atributo ao _classCode da aula.
  * Complexity: O(1)
  * @param classCode string relativa a turma que se pretende definir
-*/
-void Aula::set_ClassCode(const std::string& classCode)
+ */
+void Aula::set_ClassCode(const std::string &classCode)
 {
     _classCode = classCode;
 }
@@ -46,8 +48,9 @@ void Aula::set_ClassCode(const std::string& classCode)
  * Atribui a data passada como atributo ao atributo _date da aula.
  * Complexity: O(1)
  * @param date objeto do tipo Date referente à data que se pretende definir
-*/
-void Aula::set_ClassDate(const Date& date){
+ */
+void Aula::set_ClassDate(const Date &date)
+{
     _date = date;
 }
 
@@ -55,8 +58,9 @@ void Aula::set_ClassDate(const Date& date){
  * Recebe uma string que atribui ao _type da Aula.
  * Complexity: O(1)
  * @param type string relativa ao tipo da aula que se pretende definir
-*/
-void Aula::set_Type(const std::string& type){
+ */
+void Aula::set_Type(const std::string &type)
+{
     _type = type;
 }
 
@@ -65,8 +69,9 @@ void Aula::set_Type(const std::string& type){
  * Retorna o _classcode da aula.
  * Complexity: O(1)
  * @return código da Turma
-*/
-std::string Aula::get_ClassCode(){
+ */
+std::string Aula::get_ClassCode()
+{
     return _classCode;
 }
 
@@ -74,8 +79,9 @@ std::string Aula::get_ClassCode(){
  * Retorna o atributo _date da aula.
  * Complexity: O(1)
  * @return objeto do tipo Date indicativo da data da aula em questão
-*/
-Date Aula::get_ClassDate(){
+ */
+Date Aula::get_ClassDate()
+{
     return _date;
 }
 
@@ -83,8 +89,9 @@ Date Aula::get_ClassDate(){
  * Retorna o tipo da aula (T/TP/PL) no formato string.
  * Complexity: O(1)
  * @return string indicativa do tipo da aula em questão
-*/
-std::string Aula::get_Type(){
+ */
+std::string Aula::get_Type()
+{
     return _type;
 }
 
@@ -93,8 +100,9 @@ std::string Aula::get_Type(){
  * Complexity: O(1)
  * @param aula objeto do tipo Aula que se pretende comparar
  * @return verdadeiro se a turma associada for a mesma e se ambas ocorrerem ao mesmo tempo.
-*/
-bool Aula::operator==(const Aula& aula) const{
+ */
+bool Aula::operator==(const Aula &aula) const
+{
     return (this->_classCode == aula._classCode && this->_type == aula._type);
 }
 
@@ -103,8 +111,8 @@ bool Aula::operator==(const Aula& aula) const{
  * Complexity: O(1)
  * @param aula objeto do tipo Aula que se pretende comparar
  * @return verdadeiro se e só se o _classCode for menor que o _classCode do objeto a comparar.
-*/
-bool Aula::operator< (const Aula& aula) const{
+ */
+bool Aula::operator<(const Aula &aula) const
+{
     return (this->_classCode < aula._classCode);
 }
-

@@ -12,16 +12,10 @@
 
 using namespace std;
 
-int main(){
+int main()
+{
 
-    Scraper students_classes_scraper;
-
-    students_classes_scraper.build_Uc(students_classes_scraper.scrape_File("src/csv/classes.csv"));
-    students_classes_scraper.build_Students(students_classes_scraper.scrape_File("src/csv/students_classes.csv"));
-    students_classes_scraper.build_StudentsName();
-    students_classes_scraper.update_StudentCount();
-    students_classes_scraper.get_StudentCount();
-    students_classes_scraper.read_Permutes();
+    Scraper students_classes_scraper("src/csv/students_classes.csv", "src/csv/classes.csv");
 
     auto uc_set = students_classes_scraper.get_UcSet();
     auto student_set = students_classes_scraper.get_StudentSet();
