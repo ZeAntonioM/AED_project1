@@ -16,18 +16,19 @@ class Uc{
         vector<Aula> _turmas;
 
     public:
-        Uc(string code);
+        Uc(const string& code);
         Uc();
         ~Uc();
 
         string get_Code();
-        void set_Code(string code);
-        void nova_Turma( Aula turma );
-        void remover_Turma( Aula turma ); 
+        void set_Code(const string& code);
+        void nova_Turma(const Aula& turma );
+        void remover_Turma(const Aula& turma );
         vector<Aula> get_Turmas() const;
-        void set_Turmas(vector<Aula> turmas);
-        bool operator==(Uc uc) const;
-        bool operator<(Uc uc1) const;
+        void set_Turmas(const vector<Aula>& turmas);
+        bool operator==(const Uc& uc) const;
+        bool operator!=(const Uc& uc) const;
+        bool operator<(const Uc& uc1) const;
 
 
 };

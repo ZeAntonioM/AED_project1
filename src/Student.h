@@ -15,17 +15,17 @@ class Student{
         string _up;
         vector<tuple<Uc, Aula>> schedule;
     public:
-        Student(string name, string up );
+        Student(const string& name, const string& up );
         Student();
         ~Student();
         string get_Name() const;
         string get_Up() const;
-        void set_Name(string name);
-        void set_Up(string up);
-        void add_UcClass(Uc cadeira, Aula turma);
-        void remove_UcClass(Uc cadeira, Aula turma);
+        void set_Name(const string& name);
+        void set_Up(const string& up);
+        void add_UcClass(const Uc& cadeira, const Aula& turma);
+        void remove_UcClass(const Uc& cadeira, const Aula& turma);
         vector<tuple<Uc,Aula>> get_Schedule() const;
-        void set_Schedule(vector<tuple<Uc,Aula>> schedule);
-        bool operator< (Student s1) const;
+        void set_Schedule(const vector<tuple<Uc,Aula>>& schedule);
+        bool operator< (const Student& s1) const;
 };
 #endif

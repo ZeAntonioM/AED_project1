@@ -29,9 +29,10 @@ public:
     vector<Student> build_StudentsName();
     set<Uc> build_Uc(vector<string> vector);
     void update_StudentCount();
+    void read_Permutes();
     set<Student>& get_StudentSet();
-    vector<Student>& get_StudentVectorName(){return _student_VectorName;}
-    vector<tuple<string, string, int>>& get_StudentCount(){return _student_Count;}
+    vector<Student>& get_StudentVectorName();
+    vector<tuple<string, string, int>>& get_StudentCount();
     set<Uc> get_UcSet();
 };
 
