@@ -5,19 +5,22 @@
 #include <map>
 #include <math.h>
 
-struct Time{
+struct Time
+{
     float hours;
     float minutes;
 };
 
 static std::map<std::string, int> Weekdays = {{"Monday", 1}, {"Tuesday", 2}, {"Wednesday", 3}, {"Thursday", 4}, {"Friday", 5}};
 
-class Date{
-private:    
+class Date
+{
+private:
     int _day{};
     std::string _stringDay;
-    Time _startingTime = {0,0};
-    Time _endingTime = {0,0};
+
+    Time _startingTime = {0, 0};
+    Time _endingTime = {0, 0};
 
 public:
     Date();

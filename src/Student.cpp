@@ -6,8 +6,9 @@
  * Complexity: O(1)
  * @param name string referente ao nome do estudante
  * @param up string referente ao up do estudante
-*/
-Student::Student(const string& name = NULL, const string& up = NULL) {
+ */
+Student::Student(const string &name = NULL, const string &up = NULL)
+{
     _name = name;
     _up = up;
 }
@@ -15,41 +16,41 @@ Student::Student(const string& name = NULL, const string& up = NULL) {
 /**
  * Default Constuctor da classe Student.
  * Complexity: O(1)
-*/
-Student::Student() {};
+ */
+Student::Student(){};
 
 /**
  * Destructor da Classe Student.
  * Complexity: O(1)
-*/
-Student::~Student() {};
+ */
+Student::~Student(){};
 
 /**
  * Recebe como atributo uma string que é atribuída ao nome do estudante.
  * Complexity: O(1)
  * @param name string referente ao nome a definir
-*/
-void Student::set_Name(const string& name) { _name = name; }
+ */
+void Student::set_Name(const string &name) { _name = name; }
 
 /**
  * Recebe como atributo uma string que é atribuida como up do estudante.
  * Complexity: O(1)
  * @param up string referente ao up a definir
-*/
-void Student::set_Up(const string& up) { _up = up; }
+ */
+void Student::set_Up(const string &up) { _up = up; }
 
 /**
  * Retorna o nome do estudante.
  * Complexity: O(1)
  * @return string com o nome do estudante
-*/
+ */
 string Student::get_Name() const { return _name; }
 
 /**
  * Retorna o Up do estudante.
  * Complexity: O(1)
  * @return string com o numero up do estudante
-*/
+ */
 string Student::get_Up() const { return _up; }
 
 /**
@@ -57,8 +58,9 @@ string Student::get_Up() const { return _up; }
  * Complexity: O(1)
  * @param cadeira objeto do tipo Uc referente à Unidade Curricular
  * @param turma objeto do tipo Aula referente à aula
-*/
-void Student::add_UcClass(const Uc& cadeira, const Aula& turma) {
+ */
+void Student::add_UcClass(const Uc &cadeira, const Aula &turma)
+{
     tuple<Uc, Aula> novaucturma(cadeira, turma);
     schedule.push_back(novaucturma);
 }
@@ -68,12 +70,15 @@ void Student::add_UcClass(const Uc& cadeira, const Aula& turma) {
  * Complexity: O(n)
  * @param cadeira objeto do tipo Uc referente à Unidade Curricular
  * @param turma objeto do tipo Aula referente à aula
-*/
-void Student::remove_UcClass(const Uc& cadeira, const Aula& turma) {
+ */
+void Student::remove_UcClass(const Uc &cadeira, const Aula &turma)
+{
     tuple<Uc, Aula> UCTurmRemove(cadeira, turma);
     auto posi = schedule.begin();
-    for (long unsigned int i = 0; i < schedule.size(); i++) {
-        if (schedule[i] == UCTurmRemove) {
+    for (long unsigned int i = 0; i < schedule.size(); i++)
+    {
+        if (schedule[i] == UCTurmRemove)
+        {
             schedule.erase(posi);
             break;
         }
@@ -85,8 +90,9 @@ void Student::remove_UcClass(const Uc& cadeira, const Aula& turma) {
  * Recebe um horário já existente e atribui esse horário ao estudante.
  * Complexity: O(1)
  * @param schedule vetor que contém tuplos compostos por um objeto do tipo Uc e outro do tipo Aula
-*/
-void Student::set_Schedule(const vector<tuple<Uc, Aula>>& schedule) {
+ */
+void Student::set_Schedule(const vector<tuple<Uc, Aula>> &schedule)
+{
     this->schedule = schedule;
 }
 
@@ -94,8 +100,9 @@ void Student::set_Schedule(const vector<tuple<Uc, Aula>>& schedule) {
  * Retorna o horário atribuido ao estudante.
  * Complexity: O(1)
  * @return vetor de tuplos de Uc e Aula, i.e, o horário do estudante
-*/
-vector<tuple<Uc, Aula>> Student::get_Schedule() const {
+ */
+vector<tuple<Uc, Aula>> Student::get_Schedule() const
+{
     return schedule;
 }
 
@@ -104,9 +111,8 @@ vector<tuple<Uc, Aula>> Student::get_Schedule() const {
  * Complexity: O(1)
  * @param s1 Objeto do tipo student que irá ser comparado
  * @return verdadeiro se o Up do estudante for menor que o do estudante s1
-*/
-bool Student::operator<(const Student& s1) const {
+ */
+bool Student::operator<(const Student &s1) const
+{
     return (_up < s1._up);
 }
-
-
