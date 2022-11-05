@@ -64,8 +64,8 @@ char Cli::manage_Input(const vector<char> &options_vector, bool allow_back)
 void Cli::startup()
 {
 
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         char option;
 
         system("clear");
@@ -119,8 +119,8 @@ void Cli::startup()
  */
 void Cli::student_Tab()
 {
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear"); // limpar o terminal ao invocar o comando da shell "clear"
         if(check_quit) break;
         cout << "\n----------- Students Information -----------\n"
@@ -147,10 +147,10 @@ void Cli::student_Tab()
                 list_Students();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -162,8 +162,8 @@ void Cli::student_Tab()
  * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::uc_Tab() {
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -197,10 +197,10 @@ void Cli::uc_Tab() {
                 number_Student_UC();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -213,8 +213,8 @@ void Cli::uc_Tab() {
  */
 void Cli::class_Tab() {
 
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -242,10 +242,10 @@ void Cli::class_Tab() {
                 get_Class_Occupation();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
 
@@ -258,8 +258,8 @@ void Cli::class_Tab() {
  * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::class_Permute_Tab(){
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -297,10 +297,10 @@ void Cli::class_Permute_Tab(){
                 delist();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -315,11 +315,11 @@ void Cli::class_Permute_Tab(){
  */
 void Cli::get_Student_Schedule() {
 
-    bool check_To_Brake = false;
+    bool should_Go_Back = false;
     bool check_ignore_up = false;
     string up;
     Student student;
-    while(!check_To_Brake) {
+    while(!should_Go_Back) {
         if(check_quit) break;
         if(!check_ignore_up){
             cout << "\nIntroduce the student's UP code (only the number): ";
@@ -377,10 +377,10 @@ void Cli::get_Student_Schedule() {
                 print_Schedule(student, 5);
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -392,8 +392,8 @@ void Cli::get_Student_Schedule() {
  * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::list_Students() {
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -421,10 +421,10 @@ void Cli::list_Students() {
                 list_Students_UP();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -435,8 +435,8 @@ void Cli::list_Students() {
  * Complexity: User Dependent, so there is no valid complexity
  */
 void Cli::list_Students_alpha(){
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -469,10 +469,10 @@ void Cli::list_Students_alpha(){
                 wait_for_input();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -487,8 +487,8 @@ void Cli::list_Students_UP(){
     //Reserve iterator used to list in Descending Order
     set<Student>::reverse_iterator rit;
 
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -523,10 +523,10 @@ void Cli::list_Students_UP(){
                 wait_for_input();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
     }
@@ -671,8 +671,8 @@ void Cli::number_Student_UC() {
 */
 void Cli::list_Classes(){
 
-    bool check_To_Brake = false;
-    while(!check_To_Brake) {
+    bool should_Go_Back = false;
+    while(!should_Go_Back) {
         system("clear");
         if(check_quit) break;
 
@@ -700,10 +700,10 @@ void Cli::list_Classes(){
                 list_By_UC();
                 break;
             case 'b':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
             case 'B':
-                check_To_Brake = true;
+                should_Go_Back = true;
                 break;
         }
 
